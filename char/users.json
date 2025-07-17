@@ -1,0 +1,182 @@
+[
+  {
+    "username": "Zahra",
+    "hashedPassword": "00292b7a5a9885d212c82ef60219354c42e1b729395632a413f38595aa72a0fc",
+    "nickname": "Z",
+    "email": "zahra@z.com",
+    "gender": "female",
+    "securityQuestion": "What city were you born in?",
+    "hashedSecurityAnswer": "e4df365c2a23138660d77016bb33fc9f7a8ac6e91d258720ea27fe172eee53d6",
+    "score": 0,
+    "highestScore": 0,
+    "gameCount": 0,
+    "energy": 200,
+    "inventory": {
+      "items": {},
+      "backpack": {
+        "type": "SMALL"
+      },
+      "trashCan": {
+        "type": "BASIC"
+      }
+    },
+    "wallet": {
+      "gold": 0
+    },
+    "energySystem": {
+      "energy": 200,
+      "unlimited": false,
+      "passedOut": false
+    }
+  },
+  {
+    "username": "Zahra-489",
+    "hashedPassword": "00292b7a5a9885d212c82ef60219354c42e1b729395632a413f38595aa72a0fc",
+    "nickname": "Z",
+    "email": "zahra@z.com",
+    "gender": "female",
+    "securityQuestion": "What was your first best friend name?",
+    "hashedSecurityAnswer": "631e8c6acbb966778f5da242ce53e2331f0bd88c665d526278626d8749bb54ec",
+    "score": 0,
+    "highestScore": 0,
+    "gameCount": 0,
+    "energy": 200,
+    "inventory": {
+      "items": {},
+      "backpack": {
+        "type": "SMALL"
+      },
+      "trashCan": {
+        "type": "BASIC"
+      }
+    },
+    "wallet": {
+      "gold": 0
+    },
+    "energySystem": {
+      "energy": 200,
+      "unlimited": false,
+      "passedOut": false
+    }
+  },
+  {
+    "username": "ZahraY",
+    "hashedPassword": "ea21f8e6c33d507ec3be986458a9d6aabbc5223e1de5a30b6c1bb42e4b2d159b",
+    "nickname": "Z",
+    "email": "zahra@z.com",
+    "gender": "female",
+    "securityQuestion": "What city were you born in?",
+    "hashedSecurityAnswer": "e4df365c2a23138660d77016bb33fc9f7a8ac6e91d258720ea27fe172eee53d6",
+    "score": 0,
+    "highestScore": 0,
+    "gameCount": 0,
+    "energy": 200,
+    "inventory": {
+      "items": {},
+      "backpack": {
+        "type": "SMALL"
+      },
+      "trashCan": {
+        "type": "BASIC"
+      }
+    },
+    "wallet": {
+      "gold": 0
+    },
+    "energySystem": {
+      "energy": 200,
+      "unlimited": false,
+      "passedOut": false
+    }
+  },
+  {
+    "username": "Yogi",
+    "hashedPassword": "9e41d2ddb35f2b67f40068d73f0903020627d9749ab9b6662bf159f5025be638",
+    "nickname": "Z",
+    "email": "zahra@z.com",
+    "gender": "female",
+    "securityQuestion": "What is your favorite color?",
+    "hashedSecurityAnswer": "ba4788b226aa8dc2e6dc74248bb9f618cfa8c959e0c26c147be48f6839a0b088",
+    "score": 0,
+    "highestScore": 0,
+    "gameCount": 0,
+    "energy": 200,
+    "inventory": {
+      "items": {},
+      "backpack": {
+        "type": "SMALL"
+      },
+      "trashCan": {
+        "type": "BASIC"
+      }
+    },
+    "wallet": {
+      "gold": 0
+    },
+    "energySystem": {
+      "energy": 200,
+      "unlimited": false,
+      "passedOut": false
+    }
+  },
+  {
+    "username": "Mary",
+    "hashedPassword": "00292b7a5a9885d212c82ef60219354c42e1b729395632a413f38595aa72a0fc",
+    "nickname": "Z",
+    "email": "zahra@z.com",
+    "gender": "female",
+    "securityQuestion": "What is your favorite color?",
+    "hashedSecurityAnswer": "ba4788b226aa8dc2e6dc74248bb9f618cfa8c959e0c26c147be48f6839a0b088",
+    "score": 0,
+    "highestScore": 0,
+    "gameCount": 0,
+    "energy": 200,
+    "inventory": {
+      "items": {},
+      "backpack": {
+        "type": "SMALL"
+      },
+      "trashCan": {
+        "type": "BASIC"
+      }
+    },
+    "wallet": {
+      "gold": 0
+    },
+    "energySystem": {
+      "energy": 200,
+      "unlimited": false,
+      "passedOut": false
+    }
+  },
+  {
+    "username": "Pouya",
+    "hashedPassword": "00292b7a5a9885d212c82ef60219354c42e1b729395632a413f38595aa72a0fc",
+    "nickname": "Z",
+    "email": "zahra@z.com",
+    "gender": "male",
+    "securityQuestion": "What is your favorite color?",
+    "hashedSecurityAnswer": "ba4788b226aa8dc2e6dc74248bb9f618cfa8c959e0c26c147be48f6839a0b088",
+    "score": 0,
+    "highestScore": 0,
+    "gameCount": 0,
+    "energy": 200,
+    "inventory": {
+      "items": {},
+      "backpack": {
+        "type": "SMALL"
+      },
+      "trashCan": {
+        "type": "BASIC"
+      }
+    },
+    "wallet": {
+      "gold": 0
+    },
+    "energySystem": {
+      "energy": 200,
+      "unlimited": false,
+      "passedOut": false
+    }
+  }
+]
