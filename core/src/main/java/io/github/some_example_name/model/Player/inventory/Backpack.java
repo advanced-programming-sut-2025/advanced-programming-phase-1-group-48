@@ -1,7 +1,7 @@
 package io.github.some_example_name.model.Player.inventory;
 
-import model.Result;
-import model.enums.BackpackType;
+import io.github.some_example_name.model.Result;
+import io.github.some_example_name.model.enums.BackpackType;
 
 public class Backpack {
     private BackpackType type;

@@ -17,17 +17,18 @@ public class Game {
     private static ShopManager shopManager = new ShopManager();
     private final Map<Player, Integer> selectedMaps = new LinkedHashMap<>();
     private final Map<Player, FarmTemplate> finalizedTemplates = new HashMap<>();
-    public Map<String, Map<String, Friendship>> friendships = new HashMap<>();
+    public Map<String, Friendship> friendships = new HashMap<>();
     private static Map<String, MarriageRequest> marriageRequests = new HashMap<>();
     private final Map<String, Player> players = new HashMap<>();
-    private  List<String> usernames;
-    private  String creatorUsername;
+    private List<String> usernames;
+    private String creatorUsername;
     private boolean started;
-    private  WorldMap worldMap;
+    private WorldMap worldMap;
     private transient Player currentPlayer;
     private int currentTurnIndex = 0;
-    public Game() {}
 
+    public Game() {
+    }
 
 
     public Game(List<String> usernames, String creatorUsername) {
@@ -40,7 +41,7 @@ public class Game {
     private void createPlayersFromUsernames() {
         for (String username : usernames) {
             User user = UserManager.findByUsername(username);
-            Player player = new Player(username, new Position(0, 0), null,user);
+            Player player = new Player(username, new Position(0, 0), null, user);
             players.put(username, player);
         }
     }
@@ -51,8 +52,8 @@ public class Game {
 //            players.put(username, player);
 //        }
 //    }
-
-    //    public Player getCurrentPlayer() {
+//
+//        public Player getCurrentPlayer() {
 //        return currentPlayer;
 //    }
     public static ShopManager getShopManager() {
@@ -62,6 +63,7 @@ public class Game {
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
+
     public Player getPlayer(String username) {
         return players.get(username);
     }
@@ -86,7 +88,7 @@ public class Game {
         this.worldMap = worldMap;
     }
 
-    public  WorldMap getWorldMap() {
+    public WorldMap getWorldMap() {
         return worldMap;
     }
 
@@ -135,9 +137,11 @@ public class Game {
     public static long getCurrentHour() {
         return DateAndTime.getHour();
     }
-    public static int getCurrentDay(){
+
+    public static int getCurrentDay() {
         return DateAndTime.getDay();
     }
+
     public static Season getSeason() {
         return DateAndTime.getCurrentSeason();
     }
@@ -164,44 +168,118 @@ public class Game {
         }
         return null;
     }
+    private String makeKey(String username1, String username2) {
 
-//        friendships.putIfAbsent(name1, new HashMap<>());
-//        Map<String, Friendship> innerMap = friendships.get(name1);
-//        if (!innerMap.containsKey(name2)) {
-//            innerMap.put(name2, new Friendship(p1, p2));
-//        }
-//
-//        return friendships.get(name1).get(name2);
-//    }
-//
-//    public static List<Friendship> getAllFriendshipsOf(Player viewer) {
-//        List<Friendship> result = new ArrayList<>();
-//        if (viewer == null) return result;
-//
-//        String viewerName = viewer.getName();
-//
-//        for (Map.Entry<String, Map<String, Friendship>> outerEntry : friendships.entrySet()) {
-//            String name1 = outerEntry.getKey();
-//            Map<String, Friendship> innerMap = outerEntry.getValue();
-//
-//            for (Map.Entry<String, Friendship> innerEntry : innerMap.entrySet()) {
-//                String name2 = innerEntry.getKey();
-//                Friendship friendship = innerEntry.getValue();
-//
-//                if (name1.equals(viewerName) || name2.equals(viewerName)) {
-//                    result.add(friendship);
-//                }
-//            }
-//        }
-//
-//        return result;
-//    }
-//    public static void saveMarriageRequest(String proposerUsername, String targetUsername, String ringName) {
-//        marriageRequests.put(targetUsername.toLowerCase(), new MarriageRequest(proposerUsername, targetUsername, ringName));
-//    }
-    //public static Player getPlayerByUsername(String username) {
-//        return player;
-//    }
+        if (username1.compareTo(username2) < 0) {
 
-//}
+            return username1 + "#" + username2;
+
+        } else {
+
+            return username2 + "#" + username1;
+
         }
+
+    }
+//    public Friendship getFriendship(Player p1, Player p2) {
+//
+//        String key = makeKey(p1.getUsername(), p2.getUsername());
+//
+//        return friendships.get(key);
+//
+//    }
+
+
+
+    public List<Friendship> getAllFriendshipsOf(Player viewer) {
+
+        List<Friendship> result = new ArrayList<>();
+
+        if (viewer == null) return result;
+
+
+
+        String viewerUsername = viewer.getUsername();
+
+
+
+        for (Map.Entry<String, Friendship> entry : friendships.entrySet()) {
+
+            Friendship friendship = entry.getValue();
+
+            Player p1 = friendship.getPlayer1();
+
+            Player p2 = friendship.getPlayer2();
+
+
+
+            if (p1 != null && p1.getUsername().equals(viewerUsername) ||
+
+                p2 != null && p2.getUsername().equals(viewerUsername)) {
+
+                result.add(friendship);
+
+            }
+
+        }
+
+
+
+        return result;
+
+    }
+
+
+
+    public static void saveMarriageRequest(String proposerUsername, String targetUsername, String ringName) {
+
+        marriageRequests.put(targetUsername.toLowerCase(), new MarriageRequest(proposerUsername, targetUsername, ringName));
+
+    }
+
+    public MarriageRequest getMarriageRequest(String targetUsername) {
+
+        return marriageRequests.get(targetUsername);
+
+    }
+
+    public void removeMarriageRequest(String targetUsername) {
+
+        marriageRequests.remove(targetUsername);
+
+    }
+    public Player getPlayerByUsername(String username) {
+
+        return players.get(username);
+
+    }
+
+    public void addFriendship(Player p1, Player p2) {
+
+        String key = makeKey(p1.getUsername(), p2.getUsername());
+
+        if (!friendships.containsKey(key)) {
+
+            friendships.put(key, new Friendship(p1, p2));
+
+        }
+
+    }
+
+    public Friendship getOrCreateFriendship(Player p1, Player p2) {
+
+        Friendship friendship = getFriendship(p1, p2);
+
+        if (friendship == null) {
+
+            addFriendship(p1, p2);
+
+            friendship = getFriendship(p1, p2);
+
+        }
+
+        return friendship;
+
+    }
+
+}

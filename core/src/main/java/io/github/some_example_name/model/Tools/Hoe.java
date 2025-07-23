@@ -53,10 +53,16 @@ public class Hoe extends Tool {
     }
 
     @Override
+
     public Tool upgrade() {
-        return new Hoe(type);
-        //  return new Hoe(level + 1);
+
+        HoeType next = HoeType.getNext(this.type);
+
+        return next != null ? new Hoe(next) : null;
+
     }
+
+
 
 
     @Override

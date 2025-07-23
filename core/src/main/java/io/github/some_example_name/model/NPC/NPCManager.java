@@ -1,29 +1,28 @@
 package io.github.some_example_name.model.NPC;
 
 
-import io.github.some_example_name.model.items.Item;
-import io.github.some_example_name.model.user.User;
-
-import java.util.List;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class NPCManager {
-    private List<NPC> npcs;
+    private static final Map<String, NPC> npcs = new HashMap<>();
 
-    public NPC getNPCByName(String name) {
-        //TODO
-        return null;
+    public static void registerNPC(NPC npc) {
+        npcs.put(npc.getName().toLowerCase(), npc);
     }
 
-    public void handleMeetCommand(User user, String npcName) {
-        // اجرای meet NPC
+    public static NPC get(String name) {
+        return npcs.get(name.toLowerCase());
     }
 
-    public void handleGiftCommand(User user, String npcName, Item item) {
-        // اجرای gift NPC
+    public static Collection<NPC> getAll() {
+        return npcs.values();
     }
 
-    public void handleFriendshipList(User user) {
-        // چاپ friendship NPC list
-    }
+//    public static void resetAllForDay(String username) {
+//        for (NPC npc : npcs.values()) {
+//            npc.resetDaily(username);
+//        }
+//    }
 }
-

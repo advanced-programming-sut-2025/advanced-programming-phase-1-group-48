@@ -1,6 +1,6 @@
 package io.github.some_example_name.model.Player.inventory;
 
-import model.items.Item;
+import io.github.some_example_name.model.items.Item;
 
 import java.util.HashMap;
 import java.util.Map;

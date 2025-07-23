@@ -2,12 +2,17 @@ package io.github.some_example_name.model.Player;
 
 
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.some_example_name.model.Animal.Animal;
+import io.github.some_example_name.model.GameAssetManager;
 import io.github.some_example_name.model.NPC.NPC;
 import io.github.some_example_name.model.NPC.Quest;
 import io.github.some_example_name.model.Plant.PlantInstance;
 import io.github.some_example_name.model.Plant.PlantedInfo;
 import io.github.some_example_name.model.Player.inventory.Refrigerator;
+import io.github.some_example_name.model.artisan.ArtisanWork;
 import io.github.some_example_name.model.building.Buildings;
 import io.github.some_example_name.model.cook.Buff;
 import io.github.some_example_name.model.cook.FoodRecipe;
@@ -25,21 +30,71 @@ import io.github.some_example_name.model.items.Tree;
 import io.github.some_example_name.model.shop.Shop;
 import io.github.some_example_name.model.Player.inventory.Inventory;
 import io.github.some_example_name.model.user.User;
-import io.github.some_example_name.model.user.inventory.Backpack;
-import io.github.some_example_name.model.user.inventory.TrashCan;
+import io.github.some_example_name.model.Player.inventory.Backpack;
+import io.github.some_example_name.model.Player.inventory.TrashCan;
+
 
 import java.util.*;
 
 public class Player {
+    private Texture playerTexture = new Texture(GameAssetManager.getGameAssetManager().getCharacter1_idle0());
+    private Sprite playerSprite = new Sprite(playerTexture);
+    private float posX = 0;
+    private float posY = 0;
+    private float time = 0;
+    private float speed = 5;
     private Buff activeBuff;
     private boolean isMarried = false;
     private String spouseUsername = null;
     private int energyPenaltyDays = 0;
     private WateringCanType wateringCanType = WateringCanType.BASIC;
     private int currentWaterAmount = wateringCanType.getCapacity();
-
-
     private String gender;
+
+    public float getSpeed() {
+        return speed;
+    }
+
+    private boolean isPlayerIdle = true;
+    private boolean isPlayerRunning = false;
+
+    public Player(){
+        playerSprite.setPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
+        playerSprite.setSize(playerTexture.getWidth() * 3, playerTexture.getHeight() * 3);
+    }
+    public Sprite getPlayerSprite() {
+        return playerSprite;
+    }
+
+    public float getPosX() {
+        return posX;
+    }
+
+    public void setPosX(float posX) {
+        this.posX = posX;
+    }
+
+    public float getPosY() {
+        return posY;
+    }
+
+    public void setPosY(float posY) {
+        this.posY = posY;
+    }
+
+    public boolean isPlayerIdle() {
+        return isPlayerIdle;
+    }
+
+    public float getTime() {
+        return time;
+    }
+
+    public void setTime(float time) {
+        this.time = time;
+    }
+
+
 
     public void setFishSkill(double fishSkill) {
         this.fishSkill = fishSkill;
@@ -78,10 +133,9 @@ public class Player {
     private Set<String> learnedRecipesForHome = new HashSet<>();
     // نگه داری گیاهان هر شخص با مختصاتی که دارن.
     private static List<PlantedInfo> plantedList = new ArrayList<>();
+    private final List<ArtisanWork> artisanWorks = new ArrayList<>();
 
-    // constructor is here:)
-    public Player() {
-    }
+
 
     public Player(String name, Position position, Farm farm, User user) {
         this.name = name;
@@ -434,5 +488,84 @@ public class Player {
     public void refillWater() {
         currentWaterAmount = wateringCanType.getCapacity();
     }
+    public List<ArtisanWork> getArtisanWorks() {
+        return artisanWorks;
+    }
 
+    public void addArtisanWork(ArtisanWork work) {
+        artisanWorks.add(work);
+    }
+
+
+    private final Set<String> metToday = new HashSet<>();
+
+
+    public boolean hasMetToday(String npc) {
+        return metToday.contains(npc);
+    }
+
+    public void markMetToday(String npc) {
+        metToday.add(npc);
+    }
+
+    public void resetDailyNPCFlags() {
+        metToday.clear();
+    }
+    private final Set<String> giftedToday = new HashSet<>();
+
+    public boolean hasGiftedToday(String npc) {
+        return giftedToday.contains(npc.toLowerCase());
+    }
+
+    public void markGiftedToday(String npc) {
+        giftedToday.add(npc.toLowerCase());
+    }
+
+    public void resetDailyGiftFlags() {
+        giftedToday.clear();
+    }
+    // مقداردهی اولیه
+    private final Map<String, Integer> friendshipPoints = new HashMap<>();
+
+    public void addFriendshipPoints(String npcName, int points) {
+        npcName = npcName.toLowerCase();
+        int current = friendshipPoints.getOrDefault(npcName, 0);
+        current = Math.min(799, current + points);
+        friendshipPoints.put(npcName, current);
+    }
+
+    public int getFriendshipPoints(String npcName) {
+        return friendshipPoints.getOrDefault(npcName.toLowerCase(), 0);
+    }
+
+    public int getFriendshipLevel(String npcName) {
+        return getFriendshipPoints(npcName) / 200;
+    }
+
+    public Map<String, Integer> getAllFriendships() {
+        return friendshipPoints;
+    }
+
+    // در Player.java
+    private final List<Quest> activeQuests = new ArrayList<>();
+    private final Set<Quest> completedQuests = new HashSet<>();
+
+    public List<Quest> getActiveQuests() {
+        return activeQuests;
+    }
+
+    public void addActiveQuest(Quest quest) {
+        activeQuests.add(quest);
+    }
+
+    public void completeQuest(Quest quest) {
+        completedQuests.add(quest);
+        activeQuests.remove(quest);
+    }
+
+    public String getUsername() {
+
+        return name;
+
+    }
 }

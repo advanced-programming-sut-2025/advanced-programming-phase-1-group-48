@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class ToolController {
-    public static String handleEquip(String toolName, Player player) {
+    public static String handleEquip(String toolName,Player player) {
         Inventory inv = player.getInventory();
         if (!inv.hasItem(toolName)) {
             return (toolName + " not in Backpack");
@@ -42,7 +42,7 @@ public class ToolController {
         Set<String> itemNames = inventory.getItemNames();
 
         String[] toolKeywords = {"axe", "pickaxe", "hoe", "watering", "fishing", "scythe",
-                "milk", "shear", "trash"};
+            "milk", "shear", "trash"};
 
         StringBuilder sb = new StringBuilder();
         boolean foundTool = false;
@@ -71,6 +71,7 @@ public class ToolController {
         }
 
         StringBuilder sb = new StringBuilder();
+        sb.append("Your capacity : "+ inventory.getCapacity()+"\n");
         sb.append("Your inventory contains:\n");
 
         for (Map.Entry<String, Integer> entry : items.entrySet()) {
@@ -94,8 +95,8 @@ public class ToolController {
         }
 
         int quantityToRemove = optionalCount != null
-                ? Math.min(optionalCount, inventory.getItemInstance(itemName))
-                : inventory.getItemInstance(itemName);
+            ? Math.min(optionalCount, inventory.getItemInstance(itemName))
+            : inventory.getItemInstance(itemName);
 
         return inventory.removeItemWithTrash(itemName, quantityToRemove, prototype,player);
     }

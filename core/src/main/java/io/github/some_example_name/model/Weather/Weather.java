@@ -28,12 +28,15 @@ public class Weather {
     public static WeatherType getToday() {
         return today;
     }
-
+    public static WeatherType setToday(WeatherType today) {
+        Weather.today = today;
+        return today;
+    }
     public static WeatherType getTomorrow() {
         return tomorrow;
     }
 
-    public void generateTomorrowWeather(String currentSeason) {
+    public static void generateTomorrowWeather(String currentSeason) {
         Random rand = new Random();
         WeatherType[] options;
         switch (currentSeason) {

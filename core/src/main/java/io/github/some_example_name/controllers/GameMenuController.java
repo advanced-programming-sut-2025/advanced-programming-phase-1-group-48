@@ -3,6 +3,7 @@ package io.github.some_example_name.controllers;
 
 import io.github.some_example_name.model.Animal.Animal;
 import io.github.some_example_name.model.Animal.FishCreator;
+import io.github.some_example_name.model.NPC.*;
 import io.github.some_example_name.model.Plant.Enums.CropType;
 import io.github.some_example_name.model.Plant.Enums.TreeType;
 import io.github.some_example_name.model.Plant.PlantFactory;
@@ -13,6 +14,9 @@ import io.github.some_example_name.model.Tools.FishingPole;
 import io.github.some_example_name.model.Tools.Tool;
 import io.github.some_example_name.model.Weather.DateAndTime;
 import io.github.some_example_name.model.Weather.Weather;
+import io.github.some_example_name.model.artisan.ArtisanManager;
+import io.github.some_example_name.model.artisan.ArtisanRecipes;
+import io.github.some_example_name.model.artisan.ArtisanTask;
 import io.github.some_example_name.model.crafting.CraftingManager;
 import io.github.some_example_name.model.crafting.CraftingRecipe;
 import io.github.some_example_name.model.enums.*;
@@ -25,6 +29,7 @@ import io.github.some_example_name.model.items.Item;
 import io.github.some_example_name.model.items.ItemFactory;
 import io.github.some_example_name.model.market.ClassicMarketTemplate;
 import io.github.some_example_name.model.market.MarketTemplate;
+import io.github.some_example_name.model.region.MarketRegion;
 import io.github.some_example_name.model.shop.Shop;
 import io.github.some_example_name.model.Player.inventory.Inventory;
 import io.github.some_example_name.model.shop.ShopType;
@@ -37,6 +42,11 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static io.github.some_example_name.model.game.Game.getShopManager;
+
+import static io.github.some_example_name.model.game.GameManager.addActivePlayer;
+
+import static io.github.some_example_name.model.game.Tile.artisanTileMap;
 
 public class GameMenuController {
 
@@ -51,7 +61,7 @@ public class GameMenuController {
         String[] inputUsernames = matcher.group("users").trim().split("\\s+");
 
 
-        if (inputUsernames.length == 0 ) {
+        if (inputUsernames.length == 0) {
             System.out.println("at least one username is required.");
             return;
         }
@@ -66,14 +76,14 @@ public class GameMenuController {
 
         if (GameManager.isUserInAnyGame(creator)) {
             System.out.println("You are already in a game, You cant make a new game...!\nYou can load your previous " +
-                    "game or login with a new account.");
+                "game or login with a new account.");
             return;
         }
 
         for (String username : inputUsernames) {
             if (GameManager.isUserInAnyGame(username)) {
                 System.out.println("User already in another game you can not make a new game with this user : "
-                        + username);
+                    + username);
                 return;
             }
             addActivePlayer(creator);
@@ -237,6 +247,26 @@ public class GameMenuController {
             System.out.println("Destination is not walkable.");
             return;
         }
+        //Tile destTile = map.getTileAt(targetX, targetY);
+        //Region destRegion = destTile.getRegion();
+
+
+        if (destRegion instanceof MarketRegion market) {
+            String shopName = market.getShopNames().get(destinationTile.getPosition());
+            if (shopName != null) {
+                int currentHour = DateAndTime.getHour();
+
+//                int[] hours = ShopHours.SHOP_TIMES.getOrDefault(shopName, new int[]{0, 24});
+//                int open = hours[0];
+//                int close = Math.min(hours[1], 22);
+//
+//                if (currentHour < open || currentHour >= close) {
+//                    System.out.println("❌ " + shopName + " is closed now! Open hours: " + open + ":00 to " + close + ":00");
+//                    return;
+//                }
+            }
+        }
+
 
         List<Position> path = Pathfinder.findPath(map, start, goal);
         if (path == null) {
@@ -284,7 +314,7 @@ public class GameMenuController {
         }
 
         System.out.println("✅ Walk finished at " + player.getPosition() +
-                ". Energy left: " + player.getEnergy());
+            ". Energy left: " + player.getEnergy());
     }
 
     public static void handleExitGame() {
@@ -356,10 +386,10 @@ public class GameMenuController {
         WorldMap map = game.getWorldMap();
         Player player = game.getCurrentPlayerForPlay();
         if (map.isInPlayerCabin(player)) {
-            HomeMenu.show(player,scanner);
-       } else {
-         System.out.println("You are not in your home,You can not enter the home menu.!");
-      }
+            HomeMenu.show(player, scanner);
+        } else {
+            System.out.println("You are not in your home,You can not enter the home menu.!");
+        }
     }
 
     public static void handleLoadGameCommand() {
@@ -472,7 +502,7 @@ public class GameMenuController {
         }
 
         if (player.getInventory().getRemainingCapacity() <= 0 &&
-                !player.getInventory().hasItem(itemName)) {
+            !player.getInventory().hasItem(itemName)) {
             System.out.println("❌ Inventory is full. Cannot add new item type.");
             return;
         }
@@ -509,7 +539,11 @@ public class GameMenuController {
 
         Game game = GameManager.getCurrentGame();
         Player player = game.getCurrentPlayerForPlay();
+        for (int i = 0; i < count; i++) {
 
+            ItemFactory.createItem(name, player.getInventory());
+
+        }
 //        for (int i = 0; i < count; i++) {
 //            Item item = ItemFactory.create(name); // یا خودت بساز
 //            Result res = player.getInventory().addItem(item);
@@ -522,46 +556,160 @@ public class GameMenuController {
         System.out.println("✅ Added " + count + " x " + name + " to inventory.");
     }
 
-    public static void handlePlaceItemCommand(String command) {
+    public static void handlePlaceCommand(String command) {
         Matcher matcher = MenuCommands.PLACE_ITEM.getPattern().matcher(command);
         if (!matcher.matches()) {
-            System.out.println("Invalid format. Use: place item -n <name> -d <direction>");
+            System.out.println("❌ Invalid command format.");
             return;
         }
 
-        String itemName = matcher.group("name");
-        String dirText = matcher.group("dir");
-
-        Direction direction = Direction.fromString(dirText);
-        if (direction == null) {
-            System.out.println("❌ Invalid direction. Use N, NE, E, SE, S, SW, W, NW.");
-            return;
-        }
+        String itemName = matcher.group("name").trim().toLowerCase();
+        String direction = matcher.group("dir").trim().toLowerCase();
 
         Game game = GameManager.getCurrentGame();
-        Player player = game.getCurrentPlayerForPlay();
-        Inventory inv = player.getInventory();
-
-        if (!inv.hasItem(itemName)) {
-            System.out.println("❌ You don’t have this item.");
+        if (game == null) {
+            System.out.println("❌ No active game.");
             return;
         }
+
+        Player player = game.getCurrentPlayerForPlay();
+        Inventory inventory = player.getInventory();
+
+        if (!inventory.hasItem(itemName)) {
+            System.out.println("❌ You don't have this item in your inventory.");
+            return;
+        }
+
 
         Position pos = player.getPosition();
-        int targetX = pos.getCol() + direction.dx;
-        int targetY = pos.getRow() + direction.dy;
-
-        Tile tile = game.getWorldMap().getTileAt(targetX, targetY);
-        if (tile == null || !tile.isWalkable() || tile.getItem() != null) {
-            System.out.println("❌ You can’t place item there.");
+        Position targetPos = pos.getAdjacent(direction);
+        if (targetPos == null) {
+            System.out.println("❌ Invalid direction.");
             return;
         }
 
-        Item item = Inventory.itemInstances.get(itemName.toLowerCase());
-        tile.setItem(item);
-        inv.removeItem(itemName, 1);
+        Tile targetTile = game.getWorldMap().getTileAt(targetPos.getCol(), targetPos.getRow());
+//        if (targetTile == null || targetTile.getType() != TileType.EMPTY) {
+//            System.out.println("❌ Cannot place item on non-empty tile.");
+//            return;
+//        }
 
-        System.out.println("✅ Placed " + itemName + " at (" + targetX + ", " + targetY + ")");
+
+        TileType artisanType = artisanTileMap.get(itemName);
+        if (artisanType != null) {
+            targetTile.setType(artisanType);
+            inventory.removeItem(itemName, 1);
+            System.out.println("✅ " + itemName + " placed successfully as " + artisanType.name());
+            return;
+        }
+
+        System.out.println("❌ This item cannot be placed.");
+    }
+
+    public static void handleArtisanUseCommand(String command) {
+        Matcher matcher = Pattern.compile("artisan use (?<artisan>[a-zA-Z_]+)( (?<item1>[a-zA-Z ]+))?( (?<item2>[a-zA-Z ]+))?( (?<item3>[a-zA-Z ]+))?( (?<item4>[a-zA-Z ]+))?( (?<item5>[a-zA-Z ]+))?").matcher(command.trim());
+        if (!matcher.matches()) {
+            System.out.println("❌ Invalid artisan use command format.");
+            return;
+        }
+
+        String artisanName = matcher.group("artisan").toLowerCase();
+        Player player = GameManager.getCurrentGame().getCurrentPlayerForPlay();
+        WorldMap map = GameManager.getCurrentGame().getWorldMap();
+        Position playerPos = player.getPosition();
+
+
+        Position target = null;
+        for (Position adj : playerPos.getAdjacentPositions()) {
+            Tile tile = map.getTileAt(adj.getCol(), adj.getRow());
+            if (tile != null && tile.getType().name().equalsIgnoreCase(artisanName)) {
+                target = adj;
+                break;
+            }
+        }
+
+//        if (target == null) {
+//            System.out.println("❌ No " + artisanName + " around you.");
+//            return;
+//        }
+
+
+        if (!ArtisanRecipes.isArtisanValid(artisanName)) {
+            System.out.println("❌ Unknown artisan device: " + artisanName);
+            return;
+        }
+
+
+        List<String> inputs = new ArrayList<>();
+        for (int i = 1; i <= 5; i++) {
+            String item = matcher.group("item" + i);
+            if (item != null) inputs.add(item.trim().toLowerCase());
+        }
+
+        ArtisanRecipes.Recipe recipe = ArtisanRecipes.findRecipe(artisanName, inputs);
+        if (recipe == null) {
+            System.out.println("❌ No recipe found for " + artisanName + " with given inputs.");
+            return;
+        }
+
+
+//        for (String item : recipe.inputs) {
+//            if (!player.getInventory().hasItem(item)) {
+//                System.out.println("❌ You don’t have required input: " + item);
+//                return;
+//            }
+//        }
+
+
+        for (String item : recipe.inputs) {
+            player.getInventory().removeItem(item, 1);
+        }
+
+
+        player.decreaseEnergy(recipe.energy);
+
+
+        int readyAtHour = DateAndTime.getHour() + recipe.durationInHours;
+        ArtisanManager.registerInProgress(target, artisanName, player.getName(), readyAtHour, recipe.output);
+        System.out.println("✅ Processing started. Output will be ready in " + recipe.durationInHours + " hours.");
+    }
+
+    public static void handleArtisanGetCommand(String command) {
+        Matcher matcher = Pattern.compile("artisan get (?<artisan>[a-zA-Z_]+)").matcher(command.trim());
+        if (!matcher.matches()) {
+            System.out.println("❌ Invalid artisan get command format.");
+            return;
+        }
+
+        String artisanName = matcher.group("artisan").toLowerCase();
+        Player player = GameManager.getCurrentGame().getCurrentPlayerForPlay();
+        WorldMap map = GameManager.getCurrentGame().getWorldMap();
+        Position playerPos = player.getPosition();
+
+        Position target = null;
+        for (Position adj : playerPos.getAdjacentPositions()) {
+            Tile tile = map.getTileAt(adj.getCol(), adj.getRow());
+            if (tile != null && tile.getType().name().equalsIgnoreCase(artisanName)) {
+                target = adj;
+                break;
+            }
+        }
+
+//        if (target == null) {
+//            System.out.println("❌ No " + artisanName + " device around you.");
+//            return;
+//        }
+
+        if (!ArtisanManager.isReady(target)) {
+            System.out.println("⏳ Item is not ready yet.");
+            return;
+        }
+
+        ArtisanTask task = ArtisanManager.getTaskAt(target);
+
+
+        ArtisanManager.removeTask(target);
+        System.out.println("✅ You collected the item ");
     }
 
 
@@ -587,9 +735,9 @@ public class GameMenuController {
         }
         int value = Integer.parseInt(matcher.group("value"));
         Game game = GameManager.getCurrentGame();
-        if (game == null){
+        if (game == null) {
             System.out.println("there is no game for you!");
-            return ;
+            return;
         }
         Player player = game.getCurrentPlayerForPlay();
         player.setEnergy(value);
@@ -603,20 +751,20 @@ public class GameMenuController {
 
     public static void printMapHelp() {
         System.out.println("""
-        Map Legend:
-        . = Empty
-        C = Cabin
-        G = Greenhouse
-        L = Lake
-        Q = Quarry
-        # = Border
-        @ = Player
-        R = Rock
-        T = Tree
-        F = Foraging
-        t = Tilled Soil
-        c = Crop
-        """);
+            Map Legend:
+            . = Empty
+            C = Cabin
+            G = Greenhouse
+            L = Lake
+            Q = Quarry
+            # = Border
+            @ = Player
+            R = Rock
+            T = Tree
+            F = Foraging
+            t = Tilled Soil
+            c = Crop
+            """);
     }
 
     public static void handleCheatThor(String command) {
@@ -650,21 +798,21 @@ public class GameMenuController {
                 //PlantController.getInfo(inputName);
                 break;
             case "tools":
-                if(Objects.equals(parts[1], "show") && Objects.equals(parts[2], "current")) {
+                if (Objects.equals(parts[1], "show") && Objects.equals(parts[2], "current")) {
                     System.out.println(ToolController.showCurrentTool(player));
-                }else if(Objects.equals(parts[1], "show") && Objects.equals(parts[2], "available")) {
+                } else if (Objects.equals(parts[1], "show") && Objects.equals(parts[2], "available")) {
                     System.out.println(ToolController.showAvailableTools(player));
-                }else if(Objects.equals(parts[1], "equip")) {
+                } else if (Objects.equals(parts[1], "equip")) {
                     String toolName = parts[2];
                     System.out.println(ToolController.handleEquip(toolName, player));
-                }else if(Objects.equals(parts[1], "upgrade")) {
+                } else if (Objects.equals(parts[1], "upgrade")) {
                     String toolName = parts[2];
                     if (shop == null) {
                         System.out.println("You are not inside a valid shop.");
                         break;
                     }
-                        System.out.println(ShopController.upgradeTools(parts, shop, player));
-                }else if(Objects.equals(parts[1], "use")) {
+                    System.out.println(ShopController.upgradeTools(parts, shop, player));
+                } else if (Objects.equals(parts[1], "use")) {
                     int x = Integer.parseInt(parts[3]);
                     int y = Integer.parseInt(parts[4]);
                     ToolController.handleUse(x, y, player);
@@ -683,12 +831,13 @@ public class GameMenuController {
                     } else {
                         System.out.println("Invalid command");
                     }
-                }if (parts[1].equals("animals")){
-                AnimallController.showAnimals(player);
-            }else {
+                }
+                if (parts[1].equals("animals")) {
+                    AnimallController.showAnimals(player);
+                } else {
                     System.out.println("Invalid command");
                 }
-                if(parts[1].equals("barnanimal")){
+                if (parts[1].equals("barnanimal")) {
                     AnimallController.showbarnAnimalCategories(player);
                 } else if (parts[1].equals("coopanimals")) {
                     AnimallController.showCagedAnimalCategories(player);
@@ -702,12 +851,12 @@ public class GameMenuController {
                 Result.success(ShopController.handlePurchase(parts, shop, player));
                 break;
             case "build":
-            if (shop == null) {
-                System.out.println("You are not inside a valid shop.");
-                break;
-            }
+                if (shop == null) {
+                    System.out.println("You are not inside a valid shop.");
+                    break;
+                }
                 System.out.println(ShopController.handleBuild(parts, shop, player));
-            break;
+                break;
             case "buy":
                 if (parts[1].equals("animal")) {
                     String animal = parts[3];
@@ -731,8 +880,19 @@ public class GameMenuController {
                 if (parts[1].equals("animal frindship")) {
                     String name = parts[3];
                     int amount = Integer.parseInt(parts[4]);
-                    Animal animal=player.getBroughtAnimal().get(name);
-                    AnimallController.addFriendship(amount , animal);
+                    Animal animal = player.getBroughtAnimal().get(name);
+                    AnimallController.addFriendship(amount, animal);
+                }
+                if (parts[1].equals("level")) {
+
+                    String receiverUsername = parts[2];
+
+                    String a = parts[3];
+
+                    int amount = Integer.parseInt(parts[4]);
+
+                    FriendshipController.increacrLevel(amount, receiverUsername, a);
+
                 }
                 break;
             case "inventory":
@@ -750,6 +910,10 @@ public class GameMenuController {
                         }
                     }
                     System.out.println(ToolController.trashItem(player, itemName, quantity));
+                }else if (parts[1].equals("money")) {
+
+                    System.out.println(player.getMoney());
+
                 }
                 break;
 //            case "plant":
@@ -946,14 +1110,14 @@ public class GameMenuController {
                 }
                 WorldMap worldMap1 = GameManager.getCurrentGame().getWorldMap();
 
-                    worldMap1.replaceTileTypeIfMatch(p, o, TileType.TREE, TileType.EMPTY);
+                worldMap1.replaceTileTypeIfMatch(p, o, TileType.TREE, TileType.EMPTY);
 
                 System.out.printf("%s is eating at location (%d, %d)%n", animalName, p, o);
                 animal.feed();
                 break;
-                case "uncollect":
-                    AnimallController.showCollectedProducts(player);
-                    break;
+            case "uncollect":
+                AnimallController.showCollectedProducts(player);
+                break;
             case "fishing":
                 if (parts.length >= 3 && parts[1].equals("-p")) {
                     String fishpoleName = parts[2];
@@ -981,18 +1145,160 @@ public class GameMenuController {
 
             case "add":
                 String itemNamee = parts[1].toLowerCase();
-                ItemFactory.createItem(itemNamee,player.getInventory());
+                ItemFactory.createItem(itemNamee, player.getInventory());
                 System.out.println("Added " + itemNamee);
                 break;
+
+            case "talk":
+
+                if (parts[1].equals("-u")) {
+
+                    String username = parts[2];
+
+                    String message = parts[4].trim();
+
+                    System.out.println(FriendshipController.talk(player, username, message));
+
+                } else if (parts[1].equals("history")) {
+
+                    String username = parts[3];
+
+                    System.out.println(FriendshipController.showTalkHistory(player, username));
+
+                }
+
+                break;
+
+            case "gift":
+
+                if (parts[1].equals("-u")) {
+
+                    String username = parts[2];
+
+                    String item = parts[4].trim();
+
+                    int amt = Integer.parseInt(parts[6]);
+
+                    System.out.println(FriendshipController.sendGift(player, username, item, amt));
+
+
+
+                } else if (parts[1].equals("list")) {
+
+
+
+                    System.out.println(FriendshipController.listGifts(player));
+
+                } else if (parts[1].equals("rate")) {
+
+                    int giftNumber = Integer.parseInt(parts[3].trim());
+
+                    int rate = Integer.parseInt(parts[5].trim());
+
+                    System.out.println(FriendshipController.rateGift(player, giftNumber, rate));
+
+                } else if (parts[1].equals("history")) {
+
+                    String username = parts[3];
+
+                    System.out.println(FriendshipController.giftHistory(player, username));
+
+                }
+
+                break;
+
+            case "friendships":
+
+                System.out.println(FriendshipController.showFriendships(player));
+
+                break;
+
+            case "hug":
+
+                String targetUsername = parts[2];
+
+                System.out.println(FriendshipController.hugPlayer(player, targetUsername));
+
+                break;
+
+            case "flower":
+
+                String receiverUsername = parts[2];
+
+                System.out.println(FriendshipController.sendFlower(player, receiverUsername));
+
+                break;
+
+            case "ask":
+
+                String username = parts[3];
+
+                String ring = parts[5].trim();
+
+                System.out.println(FriendshipController.askMarriage(player, username, ring));
+
+                break;
+
+            case "respond":
+
+                String isAccepted = parts[1];
+
+                boolean accept = isAccepted.contains("accept");
+
+                boolean reject = isAccepted.contains("reject");
+
+                String maleUsername = parts[3].trim();
+
+                System.out.println(FriendshipController.respondMarriage(player, maleUsername, accept, reject));
+
+                break;
+
+            case "cooking":
+
+                if (parts[1].equals("refrigerator")) {
+
+                    String actionn = parts[2];
+
+                    String itemName = parts[3];
+
+                    System.out.println(CookController.handleRefrigeratorCommand(player,actionn,itemName));
+
+                }else if(parts[1].equals("show")){
+
+                    System.out.println(CookController.showLearnedRecipes(player));
+
+                }else if(parts[1].equals("prepare")){
+
+                    String recipeName = parts[2];
+
+                    System.out.println(CookController.prepareFood(player,recipeName));
+
+                }
+
+            case "eatforplayer":
+
+                String recipeName = parts[1];
+
+                System.out.println(CookController.eat(player,recipeName));
+
+                break;
+
+
+
+            default:
+
+                Result.failure("Invalid command");
+
         }
     }
+
     public static Shop getCurrentShopForPlayer(Player player) {
         Game game = GameManager.getCurrentGame();
         WorldMap worldMap = game.getWorldMap();
         Position pos = player.getPosition();
         int x = pos.getCol();
         int y = pos.getRow();
-        String shopName =worldMap.getShopNameAt(x, y);
+        String shopName = worldMap.getShopNameAt(x, y);
         if (shopName == null) {
             return null;
         }
@@ -1013,5 +1319,222 @@ public class GameMenuController {
         return getShopManager().getShop(playerShopType);
     }
 
-}
 
+//    public static void handleArtisanCommand(String command) {
+//        if (command.startsWith("artisan use")) {
+//            Matcher matcher = MenuCommands.ARTISAN_USE.getPattern().matcher(command);
+//            if (matcher.matches()) {
+//                String artisanName = matcher.group("artisan");
+//                String itemsStr = matcher.group("items").trim();
+//                List<String> items = Arrays.asList(itemsStr.split(" "));
+//                String result = ArtisanRecipes.useArtisan(GameManager.getCurrentGame().getCurrentPlayerForPlay(), artisanName, items);
+//                System.out.println(result);
+//            } else {
+//                System.out.println("❌ فرمت نادرست دستور artisan use");
+//            }
+//        } else if (command.startsWith("artisan get")) {
+//            Matcher matcher = MenuCommands.ARTISAN_GET.getPattern().matcher(command);
+//            if (matcher.matches()) {
+//                String artisanName = matcher.group("artisan");
+//                String result = ArtisanRecipes.getProduct(GameManager.getCurrentGame().getCurrentPlayerForPlay(), artisanName);
+//                System.out.println(result);
+//            } else {
+//                System.out.println("❌ فرمت نادرست دستور artisan get");
+//            }
+//        }
+//    }
+
+
+    public static void handleMeetNPC(String command) {
+        Matcher matcher = MenuCommands.MEET_NPC.getPattern().matcher(command);
+        if (!matcher.matches()) {
+            System.out.println("Invalid command format.");
+            return;
+        }
+
+        String npcName = matcher.group("npcName");
+        Game game = GameManager.getCurrentGame();
+        Player player = game.getCurrentPlayerForPlay();
+
+        Position playerPos = player.getPosition();
+        WorldMap map = game.getWorldMap();
+        int level = player.getFriendshipLevel(npcName);
+        List<Position> adj = map.getAdjacentPositions(playerPos);
+        for (Quest quest : QuestManager.getQuestsFor(npcName)) {
+            if (quest.canBeActivated(level, DateAndTime.getDay())) {
+                player.addActiveQuest(quest);
+                System.out.println("🎯 New quest activated: " + quest.getDescription());
+            }
+        }
+
+        //   System.out.println("has npc " + npcName);
+        NPC targetNPC = null;
+        for (NPC npc : map.getNpcs()) {
+            //   System.out.println("npc " + npc.getName());
+            if (npc.getName().equalsIgnoreCase(npcName)) {
+                Position npcHome = map.getNPCHomePosition(npcName);
+                // System.out.println("npc home " + npcHome);
+                if (adj.contains(npcHome)) {
+                    targetNPC = npc;
+                    break;
+                }
+            }
+        }
+
+        if (targetNPC == null) {
+            System.out.println("You are not close enough to this NPC.");
+            return;
+        }
+
+        Season currentSeason = DateAndTime.getCurrentSeason();
+        WeatherType weather = WeatherType.SUNNY;
+
+        String dialogue = targetNPC.getRandomDialogue(currentSeason, weather);
+        System.out.println(targetNPC.getName() + " says: " + dialogue);
+
+        if (!player.hasMetToday(targetNPC.getName())) {
+            player.addFriendshipPoints(targetNPC.getName(), 20);
+            player.markMetToday(targetNPC.getName());
+        }
+    }
+
+    public static void handleGiftCommand(String command) {
+        Matcher matcher = Pattern.compile("gift NPC (?<name>\\w+) -i (?<item>.+)", Pattern.CASE_INSENSITIVE).matcher(command);
+        if (!matcher.matches()) {
+            System.out.println("Invalid command format.");
+            return;
+        }
+
+        String npcName = matcher.group("name");
+        String itemName = matcher.group("item").toLowerCase();
+
+        Game game = GameManager.getCurrentGame();
+        Player player = game.getCurrentPlayerForPlay();
+        WorldMap map = game.getWorldMap();
+
+        // موقعیت NPC
+        Position npcPos = map.getNPCHomePosition(npcName);
+        if (npcPos == null) {
+            System.out.println("No such NPC found.");
+            return;
+        }
+
+
+        if (!map.getAdjacentPositions(player.getPosition()).contains(npcPos)) {
+            System.out.println("You are not close enough to the NPC.");
+            return;
+        }
+
+        if (!player.getInventory().hasItem(itemName)) {
+            System.out.println("You don't have this item.");
+            return;
+        }
+
+//        if (player.getInventory().getItems().get(itemName).i) {
+//            System.out.println("You can't gift tools.");
+//            return;
+//        }
+
+        NPC targetNPC = map.getNpcs().stream()
+            .filter(n -> n.getName().equalsIgnoreCase(npcName))
+            .findFirst().orElse(null);
+
+        if (targetNPC == null) {
+            System.out.println("NPC not found.");
+            return;
+        }
+
+        if (player.hasGiftedToday(npcName)) {
+            System.out.println("You already gifted this NPC today.");
+            return;
+        }
+
+        int points = targetNPC.likes(itemName) ? 200 : 50;
+        player.addFriendshipPoints(npcName, points);
+        player.markGiftedToday(npcName);
+        player.getInventory().removeItem(itemName, 1);
+
+        System.out.println("Gifted " + itemName + " to " + npcName + ". Friendship +" + points);
+    }
+
+    public static void handleList() {
+        Game game = GameManager.getCurrentGame();
+        WorldMap map = game.getWorldMap();
+        Player player = game.getCurrentPlayerForPlay();
+
+        System.out.println("📋 Friendship Levels:");
+        for (NPC npc : map.getNpcs()) {
+            String name = npc.getName();
+            int points = player.getFriendshipPoints(name);
+            int level = player.getFriendshipLevel(name);
+            System.out.printf("- %s: %d points (Level %d)%n", name, points, level);
+        }
+    }
+
+    public static void handleQuestList() {
+        Game game = GameManager.getCurrentGame();
+        Player player = game.getCurrentPlayerForPlay();
+        List<Quest> quests = player.getActiveQuests();
+        if (quests.isEmpty()) {
+            System.out.println("No active quests.");
+        } else {
+            for (int i = 0; i < quests.size(); i++) {
+                System.out.println((i + 1) + ". " + quests.get(i));
+            }
+        }
+    }
+
+    //    public static void handleQuestFinish(Player player, int index) {
+//        List<Quest> quests = player.getActiveQuests();
+//        if (index < 1 || index > quests.size()) {
+//            System.out.println("Invalid quest index.");
+//            return;
+//        }
+//
+//        Quest quest = quests.get(index - 1);
+//        if (!InventoryUtils.hasItems(player.getInventory(), quest.getRequiredItems())) {
+//            System.out.println("You don't have the required items.");
+//            return;
+//        }
+//
+//        if (!WorldMap.isNpcNearby(player.getPosition(), quest.getNpcName())) {
+//            System.out.println("You must be near " + quest.getNpcName() + " to finish this quest.");
+//            return;
+//        }
+//
+//        InventoryUtils.removeItems(player.getInventory(), quest.getRequiredItems());
+//        player.completeQuest(quest);
+//        RewardSystem.give(player, quest.getReward());
+//        System.out.println("✅ Quest completed!");
+//    }
+    public static void handleQuestFinish(String command) {
+        Matcher matcher = MenuCommands.FINISH_QUEST.getPattern().matcher(command);
+        if (!matcher.matches()) {
+            System.out.println("invalid command!");
+        }
+        int index = Integer.parseInt(matcher.group("index"));
+        Game game = GameManager.getCurrentGame();
+        Player player = game.getCurrentPlayerForPlay();
+        List<Quest> quests = player.getActiveQuests();
+        if (index < 1 || index > quests.size()) {
+            System.out.println("Invalid quest index.");
+            return;
+        }
+
+        Quest quest = quests.get(index - 1);
+        if (!InventoryUtils.hasItems(player.getInventory(), quest.getRequiredItems())) {
+            System.out.println("You don't have the required items.");
+            return;
+        }
+
+        if (!WorldMap.isPlayerNearNpc(player, quest.getNpcName())) {
+            System.out.println("You must be near " + quest.getNpcName() + " to finish this quest.");
+            return;
+        }
+
+        InventoryUtils.removeItems(player.getInventory(), quest.getRequiredItems());
+        player.completeQuest(quest);
+        RewardSystem.give(player, quest.getReward());
+        System.out.println("✅ Quest completed!");
+    }
+}

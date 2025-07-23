@@ -22,7 +22,7 @@ public class User {
     private int highestScore = 0;
     private int gameCount = 0;
     private int energy;
-    private Inventory inventory;
+    private io.github.some_example_name.model.user.inventory.Inventory inventory;
     private Wallet wallet;
 
 
@@ -36,7 +36,7 @@ public class User {
         this.securityQuestion = securityQuestion;
         this.hashedSecurityAnswer = hashSHA256(securityAnswer);
         this.energy = 200;
-        this.inventory = new Inventory(new Backpack(BackpackType.SMALL), new TrashCan(TrashCanType.BASIC));
+//        this.inventory = new Inventory(new Backpack(BackpackType.SMALL), new TrashCan(TrashCanType.BASIC));
         this.wallet = new Wallet();
     }
 
@@ -134,9 +134,9 @@ public class User {
         this.gameCount++;
     }
 
-    public Inventory getInventory() {
-        return inventory;
-    }
+//    public Inventory getInventory() {
+//        return inventory;
+//    }
 
     public Wallet getWallet() {
         return wallet;

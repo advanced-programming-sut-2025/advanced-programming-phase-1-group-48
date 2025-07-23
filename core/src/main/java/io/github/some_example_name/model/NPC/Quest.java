@@ -1,72 +1,63 @@
 package io.github.some_example_name.model.NPC;
 
 
-import io.github.some_example_name.model.items.Item;
-import io.github.some_example_name.model.quests.QuestReward;
-import io.github.some_example_name.model.user.User;
+import java.util.Map;
 
 public class Quest {
-    private String title;
-    private String description;
-    private Item requiredItem;
-    private QuestReward reward;
-    private int requiredFriendshipLevel;
-    private int activationDay;
-    private boolean isTaken;
-    private boolean isDone;
-    private User doneBy;
-    private NPC owner;
+    private final String npcName;
+    private final String description;
+    private final Map<String, Integer> requiredItems;
+    private final String reward;
+    private final int requiredFriendshipLevel;
+    private final int activateAfterDays;
+    private boolean completed = false;
 
-    public boolean isAvailable(User user, int currentDay, int friendshipLevel) {
-        return !isDone &&
-                !isTaken &&
-                friendshipLevel >= requiredFriendshipLevel &&
-                currentDay >= activationDay;
+    public Quest(String npcName, String description, Map<String, Integer> requiredItems,
+                 String reward, int requiredFriendshipLevel, int activateAfterDays) {
+        this.npcName = npcName;
+        this.description = description;
+        this.requiredItems = requiredItems;
+        this.reward = reward;
+        this.requiredFriendshipLevel = requiredFriendshipLevel;
+        this.activateAfterDays = activateAfterDays;
     }
 
-    public boolean complete(User user) {
-        if (isDone || doneBy != null) return false;
-        isDone = true;
-        doneBy = user;
-        reward.giveTo(user);
-        return true;
+    public boolean canBeActivated(int playerFriendLevel, int currentDay) {
+//        System.out.println(playerFriendLevel);
+//        System.out.println();
+        return playerFriendLevel >= requiredFriendshipLevel ;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void markCompleted() {
+        completed = true;
+    }
+
+    public String getNpcName() {
+        return npcName;
+    }
+
+    public Map<String, Integer> getRequiredItems() {
+        return requiredItems;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getReward() {
+        return reward;
     }
 
     public int getRequiredFriendshipLevel() {
         return requiredFriendshipLevel;
     }
 
-    public boolean isDone() {
-        return isDone;
-    }
-
-    public boolean isTaken() {
-        return isTaken;
-    }
-
-    public int getActivationDay() {
-        return activationDay;
-    }
-
-    public QuestReward getReward() {
-        return reward;
-    }
-
-    public Item getRequiredItem() {
-        return requiredItem;
-    }
-    public String getTitle() {
-        return title;
-    }
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    public String getDescription() {
-        return description;
-    }
-
-    public NPC getOwner() {
-        return owner;
+    @Override
+    public String toString() {
+        return String.format("From %s: %s (Needs: %s, Reward: %s)", npcName, description, requiredItems, reward);
     }
 }
-

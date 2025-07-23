@@ -27,6 +27,10 @@ public class HomeMenu {
                     return;
                 }
                // case "2" -> CraftingSystem.startCrafting(player); // (todo: متد صنعتگری)
+                case "2" -> {
+                    System.out.println("Now you can make items in this way : crafting craft <item_name>");
+                    return;
+                }
                 case "3" -> {
                     System.out.println("Exiting the menu");
                     return;

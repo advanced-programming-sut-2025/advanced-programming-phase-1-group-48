@@ -28,7 +28,7 @@ public class InventoryItem {
     }
 
     public void decrease(int amount) {
-        if (amount > count) throw new IllegalArgumentException("کمتر از این تعداد موجود نیست.");
+        if (amount > count) throw new IllegalArgumentException("not enough");
         this.count -= amount;
     }
 

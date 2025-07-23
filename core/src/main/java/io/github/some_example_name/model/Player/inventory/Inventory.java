@@ -17,7 +17,9 @@ public class Inventory {
         this.backpack = backpack;
         this.trashCan = trashCan;
     }
-
+    public int getCapacity() {
+        return backpack.getCapacity();
+    }
     public Result addItem(Item item) {
         String name = item.getName().toLowerCase();
         if (!items.containsKey(name) && items.size() >= backpack.getCapacity()) {
@@ -53,7 +55,7 @@ public class Inventory {
         }
     }
 
-    public String removeItemWithTrash(String name, int qty, Item prototype, Player player) {
+    public String removeItemWithTrash(String name, int qty, Item prototype,Player player) {
         String key = name.toLowerCase();
         Integer current = items.get(key);
         if (current == null) {

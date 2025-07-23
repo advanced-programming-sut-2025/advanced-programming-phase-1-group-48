@@ -37,10 +37,18 @@ public enum MenuCommands {
     SET_UNLIMITED("energy\\s+unlimited"),
     CRAFTING_SHOW_RECIPES("crafting\\s+show\\s+recipes"),
     CRAFTING_CRAFT("crafting\\s+craft\\s+(?<itemName>.*)"),
-    PLACE_ITEM("place item -n (?<name>\\w+) -d (?<dir>[A-Z]{1,2})"),
+    //PLACE_ITEM("place item -n (?<name>\\w+) -d (?<dir>[A-Z]{1,2})"),
     CHEAT_ADD_ITEM("cheat add item -n (?<name>\\w+) -c (?<count>\\d+)"),
     HELP_READ("help\\s+reading\\s+map"),
     THOR("cheat\\s+Thor\\s+-l\\s=(?<x>.*),(?<y>.*)"),
+    ARTISAN_USE("artisan\\s+use\\s+(?<artisan>\\S+)\\s*(?<items>.+)"),
+    ARTISAN_GET("artisan\\s+get\\s+(?<artisan>\\S+)"),
+    PLACE_ITEM("place\\s+item\\s+-n\\s+(?<name>.*)\\s+-d\\s+(?<dir>up|down|left|right|upleft|upright|downleft|downright)"),
+    MEET_NPC("meet\\s+NPC\\s+(?<npcName>.*)"),
+    GIFT_NPC("gift\\s+NPC\\s+(?<npcName>.*)\\s+-i\\s+(?<item>.*)"),
+    LIST_FRIENDSHIP("friendship\\s+NPC\\s+list"),
+    QUESTS_LIST("quests\\s+list"),
+    FINISH_QUEST("quests\\s+finish\\s+-i\\s+(?<index>.*)"),
     NEXT_TURN("next\\s+turn");
 
 

@@ -4,6 +4,8 @@ package io.github.some_example_name.model.game;
 import io.github.some_example_name.model.enums.TileType;
 import io.github.some_example_name.model.items.Item;
 
+import java.util.Map;
+
 public class Tile {
 
     private  Position position;    // موقعیت تایل در نقشه منطقه
@@ -98,4 +100,17 @@ public class Tile {
     public String toString() {
         return "Tile{pos=" + position + ", type=" + type + ", item=" + item + "}";
     }
+    public static final Map<String, TileType> artisanTileMap = Map.ofEntries(
+        Map.entry("bee house", TileType.ARTISAN_BEE_HOUSE),
+        Map.entry("cheese press", TileType.ARTISAN_CHEESE_PRESS),
+        Map.entry("keg", TileType.ARTISAN_KEG),
+        Map.entry("mayonnaise machine", TileType.ARTISAN_MAYO_MACHINE),
+        Map.entry("charcoal klin", TileType.ARTISAN_CHARCOAL_KILN),
+        Map.entry("preserves jar", TileType.ARTISAN_PRESERVES_JAR),
+        Map.entry("dehydrator", TileType.ARTISAN_DEHYDRATOR),
+        Map.entry("oil maker", TileType.ARTISAN_OIL_MAKER),
+        Map.entry("loom", TileType.ARTISAN_LOOM),
+        Map.entry("fish smoker", TileType.ARTISAN_FISH_SMOKER),
+        Map.entry("furnace", TileType.ARTISAN_FURNACE)
+    );
 }

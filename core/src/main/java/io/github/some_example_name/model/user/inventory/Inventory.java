@@ -1,7 +1,5 @@
 package io.github.some_example_name.model.user.inventory;
 
-import model.enums.TrashCanType;
-
 import java.util.HashMap;
 import java.util.Map;
 

@@ -1,16 +1,30 @@
 package io.github.some_example_name.controllers;
 
 
+import io.github.some_example_name.Main;
+import io.github.some_example_name.model.GameAssetManager;
 import io.github.some_example_name.model.Session;
 import io.github.some_example_name.model.user.User;
 import io.github.some_example_name.model.user.UserManager;
-import io.github.some_example_name.views.GameMenu;
-import io.github.some_example_name.views.LoginMenu;
-import io.github.some_example_name.views.SignUpMenu;
+import io.github.some_example_name.views.*;
 
 import java.util.Scanner;
 
 public class MainMenuController {
+    private MainMenu view;
+
+    public void setView(MainMenu view) {
+        this.view = view;
+    }
+
+    public void handleMainMenuButtons() {
+        if (view != null) {
+            if (view.getPlayButton().isChecked() && view.getField().getText().equals("kiarash")) {
+                Main.getMain().getScreen().dispose();
+                Main.getMain().setScreen(new PreGameMenuView(new PreGameMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
+            }
+        }
+    }
 
     public static void start(Scanner scanner) {
         User rememberedUser = UserManager.loadLastSession();

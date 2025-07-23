@@ -39,4 +39,8 @@ public abstract class Region {
     public abstract Tile getTileAt(int row, int col);
 
     public abstract void printRegion();
+
+    public Position getGlobalPosition(Position local) {
+        return new Position(offsetY + local.getRow(), offsetX + local.getCol());
+    }
 }

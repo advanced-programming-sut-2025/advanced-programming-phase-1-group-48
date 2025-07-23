@@ -67,10 +67,14 @@ public class WateringCan extends Tool {
     }
 
     @Override
-    public Tool upgrade() {
-        return null;
-    }
 
+    public Tool upgrade() {
+
+        WateringCanType next = WateringCanType.getNext(this.type);
+
+        return next != null ? new WateringCan(next) : null;
+
+    }
     public int getCurrentWater() {
         return currentWater;
     }

@@ -1,7 +1,7 @@
 package io.github.some_example_name.model.village;
 
-import model.enums.TileType;
-import model.game.Position;
+import io.github.some_example_name.model.enums.TileType;
+import io.github.some_example_name.model.game.Position;
 
 import java.util.HashMap;
 import java.util.Map;
