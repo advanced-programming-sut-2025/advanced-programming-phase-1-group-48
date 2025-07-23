@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="1.8" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="stardew.core" target="17" />
+      <module name="stardew.core.main" target="17" />
+      <module name="stardew.core.test" target="17" />
+      <module name="stardew.lwjgl3" target="17" />
+      <module name="stardew.lwjgl3.main" target="17" />
+      <module name="stardew.lwjgl3.test" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
