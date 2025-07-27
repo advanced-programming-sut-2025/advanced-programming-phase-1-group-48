@@ -4,7 +4,7 @@ package io.github.some_example_name.controllers;
 import io.github.some_example_name.model.Animal.Animal;
 import io.github.some_example_name.model.Animal.AnimalCreator;
 import io.github.some_example_name.model.Player.Player;
-import io.github.some_example_name.model.Result;
+import io.github.some_example_name.model.Tools.FishingPole;
 import io.github.some_example_name.model.Tools.Tool;
 import io.github.some_example_name.model.building.BuildingFactory;
 import io.github.some_example_name.model.building.Buildings;
@@ -33,9 +33,9 @@ public class ShopController {
         StringBuilder sb = new StringBuilder();
         for (Product p : shop.getAvailableProducts()) {
             sb.append(p.getName())
-                    .append(" - ").append(p.getPrice()).append("g")
-                    .append(" (Remaining: ").append(p.getRemainingToday()).append(")")
-                    .append("\n");
+                .append(" - ").append(p.getPrice()).append("g")
+                .append(" (Remaining: ").append(p.getRemainingToday()).append(")")
+                .append("\n");
         }
         return sb.toString();
     }
@@ -65,7 +65,6 @@ public class ShopController {
             }
         }
 
-        // خرید موفق
         player.decreaseMoney(p.getPrice() * count);
         p.purchase(count);
         for (Map.Entry<String, Integer> req : p.getRequiredIngredients().entrySet()) {
@@ -134,7 +133,6 @@ public class ShopController {
     }
 
     public static String handleBuyAnimal(String[] parts, Shop shop, Player player) {
-        System.out.println(player.getMoney()+"mony hoooooo");
         String kindName = parts[3];
         String uniqueName = parts[5];
 
@@ -162,8 +160,8 @@ public class ShopController {
 
             Animal animal = AnimalCreator.createAnimal(kindName, uniqueName);
             return "Successfully bought a "
-                    + kindName
-                    + " named '" + uniqueName + "'.";
+                + kindName
+                + " named '" + uniqueName + "'.";
         } catch (IllegalStateException ex) {
             player.addMoney(price);
             ap.refundPurchase(1);
@@ -179,26 +177,23 @@ public class ShopController {
         String toolName = parts[2];
         BackpackType current = player.getBackpack();
 
-        if (toolName.startsWith("Backpack")) {
+        if (toolName.contains("Pack")) {
+            if(!shop.getOwnerName().equalsIgnoreCase("GeneralStore")) {
+                return "You are not in a GeneralStore.";
+            }
             Product p = shop.getProduct(toolName);
             if (p == null) return "\"Product not found.\"";
             if (!p.isAvailable() || p.getRemainingToday() < 1) return "Insufficient stock.";
             if (player.getMoney() < p.getPrice() * 1) return "You don't have enough money.";
 
-            if (toolName.equalsIgnoreCase("Backpack Upgrade - Medium")) {
-                if (current != BackpackType.SMALL) {
-                    return "You already have a medium or better backpack.";
-                }
+            if (toolName.equalsIgnoreCase("Large_Pack")) {
 
                 player.decreaseMoney(p.getPrice());
                 p.purchase(1);
                 player.upgradeBackpack(BackpackType.MEDIUM);
                 return "Backpack upgraded to MEDIUM! Now you have 24 slots.";
             }
-            if (toolName.equalsIgnoreCase("Backpack Upgrade - Deluxe")) {
-                if (current != BackpackType.MEDIUM) {
-                    return "You must first upgrade to Medium before getting Deluxe.";
-                }
+            if (toolName.equalsIgnoreCase("Deluxe_Pack")) {
 
                 player.decreaseMoney(p.getPrice());
                 p.purchase(1);
@@ -206,10 +201,39 @@ public class ShopController {
                 return "Backpack upgraded to DELUXE! Unlimited capacity unlocked.";
             }
             return "your backpack is already upgraded.";
-        }else {
+        }
+        else if (toolName.endsWith("Rod") || toolName.contains("Rod")) {
+            if (!shop.getOwnerName().equals("FishShop")) {
+                return "Fishing rod upgrades are only available at Willy's Fish Shop.";
+            }
+            System.out.println(toolName);
+            Product p = shop.getProduct(toolName);
+            if (p == null) return "Product not found.";
+            if (!p.isAvailable() || p.getRemainingToday() < 1) return "Insufficient stock.";
+            if (player.getMoney() < p.getPrice()) return "You don't have enough money.";
+
+            player.decreaseMoney(p.getPrice());
+            p.purchase(1);
+
+            Item equipped = player.getEquippedItem();
+            if (!(equipped instanceof FishingPole)) {
+                return "You have no fishing rod equipped!";
+            }
+            FishingPole currentRod = (FishingPole) equipped;
+            Tool nextRod = currentRod.upgrade();
+            if (nextRod == null) {
+                return "This fishing rod cannot be upgraded further.";
+            }
+            player.setEquippedItem(nextRod);
+            return "Fishing rod upgraded to " + nextRod.getName() + "!";
+        }
+        else {
+            if(!shop.getOwnerName().equalsIgnoreCase("Blacksmith")) {
+                return "You are not in a blacksmith.";
+            }
             Item equipped = player.getEquippedItem();
             if (equipped == null || !(equipped instanceof Tool)) {
-                Result.failure("You have no tool equipped!");
+                return ("You have no tool equipped!");
             } else {
                 Tool currentTool = (Tool) equipped;
                 Tool nextTool = currentTool.upgrade();
@@ -218,14 +242,25 @@ public class ShopController {
                 }
 
                 String upgradeProductName = parts[2];
-                Product upgradeProduct = shop.getProduct(upgradeProductName);
-                if (upgradeProduct == null) {
-                    return "No upgrade product found in shop for this tool.";
+                String upgradeShopProductName = null;
+                if (upgradeProductName.contains("basic")) {
+                    upgradeShopProductName = "Copper_Tool";
+                } else if (upgradeProductName.contains("copper")) {
+                    upgradeShopProductName = "Steel_Tool";
+                } else if (upgradeProductName.contains("iron")) {
+                    upgradeShopProductName = "Gold_Tool";
+                } else if (upgradeProductName.contains("gold")) {
+                    upgradeShopProductName = "Iridium_Tool";
+                } else if (upgradeProductName.contains("iridium")) {
+                    return "Your tool is already at maximum upgrade (Iridium).";
+                } else {
+                    return "Unknown tool type for upgrade.";
                 }
 
-                if (!upgradeProduct.isAvailable()) {
-                    return "Upgrade not available today.";
-                }
+                Product upgradeProduct = shop.getProduct(upgradeShopProductName);
+                if (upgradeProduct == null) return "Upgrade product not found in this shop.";
+
+
 
                 if (player.getMoney() < upgradeProduct.getPrice()) {
                     return "You don't have enough money to upgrade.";
@@ -240,7 +275,5 @@ public class ShopController {
 
             }
         }
-
-        return "Tool upgrade for '" + toolName + "' is not supported here.";
     }
 }

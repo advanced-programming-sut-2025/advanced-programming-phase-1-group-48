@@ -96,9 +96,40 @@ public class LoginController {
 
     private static String removeQuotes(String value) {
         return value.startsWith("\"") && value.endsWith("\"")
-                ? value.substring(1, value.length() - 1)
-                : value;
+            ? value.substring(1, value.length() - 1)
+            : value;
     }
+
+
+    public static Result changePasswordDirect(String oldPassword, String newPassword) {
+        User user = UserManager.getCurrentUser();
+        if (user == null) {
+            return Result.failure("No user is currently logged in!");
+        }
+
+        // ۱) مطمئن شو رمز قبلی درست است
+        if (!checkPassword(oldPassword, user)) {
+            return Result.failure("Old password is incorrect");
+        }
+
+        // ۲) مطمئن شو رمز جدید با رمز قبلی فرق دارد
+        if (oldPassword.equals(newPassword)) {
+            return Result.failure("New password must differ from the old one");
+        }
+
+        // ۳) اعتبارسنجی ساختار رمز جدید
+        String pwdMsg = SignUpMenuController.validatePassword(newPassword);
+        if (!pwdMsg.equals("password is true")) {
+            return Result.failure(pwdMsg);
+        }
+
+        // ۴) تغییر رمز
+        user.setHashedPassword(hashSHA256(newPassword));
+        UserManager.updateUser(user);
+        return Result.success("Password changed successfully!");
+    }
+
+
 
     public static boolean checkPassword(String inputPassword, User user) {
         String inputHashed = hashSHA256(inputPassword);
@@ -116,7 +147,8 @@ public class LoginController {
                 hexString.append(hex);
             }
             return hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
+        } catch (Exception e) {
+            System.out.println("Exseption:"+e.getMessage());
             throw new RuntimeException("SHA-256 algorithm not available", e);
         }
     }
@@ -125,4 +157,26 @@ public class LoginController {
         String inputHashed = hashSHA256(inputAnswer);
         return inputHashed.equals(user.getHashedSecurityAnswer());
     }
+
+    /**
+     * متد ساده برای لاگین در UI بدون Scanner و command parsing
+     */
+    public static Result login2(String username, String password) {
+        if (username == null || username.isBlank()) {
+            return Result.failure("Username cannot be empty");
+        }
+        if (password == null || password.isBlank()) {
+            return Result.failure("Password cannot be empty");
+        }
+        User user = UserManager.findByUsername(username);
+        if (user == null) {
+            return Result.failure("Invalid username!");
+        }
+        if (!checkPassword(password, user)) {
+            return Result.failure("Invalid password!");
+        }
+        Session.setCurrentUser(user);
+        return Result.success("Login successful!");
+    }
+
 }

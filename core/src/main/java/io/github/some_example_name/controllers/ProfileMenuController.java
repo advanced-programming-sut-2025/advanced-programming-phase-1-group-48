@@ -12,6 +12,10 @@ import java.util.regex.Matcher;
 public class ProfileMenuController {
     private static User currentUser = UserManager.getCurrentUser();
 
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
     public static void handleUserInfo() {
         System.out.printf("""
                         Username: %s
@@ -111,6 +115,31 @@ public class ProfileMenuController {
         UserManager.updateUsername(currentUser.getUsername(), newUsername);
         currentUser.setUsername(newUsername);
         return Result.success("Username changed successfully!");
+    }
+
+    // در کلاس ProfileMenuController، پس از متدهای فعلی:
+
+    /** تغییر یوزرنیم بدون نیاز به کامندلاین */
+    public static Result changeUsernameDirect(String newUsername) {
+        // فرض می‌کنیم الگوی کامند: change username -u "<username>"
+        String cmd = String.format("change username -u \"%s\"", newUsername);
+        return changeUsername(cmd);
+    }
+
+    /** تغییر ایمیل */
+    public static Result changeEmailDirect(String newEmail) {
+        String cmd = String.format("change email -e \"%s\"", newEmail);
+        return changeEmail(cmd);
+    }
+
+//    /** تغییر نیک‌نیم */
+    public static Result changeNicknameDirect(String newNickname) {
+        String cmd = String.format("change nickname -n \"%s\"", newNickname);
+        return changeNickname(cmd);
+    }
+
+    public static Result changePasswordDirect(String oldPassword, String newPassword) {
+        return LoginController.changePasswordDirect(oldPassword,newPassword);
     }
 
 }

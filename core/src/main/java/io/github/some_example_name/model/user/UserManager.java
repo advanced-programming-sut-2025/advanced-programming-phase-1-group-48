@@ -1,7 +1,5 @@
 package io.github.some_example_name.model.user;
 
-import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -19,12 +17,12 @@ public class UserManager {
 
 
     static {
-        loadUsers();
+        //loadUsers();
     }
 
     public static void addUser(User user) {
         users.add(user);
-        saveToFile();
+        //saveToFile();
     }
 
     public static User findByUsername(String username) {
@@ -34,40 +32,40 @@ public class UserManager {
                 .orElse(null);
     }
 
-    private static void saveToFile() {
-        try (FileWriter writer = new FileWriter(USERS_FILE)) {
-            Gson gson = new GsonBuilder()
-                    .setPrettyPrinting()
-                    .create();
-            gson.toJson(users, writer);
-        } catch (IOException e) {
-            System.err.println("Error saving users: " + e.getMessage());
-        }
-    }
-
-    private static void loadUsers() {
-        File file = new File(USERS_FILE);
-        if (!file.exists()) return;
-
-        try (FileReader reader = new FileReader(file)) {
-            Gson gson = new Gson();
-            Type userListType = new TypeToken<ArrayList<User>>() {
-            }.getType();
-            List<User> loadedUsers = gson.fromJson(reader, userListType);
-            if (loadedUsers != null) {
-                users = loadedUsers;
-            }
-        } catch (IOException e) {
-            System.err.println("Error loading users: " + e.getMessage());
-        }
-    }
+//    private static void saveToFile() {
+//        try (FileWriter writer = new FileWriter(USERS_FILE)) {
+//            Gson gson = new GsonBuilder()
+//                    .setPrettyPrinting()
+//                    .create();
+//            gson.toJson(users, writer);
+//        } catch (IOException e) {
+//            System.err.println("Error saving users: " + e.getMessage());
+//        }
+//    }
+//
+//    private static void loadUsers() {
+//        File file = new File(USERS_FILE);
+//        if (!file.exists()) return;
+//
+//        try (FileReader reader = new FileReader(file)) {
+//            Gson gson = new Gson();
+//            Type userListType = new TypeToken<ArrayList<User>>() {
+//            }.getType();
+//            List<User> loadedUsers = gson.fromJson(reader, userListType);
+//            if (loadedUsers != null) {
+//                users = loadedUsers;
+//            }
+//        } catch (IOException e) {
+//            System.err.println("Error loading users: " + e.getMessage());
+//        }
+//    }
 
     public static void updateUser(User updatedUser) {
         for (int i = 0; i < users.size(); i++) {
             User currentUser = users.get(i);
             if (currentUser.getUsername().equals(updatedUser.getUsername())) {
                 users.set(i, updatedUser);
-                saveToFile();
+                //saveToFile();
                 return;
             }
         }
@@ -77,7 +75,7 @@ public class UserManager {
         User user = findByUsername(oldUsername);
         if (user != null) {
             user.setUsername(newUsername);
-            saveToFile();
+            //saveToFile();
         }
     }
 

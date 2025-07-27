@@ -3,6 +3,7 @@ package io.github.some_example_name.model.game;
 
 
 import io.github.some_example_name.model.AnsiColor;
+import io.github.some_example_name.model.NPC.NPC;
 import io.github.some_example_name.model.Player.Player;
 import io.github.some_example_name.model.enums.TileType;
 import io.github.some_example_name.model.farm.FarmRegion;
@@ -22,6 +23,7 @@ public class WorldMap {
     private final List<Region> regions = new ArrayList<>();
     private final Map<Player, FarmRegion> playerFarms = new HashMap<>();
     private final Tile[][] worldGrid = new Tile[WORLD_HEIGHT][WORLD_WIDTH];
+    private final List<NPC> npcs = new ArrayList<>();
 
     public WorldMap() {
     }
@@ -36,6 +38,59 @@ public class WorldMap {
         updateQuarryStonesDaily();
         setupVillage(villageTemplate);
         setupMarket(marketTemplate);
+        initializeNPCs();
+    }
+
+    public void initializeNPCs() {
+        List<NPC> npcs = new ArrayList<>();
+
+        NPC abigail = new NPC("Abigail", "Artist", "Abigail");
+        abigail.addFavoriteItem("pumpkin");
+        abigail.addFavoriteItem("iron ore");
+        abigail.addFavoriteItem("coffee");
+
+
+        NPC harvey = new NPC("Harvey", "Doctor", "Harvey");
+        harvey.addFavoriteItem("wine");
+        harvey.addFavoriteItem("salmon");
+        harvey.addFavoriteItem("coffee");
+
+
+        NPC lia = new NPC("Lia", "Sculptor", "Lia");
+        lia.addFavoriteItem("salad");
+        lia.addFavoriteItem("grape");
+        lia.addFavoriteItem("wine");
+
+
+        NPC robin = new NPC("Robin", "Carpenter", "Robin");
+        robin.addFavoriteItem("spaghetti");
+        robin.addFavoriteItem("wood");
+        robin.addFavoriteItem("iron bar");
+
+
+        NPC sebastian = new NPC("Sebastian", "Programmer", "Sebastian");
+        sebastian.addFavoriteItem("fiber");
+        sebastian.addFavoriteItem("pumpkin pie");
+        sebastian.addFavoriteItem("pizza");
+
+        abigail.addGiftOption("pumpkin");
+        abigail.addGiftOption("coffee");
+
+        harvey.addGiftOption("wine");
+
+        lia.addGiftOption("salad");
+
+        robin.addGiftOption("wood");
+
+        sebastian.addGiftOption("pizza");
+
+        npcs.addAll(List.of(abigail, harvey, lia, robin, sebastian));
+
+        this.npcs.addAll(npcs);
+    }
+
+    public List<NPC> getNpcs() {
+        return npcs;
     }
 
     public void initializeWorldGrid() {
@@ -93,10 +148,21 @@ public class WorldMap {
                     case QUARRY -> System.out.print(AnsiColor.DARK_GRAY + "Q " + AnsiColor.RESET);
                     case FARM_BORDER -> System.out.print(AnsiColor.PURPLE + "# " + AnsiColor.RESET);
                     case PLAYER -> System.out.print(AnsiColor.BLUE + "@ " + AnsiColor.RESET);
-                    case TILLED_SOIL -> System.out.print(AnsiColor.LIGHT_GREEN + "t" + AnsiColor.RESET) ;
+                    case TILLED_SOIL -> System.out.print(AnsiColor.LIGHT_GREEN + "t" + AnsiColor.RESET);
                     case CROP -> System.out.print(AnsiColor.GREEN + " c " + AnsiColor.RESET);
                     case CHARCOAL -> System.out.print(AnsiColor.DARK_GRAY + " ! " + AnsiColor.RESET);
-
+                    case ARTISAN_BEE_HOUSE -> System.out.print(AnsiColor.BLUE + "A " + AnsiColor.RESET);
+                    case ARTISAN_CHEESE_PRESS -> System.out.print(AnsiColor.BLUE + "A" + AnsiColor.RESET);
+                    case ARTISAN_KEG -> System.out.print(AnsiColor.BLUE + "A " + AnsiColor.RESET);
+                    case ARTISAN_MAYO_MACHINE -> System.out.print(AnsiColor.BLUE + "A " + AnsiColor.RESET);
+                    case ARTISAN_CHARCOAL_KILN -> System.out.print(AnsiColor.BLUE + "A " + AnsiColor.RESET);
+                    case ARTISAN_PRESERVES_JAR -> System.out.print(AnsiColor.BLUE + "A " + AnsiColor.RESET);
+                    case ARTISAN_DEHYDRATOR -> System.out.print(AnsiColor.BLUE + "A " + AnsiColor.RESET);
+                    case ARTISAN_OIL_MAKER -> System.out.print(AnsiColor.BLUE + "A " + AnsiColor.RESET);
+                    case ARTISAN_LOOM -> System.out.print(AnsiColor.BLUE + "A " + AnsiColor.RESET);
+                    case ARTISAN_FISH_SMOKER -> System.out.print(AnsiColor.BLUE + "A " + AnsiColor.RESET);
+                    case ARTISAN_FURNACE -> System.out.print(AnsiColor.BLUE + "A " + AnsiColor.RESET);
+                    case BOX -> System.out.print(AnsiColor.BLUE + "B " + AnsiColor.RESET);
                     case NPC_HOUSE -> {
                         if (region instanceof VillageRegion vr && vr.getNpcNames().containsKey(pos))
                             System.out.print(AnsiColor.CYAN + vr.getNpcNames().get(pos).charAt(0) + " " + AnsiColor.RESET);
@@ -116,7 +182,7 @@ public class WorldMap {
 
     private void setupFarms(Map<Player, FarmTemplate> playerChoices) {
         int[][] farmOffsets = {
-                {10, 10}, {10, 100}, {100, 10}, {100, 100}
+            {10, 10}, {10, 100}, {100, 10}, {100, 100}
         };
 
         int i = 0;
@@ -177,12 +243,13 @@ public class WorldMap {
             }
         }
     }
-// نمیدونم این متد برای چیه؟
+
+    // نمیدونم این متد برای چیه؟
     public Region getRegionAt(int x, int y) {
         for (Region region : regions) {
             int ox = region.getOffsetX(), oy = region.getOffsetY();
             if (x >= ox && x < ox + region.getFarmWidth() &&
-                    y >= oy && y < oy + region.getFarmHeight()) {
+                y >= oy && y < oy + region.getFarmHeight()) {
                 return region;
             }
         }
@@ -193,7 +260,6 @@ public class WorldMap {
         Tile tile = getTileAt(player.getPosition().getCol(), player.getPosition().getRow());
         return tile != null && tile.getType() == TileType.CABIN;
     }
-
 
 
     public void rebuildWorldGridFromRegions() {
@@ -349,7 +415,7 @@ public class WorldMap {
     public boolean isInShop(int x, int y) {
         Tile tile = getTileAt(x, y);
         return tile != null && tile.getRegion() instanceof MarketRegion &&
-                tile.getType() == TileType.SHOP;
+            tile.getType() == TileType.SHOP;
     }
 
     public boolean isInVillage(int x, int y) {
@@ -396,7 +462,7 @@ public class WorldMap {
 //        return false;
 //    }
 
-//    public static void plantCrop(int x, int y) {
+    //    public static void plantCrop(int x, int y) {
 //        Game game = GameManager.getCurrentGame();
 //        WorldMap map = game.getWorldMap();
 //        Tile tile = map.getTileAt(x, y);
@@ -416,7 +482,7 @@ public class WorldMap {
             tile.setType(TileType.EMPTY);
         } else if (type == TileType.TREE) {
             tile.setType(TileType.CHARCOAL);
-        } else if(type == TileType.ANIMAL) {
+        } else if (type == TileType.ANIMAL) {
             tile.setType(TileType.EMPTY);
         }
     }
@@ -436,11 +502,59 @@ public class WorldMap {
     // ورودی این متد باید String باشه.
 
 
-        public Tile getTileAt ( int x, int y){
+    public Tile getTileAt(int x, int y) {
         if (x < 0 || y < 0 || x >= WORLD_WIDTH || y >= WORLD_HEIGHT)
             return null;
         return worldGrid[y][x];
     }
 
+    public boolean isNear(Position pos, TileType targetType) {
+        for (Position adj : pos.getAdjacentPositions()) {
+            Tile t = getTileAt(adj.getRow(), adj.getCol());
+            if (t != null && t.getType() == targetType) return true;
+        }
+        return false;
+    }
 
+
+    public List<Position> getAdjacentPositions(Position pos) {
+        List<Position> adjacents = new ArrayList<>();
+        int[][] deltas = {
+            {-1, -1}, {-1, 0}, {-1, 1},
+            {0, -1}, {0, 1},
+            {1, -1}, {1, 0}, {1, 1}
+        };
+
+        for (int[] d : deltas) {
+            int newRow = pos.getRow() + d[0];
+            int newCol = pos.getCol() + d[1];
+            adjacents.add(new Position(newRow, newCol));
+        }
+
+        return adjacents;
+    }
+
+
+    public Position getNPCHomePosition(String npcName) {
+
+        for (Region region : regions) {
+            if (region instanceof VillageRegion village) {
+                for (Map.Entry<Position, String> entry : village.getNpcNames().entrySet()) {
+                    if (entry.getValue().equalsIgnoreCase(npcName)) {
+                        Position local = entry.getKey();
+                        return getGlobalPosition(village, local);
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public static Position getGlobalPosition(Region region, Position localPos) {
+        return region.getGlobalPosition(localPos);
+    }
+
+    public static boolean isPlayerNearNpc(Player player, String npcName) {
+        return true;
+    }
 }

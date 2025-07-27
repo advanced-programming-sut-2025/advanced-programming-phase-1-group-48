@@ -51,11 +51,31 @@ public class GameMenu implements AppMenu {
         } else if (command.matches(MenuCommands.CRAFTING_SHOW_RECIPES.getPattern().pattern())) {
             GameMenuController.craftingShowRecipes();
         } else if (command.matches(MenuCommands.CRAFTING_CRAFT.getPattern().pattern())) {
-            GameMenuController.enterHomeMenu(scanner);
+            GameMenuController.handleCraftCommand(command);
+        } else if (command.matches(MenuCommands.CHEAT_ADD_ITEM.getPattern().pattern())) {
+            GameMenuController.handleCheatAddItemCommand(command);
         } else if (command.matches(MenuCommands.HELP_READ.getPattern().pattern())) {
            GameMenuController.printMapHelp();
         } else if (command.matches(MenuCommands.THOR.getPattern().pattern())) {
             GameMenuController.handleCheatThor(command);
+        }else if (command.matches(MenuCommands.ARTISAN_USE.getPattern().pattern())) {
+            GameMenuController.handleArtisanUseCommand(command);
+        } else if (command.matches(MenuCommands.ARTISAN_GET.getPattern().pattern())) {
+            GameMenuController.handleArtisanGetCommand(command);
+        } else if (command.matches(MenuCommands.PLACE_ITEM.getPattern().pattern())) {
+            GameMenuController.handlePlaceCommand(command);
+        } else if (command.matches(MenuCommands.MEET_NPC.getPattern().pattern())) {
+            GameMenuController.handleMeetNPC(command);
+        } else if (command.matches(MenuCommands.GIFT_NPC.getPattern().pattern())) {
+            GameMenuController.handleGiftCommand(command);
+        } else if (command.matches(MenuCommands.LIST_FRIENDSHIP.getPattern().pattern())) {
+            GameMenuController.handleList();
+        } else if (command.matches(MenuCommands.QUESTS_LIST.getPattern().pattern())) {
+            GameMenuController.handleQuestList();
+        }  else if (command.matches(MenuCommands.FINISH_QUEST.getPattern().pattern())) {
+            GameMenuController.handleQuestFinish(command);
+        }else if (command.matches(MenuCommands.LIST_FRIENDSHIP.getPattern().pattern())) {
+            GameMenuController.handleList();
         }else if (command.startsWith("show") || command.startsWith("purchase") || command.startsWith("energy") ||
                 command.startsWith("talk")||command.startsWith("friendships")||command.startsWith("gift")||
                 command.startsWith("respond")||command.startsWith("hug")||command.startsWith("flower")||

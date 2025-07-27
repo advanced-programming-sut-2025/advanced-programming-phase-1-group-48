@@ -48,7 +48,7 @@ public class Axe extends Tool {
             ItemFactory.createItem("Sap",player.getInventory());
             worldmap.replaceTileTypeIfMatch(x,y,TileType.TREE,TileType.EMPTY);
             System.out.println("The branch has been cut");
-        }
+        } else {System.out.println("You can now use the Axe");}
 
         return true;
     }

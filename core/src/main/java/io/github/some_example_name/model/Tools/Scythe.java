@@ -23,7 +23,7 @@ public class Scythe extends Tool {
         if (worldmap.getTileAt(x, y).getType() == TileType.FORAGING) {
             worldmap.replaceTileTypeIfMatch(x,y,TileType.FORAGING,TileType.EMPTY);
             System.out.println("Weed was cut with a Scythe");
-        }
+        }else {System.out.println("You can now use the Scythe");}
         return true;
     }
 

@@ -43,13 +43,14 @@ public class Pickaxe extends Tool {
         WorldMap worldmap = game.getWorldMap();
 
         if (worldmap.getTileAt(x, y).getType() == TileType.ROCK) {
+            player.getSkill("Mining").gainXp(10);
             worldmap.replaceTileTypeIfMatch(x,y,TileType.ROCK, TileType.QUARRY);
             System.out.println("The rock has been cut");
             ItemFactory.createItem("Rock",player.getInventory());
             } else if (worldmap.getTileAt(x, y).getType() == TileType.TILLED_SOIL) {
             worldmap.replaceTileTypeIfMatch(x,y,TileType.TILLED_SOIL,TileType.EMPTY);
             System.out.println("The tilled soil land destroyed");
-        }
+        }else {System.out.println("You can now use the Pickaxe");}
         return true;
     }
 
@@ -58,9 +59,16 @@ public class Pickaxe extends Tool {
         return true;
     }
 
+
+
     @Override
+
     public Tool upgrade() {
-        return this;
+
+        PickaxeType next = PickaxeType.getNext(this.type);
+
+        return next != null ? new Pickaxe(next) : null;
+
     }
 
     @Override

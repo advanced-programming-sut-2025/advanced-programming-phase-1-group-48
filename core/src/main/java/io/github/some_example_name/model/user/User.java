@@ -22,25 +22,35 @@ public class User {
     private int highestScore = 0;
     private int gameCount = 0;
     private int energy;
-    private Inventory inventory;
+    private io.github.some_example_name.model.user.inventory.Inventory inventory;
     private Wallet wallet;
 
 
     public User(String username, String password, String nickname,
                 String email, String gender, String securityQuestion, String securityAnswer) {
         this.username = username;
+        this.password = password;
         this.hashedPassword = hashSHA256(password);
         this.nickname = nickname;
         this.email = email;
         this.gender = gender;
         this.securityQuestion = securityQuestion;
+        if (securityAnswer != null) {
+            this.hashedSecurityAnswer = hashSHA256(securityAnswer);
+        } else {
+            this.hashedSecurityAnswer = null;
+        }
         this.hashedSecurityAnswer = hashSHA256(securityAnswer);
         this.energy = 200;
-        this.inventory = new Inventory(new Backpack(BackpackType.SMALL), new TrashCan(TrashCanType.BASIC));
+//        this.inventory = new Inventory(new Backpack(BackpackType.SMALL), new TrashCan(TrashCanType.BASIC));
         this.wallet = new Wallet();
     }
 
     private String hashSHA256(String input) {
+        if (input == null) {
+            System.out.println("Input is null");
+            return null;
+        }
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(input.getBytes());
@@ -134,9 +144,9 @@ public class User {
         this.gameCount++;
     }
 
-    public Inventory getInventory() {
-        return inventory;
-    }
+//    public Inventory getInventory() {
+//        return inventory;
+//    }
 
     public Wallet getWallet() {
         return wallet;

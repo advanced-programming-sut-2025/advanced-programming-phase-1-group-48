@@ -1,7 +1,9 @@
 package io.github.some_example_name.model.shop;
 
-import model.enums.Building;
-import model.enums.Season;
+
+
+import io.github.some_example_name.model.enums.Building;
+import io.github.some_example_name.model.enums.Season;
 
 import java.time.LocalTime;
 import java.util.List;

@@ -4,15 +4,19 @@ package io.github.some_example_name.model.Weather;
 
 
 import io.github.some_example_name.model.Animal.Animal;
+import io.github.some_example_name.model.NPC.NPC;
 import io.github.some_example_name.model.Player.Player;
 import io.github.some_example_name.model.cook.Buff;
 import io.github.some_example_name.model.enums.Season;
 import io.github.some_example_name.model.game.Game;
 import io.github.some_example_name.model.game.GameManager;
 import io.github.some_example_name.model.game.WorldMap;
+import io.github.some_example_name.model.items.Item;
+import io.github.some_example_name.model.items.ItemFactory;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Random;
 
 public class DateAndTime {
     private static DateAndTime instance;
@@ -156,10 +160,26 @@ public class DateAndTime {
 
     public static void startDay() {
         Game game = GameManager.getCurrentGame();
+        WorldMap worldMap = game.getWorldMap();
         Collection<Player> players = game.getPlayers();
         for (Player player : players) {
             player.resetDailyEnergy();
+            player.resetDailyNPCFlags();
+            player.resetDailyGiftFlags();
+            Random rand = new Random();
+            for (NPC npc : worldMap.getNpcs()) {
+                int level = player.getFriendshipLevel(npc.getName());
+                if (level == 3 && rand.nextDouble() < 0.5) {
+                    String gift = npc.getRandomGift();
+                    if (gift != null) {
+                        Item item = ItemFactory.createItem(gift, player.getInventory());
+                        if (item != null)
+                            System.out.println("🎁 " + npc.getName() + " sent you a gift: " + gift);
+                    }
+                }
+            }
         }
+
         Game.getShopManager().resetDailyStock();
         for (Animal a : Player.getBroughtAnimal().values()) {
             a.produceToday();
@@ -168,10 +188,12 @@ public class DateAndTime {
         addDays=1;
     }
 
+
     public static void endOfDay() {
         WorldMap worldMap = GameManager.getCurrentGame().getWorldMap();
         Game game = GameManager.getCurrentGame();
         worldMap.sendPlayersToHome(game.getPlayers());
+        Weather.generateTomorrowWeather(DateAndTime.getInstance().getCurrentSeason().name());
         Map<String, Animal> animals = Player.getBroughtAnimal();
         for (Animal a : animals.values()) {
             a.endOfDayUpdate();
