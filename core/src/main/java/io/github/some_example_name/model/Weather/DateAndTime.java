@@ -22,7 +22,7 @@ public class DateAndTime {
     private static DateAndTime instance;
     private static int totalDays = 0;
     private static final String[] WEEK_DAYS = {
-            "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"
+        "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"
     };
     private static int addDays = 1;
 
@@ -47,6 +47,10 @@ public class DateAndTime {
             instance = new DateAndTime();
         }
         return instance;
+    }
+
+    public static String getWeekDays(int day) {
+        return WEEK_DAYS[day];
     }
 
     public static void cheatHours(int hoursToAdd){

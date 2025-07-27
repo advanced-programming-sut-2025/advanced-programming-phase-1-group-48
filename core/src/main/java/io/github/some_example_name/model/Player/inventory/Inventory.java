@@ -4,6 +4,7 @@ package io.github.some_example_name.model.Player.inventory;
 import io.github.some_example_name.model.Player.Player;
 import io.github.some_example_name.model.Result;
 import io.github.some_example_name.model.items.Item;
+import io.github.some_example_name.views.Graphic.InventoryView;
 
 import java.util.*;
 
@@ -90,5 +91,10 @@ public class Inventory {
     public Set<String> getItemNames() {
         return items.keySet();
     }
+    public boolean canAcceptNewItem(String itemName) {
+        itemName = itemName.toLowerCase();
+        return items.containsKey(itemName) || items.size() < backpack.getCapacity();
+    }
+
 
 }

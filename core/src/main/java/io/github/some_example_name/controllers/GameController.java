@@ -2,6 +2,8 @@ package io.github.some_example_name.controllers;
 
 
 import io.github.some_example_name.model.Player.Player;
+import io.github.some_example_name.model.game.Game;
+import io.github.some_example_name.model.game.GameManager;
 import io.github.some_example_name.views.GameView;
 
 public class GameController {
@@ -13,7 +15,9 @@ public class GameController {
 
     public void setView(GameView view) {
         this.view = view;
-        playerController = new PlayerController(new Player());
+        Game game = GameManager.getCurrentGame();
+        Player player = game.getCurrentPlayerForPlay();
+        playerController = new PlayerController(player);
         worldController = new WorldController(playerController);
 //        weaponController = new WeaponController(new Weapon());
     }

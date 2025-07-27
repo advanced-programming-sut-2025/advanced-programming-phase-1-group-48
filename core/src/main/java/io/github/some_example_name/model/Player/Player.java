@@ -12,14 +12,13 @@ import io.github.some_example_name.model.NPC.Quest;
 import io.github.some_example_name.model.Plant.PlantInstance;
 import io.github.some_example_name.model.Plant.PlantedInfo;
 import io.github.some_example_name.model.Player.inventory.Refrigerator;
+import io.github.some_example_name.model.Tools.Tool;
 import io.github.some_example_name.model.artisan.ArtisanWork;
 import io.github.some_example_name.model.building.Buildings;
 import io.github.some_example_name.model.cook.Buff;
 import io.github.some_example_name.model.cook.FoodRecipe;
-import io.github.some_example_name.model.enums.BackpackType;
-import io.github.some_example_name.model.enums.TileType;
-import io.github.some_example_name.model.enums.TrashCanType;
-import io.github.some_example_name.model.enums.WateringCanType;
+import io.github.some_example_name.model.crafting.CraftingRecipe;
+import io.github.some_example_name.model.enums.*;
 import io.github.some_example_name.model.farm.Farm;
 import io.github.some_example_name.model.game.Position;
 import io.github.some_example_name.model.intraction.Friendship;
@@ -50,6 +49,10 @@ public class Player {
     private WateringCanType wateringCanType = WateringCanType.BASIC;
     private int currentWaterAmount = wateringCanType.getCapacity();
     private String gender;
+    private Tool equippedTool;
+    private ToolActionState toolState = ToolActionState.IDLE;
+    private float toolActionTimer = 0f;
+    private Sprite equippedToolSprite;
 
     public float getSpeed() {
         return speed;
@@ -58,10 +61,6 @@ public class Player {
     private boolean isPlayerIdle = true;
     private boolean isPlayerRunning = false;
 
-    public Player(){
-        playerSprite.setPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
-        playerSprite.setSize(playerTexture.getWidth() * 3, playerTexture.getHeight() * 3);
-    }
     public Sprite getPlayerSprite() {
         return playerSprite;
     }
@@ -134,10 +133,13 @@ public class Player {
     // نگه داری گیاهان هر شخص با مختصاتی که دارن.
     private static List<PlantedInfo> plantedList = new ArrayList<>();
     private final List<ArtisanWork> artisanWorks = new ArrayList<>();
+    private Set<CraftingRecipe> learnedCrafyingRecipes = new HashSet<>();
 
 
 
     public Player(String name, Position position, Farm farm, User user) {
+        playerSprite.setPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
+        playerSprite.setSize(playerTexture.getWidth() * 3, playerTexture.getHeight() * 3);
         this.name = name;
         this.position = position;
         this.farm = farm;
@@ -568,4 +570,110 @@ public class Player {
         return name;
 
     }
+    public boolean hasLearnedCraftingRecipe(String itemName) {
+
+        return learnedCrafyingRecipes.contains(itemName.toLowerCase());
+
+    }
+    public void learnCraftingRecipe(CraftingRecipe recipe) {
+
+        learnedCrafyingRecipes.add(recipe);
+
+    }
+    public boolean knowsCraftingRecipe(CraftingRecipe recipe) {
+
+        return learnedCrafyingRecipes.contains(recipe);
+
+    }
+    public Map<String, Skill> getSkills() {
+
+        return skills;
+
+    }
+    public void setEquippedTool(Tool tool) {
+
+        this.equippedTool = tool;
+
+        if (tool != null) {
+
+            Texture texture = new Texture("item/" + tool.getName() + ".png");
+
+            this.equippedToolSprite = new Sprite(texture);
+
+            this.equippedToolSprite.setSize(texture.getWidth(), texture.getHeight());
+
+            this.equippedToolSprite.setOriginCenter();
+
+        } else {
+
+            this.equippedToolSprite = null;
+
+        }
+
+    }
+
+
+
+    public Sprite getEquippedToolSprite() {
+
+        return equippedToolSprite;
+
+    }
+
+
+
+    public Tool getEquippedTool() {
+        return equippedTool;
+    }
+
+    public void useTool() {
+
+        if (toolState == ToolActionState.IDLE && equippedTool != null) {
+
+            toolState = ToolActionState.USING;
+
+            toolActionTimer = 0.3f; // مدت زمان انیمیشن
+
+        }
+
+    }
+
+
+
+    public void updateTool(float delta) {
+
+        if (toolState == ToolActionState.USING) {
+
+            toolActionTimer -= delta;
+
+            if (toolActionTimer <= 0) {
+
+                toolState = ToolActionState.COOLDOWN;
+
+                toolActionTimer = 0.5f; // مدت زمان cooldown
+
+            }
+
+        } else if (toolState == ToolActionState.COOLDOWN) {
+
+            toolActionTimer -= delta;
+
+            if (toolActionTimer <= 0) {
+
+                toolState = ToolActionState.IDLE;
+
+            }
+
+        }
+
+    }
+
+    public ToolActionState getToolState() {
+
+        return toolState;
+
+    }
+
+
+
 }

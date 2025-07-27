@@ -4,6 +4,7 @@ package io.github.some_example_name.model.items;
 import io.github.some_example_name.model.Tools.*;
 import io.github.some_example_name.model.cook.Food;
 import io.github.some_example_name.model.cook.FoodRecipe;
+import io.github.some_example_name.model.cook.Ingredient;
 import io.github.some_example_name.model.enums.*;
 import io.github.some_example_name.model.Player.inventory.Inventory;
 
@@ -81,29 +82,36 @@ public class ItemFactory {
         switch (name) {
             case "wood":
                 return addAndReturn(new Resource("Wood", 'W', 10), inventory);
-            case "copper ore":
+            case "copper_ore":
                 return addAndReturn(new Resource("Copper Ore", 'C', 75), inventory);
-            case "iron ore":
+            case "iron_ore":
                 return addAndReturn(new Resource("Iron Ore", 'I', 150), inventory);
-            case "gold ore":
+            case "gold_ore":
                 return addAndReturn(new Resource("Gold Ore", 'G', 400), inventory);
             case "coal":
                 return addAndReturn(new Resource("Coal", 'L', 150), inventory);
-            case "Rock":
+            case "rock":
                 return addAndReturn(new Resource("Rock", 'R', 150), inventory);
         }
 
         for (SimpleItemInfo info : SimpleItemInfo.values()) {
             if (info.getName().equalsIgnoreCase(name)) {
-                SimpleItem item = new SimpleItem(info.getName(), info.getDisplayChar(), info.getSellPrice(), info.getEnergy(), info.getType());
+                SimpleItem item = new SimpleItem(
+                    info.getName(),
+                    info.getDisplayChar(),
+                    info.getSellPrice(),
+                    info.getEnergy(),
+                    info.getType()
+                );
+                Inventory.itemInstances.put(item.getName().toLowerCase(), item); // 🟢 اضافه کن
                 return addAndReturn(item, inventory);
             }
         }
 
-        // آیتم‌های ساده
+
         switch (name) {
-            case "milk pail":
-                return addAndReturn(new MilkPail("Milk Pail", 'P'), inventory);
+            case "milk_pail":
+                return addAndReturn(new MilkPail("Milk_Pail", 'P'), inventory);
             case "shear":
                 return addAndReturn(new Shear("Shear", 'S'), inventory);
         }

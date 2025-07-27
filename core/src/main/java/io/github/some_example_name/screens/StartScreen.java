@@ -13,6 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.github.some_example_name.Main;
+import io.github.some_example_name.controllers.PreGameMenuController;
+import io.github.some_example_name.model.GameAssetManager;
+import io.github.some_example_name.views.PreGameMenuView;
 
 public class StartScreen extends ScreenAdapter {
     private final Main game;
@@ -75,7 +78,8 @@ public class StartScreen extends ScreenAdapter {
         btnPlay.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-               // game.setScreen(new io.github.some_example_name.screens.MainMenuScreen(game));
+                Main.getMain().getScreen().dispose();
+                Main.getMain().setScreen(new PreGameMenuView(new PreGameMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
             }
         });
         btnExit.addListener(new ChangeListener() {

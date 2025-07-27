@@ -11,18 +11,20 @@ import java.util.Map;
 import java.util.Set;
 
 public class ToolController {
-    public static String handleEquip(String toolName,Player player) {
+    public static String handleEquip(String toolName, Player player) {
         Inventory inv = player.getInventory();
         if (!inv.hasItem(toolName)) {
             return (toolName + " not in Backpack");
         }
         Item item = Inventory.itemInstances.get(toolName.toLowerCase());
-        if (item == null) {
-            return ("Tool instance not found. Try re-adding the tool.");
+        if (item == null || !(item instanceof Tool)) {
+            return ("Tool instance not found or is not a Tool.");
         }
-        player.setEquippedItem(item);
-        return (toolName + " equipped");
+        Tool tool = (Tool) item;
+        player.setEquippedTool(tool);
+        return (toolName + " equipped visually and logically.");
     }
+
     public static void handleUse(int x, int y,Player player) {
         Tool currentTool = (Tool) player.getEquippedItem();
         currentTool.use(player, x, y);
