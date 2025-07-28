@@ -2,28 +2,28 @@
 com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	font: {
 		file: font-export.fnt
-	}
+	},
 	title: {
 		file: font-title-export.fnt
 	}
-}
+},
 com.badlogic.gdx.graphics.Color: {
 	black: {
-		r: 0
-		g: 0
-		b: 0
+		r: 0,
+		g: 0,
+		b: 0,
 		a: 1
-	}
+	},
 	gray: {
-		r: 0.68333334
-		g: 0.68333334
-		b: 0.68333334
+		r: 0.68333334,
+		g: 0.68333334,
+		b: 0.68333334,
 		a: 1
 	}
 	white: {
-		r: 1
-		g: 1
-		b: 1
+		r: 1,
+		g: 1,
+		b: 1,
 		a: 1
 	}
 }

@@ -1,7 +1,5 @@
 package io.github.some_example_name.controllers;
 
-
-
 import io.github.some_example_name.model.Player.Player;
 import io.github.some_example_name.model.Player.inventory.Inventory;
 import io.github.some_example_name.model.Player.inventory.Refrigerator;
@@ -12,8 +10,8 @@ import io.github.some_example_name.model.cook.FoodRecipe;
 import io.github.some_example_name.model.cook.Ingredient;
 import io.github.some_example_name.model.game.Game;
 import io.github.some_example_name.model.game.GameManager;
-import io.github.some_example_name.model.game.WorldMap;
 import io.github.some_example_name.model.items.Item;
+import io.github.some_example_name.views.Graphic.GameHUD;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,46 +20,34 @@ import java.util.stream.Collectors;
 public class CookController {
     public static String handleRefrigeratorCommand(Player player, String action, String itemName) {
         Game game = GameManager.getCurrentGame();
-        WorldMap worldmap = game.getWorldMap();
-        if (worldmap.isInPlayerCabin(player)){
-            return "You must be at home to use the refrigerator.";
-        }
-
         Inventory inventory = player.getInventory();
         Refrigerator refrigerator = player.getRefrigerator();
 
         if (action.equalsIgnoreCase("put")) {
             if (!inventory.hasItem(itemName)) {
-                return "You don't have " + itemName + " in your inventory.";
+                return message("You don't have " + itemName + " in your inventory.");
             }
             Item item = Inventory.itemInstances.get(itemName.toLowerCase());
             if (item == null || !item.isEdible()) {
-                return itemName + " is not edible and cannot be put in the refrigerator.";
+                return message(itemName + " is not edible and cannot be put in the refrigerator.");
             }
             refrigerator.addItem(item);
             inventory.removeItem(itemName, 1);
-            return itemName + " has been placed in the refrigerator.";
+            return message(itemName + " has been placed in the refrigerator.");
         } else if (action.equalsIgnoreCase("pick")) {
             if (!refrigerator.hasItem(itemName)) {
-                return "No such item in the refrigerator.";
+                return message("No such item in the refrigerator.");
             }
             Item item = Inventory.itemInstances.get(itemName.toLowerCase());
             Result result = inventory.addItem(item);
             if (!result.success()) {
-                return "Cannot pick item in your inventory.";
+                return message("Backpack is full. Cannot pick up item.");
             }
-            refrigerator.removeItem(itemName,1);
-            return "Picked " + itemName + " from the refrigerator.";
+            refrigerator.removeItem(itemName, 1);
+            return message("Picked " + itemName + " from the refrigerator.");
         } else {
-            return "Invalid action. Use 'put' or 'pick'.";
+            return message("Invalid action. Use 'put' or 'pick'.");
         }
-    }
-
-    public static String showLearnedRecipes(Player player) {
-        if (player.getLearnedRecipes().isEmpty()) return "You haven't learned any recipes yet.";
-        return player.getLearnedRecipes().stream()
-            .map(FoodRecipe::getName)
-            .collect(Collectors.joining(", "));
     }
 
     public static String prepareFood(Player player, String recipeName) {
@@ -69,11 +55,11 @@ public class CookController {
         try {
             recipe = FoodRecipe.valueOf(recipeName.toUpperCase().replace(" ", "_"));
         } catch (IllegalArgumentException e) {
-            return "No such recipe exists.";
+            return message("No such recipe exists.");
         }
 
         if (!player.knowsRecipe(recipe)) {
-            return "You haven't learned this recipe yet.";
+            return message("You haven't learned this recipe yet.");
         }
 
         Map<Ingredient, Integer> ingredients = recipe.getIngredients();
@@ -87,10 +73,9 @@ public class CookController {
             int inFridge = player.getRefrigerator().getItemCount(ing.name());
 
             if (inInv + inFridge < required) {
-                return "Not enough ingredients to cook " + recipe.getName();
+                return message("Not enough ingredients to cook " + recipe.getName());
             }
 
-            // Decide from where to take
             int fromInv = Math.min(required, inInv);
             int fromRef = required - fromInv;
 
@@ -99,57 +84,67 @@ public class CookController {
         }
 
         int energy = player.getEnergy();
-
-
         if (energy < 3) {
-            return "Not enough energy to cook.";
+            return message("Not enough energy to cook.");
         }
-        player.decreaseEnergy(energy);
+
+        player.decreaseEnergy(3);
 
         Food food = new Food(recipe);
         Result result = player.getInventory().addItem(food);
         if (!result.success()) {
-            return "Inventory is full.";
+            return message("Inventory is full.");
         }
 
-        for (Map.Entry<Ingredient, Integer> e : fromInventory.entrySet()) {
-            player.getInventory().removeItem(e.getKey().name(), e.getValue());
-        }
-        for (Map.Entry<Ingredient, Integer> e : fromFridge.entrySet()) {
-            player.getRefrigerator().removeItem(e.getKey().name(), e.getValue());
-        }
+        fromInventory.forEach((i, qty) -> player.getInventory().removeItem(i.name(), qty));
+        fromFridge.forEach((i, qty) -> player.getRefrigerator().removeItem(i.name(), qty));
 
-        return "Cooked " + recipe.getName() + " successfully.";
+        return message("Cooked " + recipe.getName() + " successfully!");
     }
 
-    public static String eat(Player player,String foodName) {
+    public static String eat(Player player, String foodName) {
         Game game = GameManager.getCurrentGame();
         long currentHour = game.getCurrentHour();
         String key = foodName.toLowerCase();
         Inventory inv = player.getInventory();
 
-        if (!inv.hasItem(key)) return "You don't have " + foodName + " in your inventory.";
+        if (!inv.hasItem(key)) return message("You don't have " + foodName + " in your inventory.");
         Item item = Inventory.itemInstances.get(key);
-        if (!(item instanceof Food)) return "This item is not edible.";
+        if (!(item instanceof Food)) return message("This item is not edible.");
 
         Food food = (Food) item;
         inv.removeItem(key, 1);
-
 
         player.increaseEnergy(food.getEnergyRestoration());
         String newBuffStr = food.getBuff();
         if (newBuffStr != null) {
             Buff newBuff = Buff.parseBuff(newBuffStr, currentHour);
             player.setActiveBuff(newBuff);
-            if (newBuff.getType() == Buff.Type.ENERGY_BOOST){
+            if (newBuff.getType() == Buff.Type.ENERGY_BOOST) {
                 player.setEnergy(player.getMaxEnergy() + newBuff.getAmount());
             }
-            return  ("You gained a buff: " + newBuff.getType() + " for " + newBuff.getDurationInHours() + " hours.");
+            return message("You gained a buff: " + newBuff.getType() + " for " + newBuff.getDurationInHours() + " hours.");
         } else {
             player.setActiveBuff(null);
-            return "You ate " + food.getName() + ". Energy restored: " + food.getEnergyRestoration();
-
+            return message("You ate " + food.getName() + ". Energy restored: " + food.getEnergyRestoration());
         }
-
     }
+
+    public static String showLearnedRecipes(Player player) {
+        if (player.getLearnedRecipes().isEmpty()) {
+            return message("You haven't learned any recipes yet.");
+        }
+        String list = player.getLearnedRecipes().stream()
+            .map(FoodRecipe::getName)
+            .collect(Collectors.joining(", "));
+        return message("Recipes: " + list);
+    }
+
+    private static String message(String msg) {
+        if (GameHUD.showMessage != null) {
+            GameHUD.showMessage.accept(msg);
+        }
+        return msg;
+    }
+
 }

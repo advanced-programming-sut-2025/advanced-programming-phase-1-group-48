@@ -1,6 +1,21 @@
 package io.github.some_example_name.model.enums;
 
 public enum SimpleItemInfo {
+    OIL("Oil" , 'o',100 , 80,true,"Ingredient"),
+    EGG("Egg", 'E', 50, 30, true, "Ingredient"),
+    MILK("Milk", 'M', 60, 35, true, "Ingredient"),
+    SARDINE("Sardine", 'S', 90, 60, true, "Fish"),
+    SALMON("Salmon", 'S', 120, 80, true, "Fish"),
+    LEEK("Leek", 'L', 45, 25, true, "Vegetable"),
+    DANDELION("Dandelion", 'D', 15, 8, true, "Forage"),
+    COFFEE("Coffee", 'C', 100, 70, true, "Drink"),
+    SUGAR("Sugar", 'S', 40, 25, true, "Ingredient"),
+    RICE("Rice", 'R', 30, 20, true, "Crop"),
+    FIBER("Fiber", 'F', 10, 5, true, "Resource"),
+    CHEESE("Cheese", 'C', 120, 90, true, "Dairy"),
+    CABBAGE("Cabbage", 'C', 100, 70, true, "Vegetable"),
+    FLOUNDER("Flounder", 'F', 100, 70, true, "Fish"),
+    MIDNIGHT_CARP("MidnightCarp", 'M', 110, 75, true, "Fish"),
     APRICOT("Apricot", 'A', 59, 38, true, "fruit"),
     CHERRY("Cherry", 'C', 80, 38, true, "fruit"),
     BANANA("Banana", 'B', 150, 75, true, "fruit"),
