@@ -27,34 +27,28 @@ public class WorldController {
 
     public WorldController(PlayerController playerController) {
         this.playerController = playerController;
-
-        // بارگذاری نقشه
         map = new TmxMapLoader().load("Content (unpacked)/Maps/Farm.tmx");
         //map = new TmxMapLoader().load("Content (unpacked)/Maps/FarmHouse.tmx");
         warpZones = loadWarpZones(map);
         renderer = new OrthogonalTiledMapRenderer(map, 1f);
-
-        // دوربین
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
     public void update(float deltaTime) {
-        // به‌روزرسانی موقعیت دوربین بر اساس بازیکن
         float playerX = playerController.getPlayer().getPosX();
         float playerY = playerController.getPlayer().getPosY();
         camera.position.set(playerX, playerY, 0);
         camera.update();
         //System.out.println("Player position: x=" + playerX + " y=" + playerY);
-        System.out.println("warpZones.size = " + warpZones.size());
+        // System.out.println("warpZones.size = " + warpZones.size());
         for (WarpZone warp : warpZones) {
             //System.out.println("Checking warp zone at x=" + warp.x + " y=" + warp.y + " w=" + warp.width + " h=" + warp.height);
-            if (warp.contains(playerX,playerY)) {
-                System.out.println("Player entered warp zone!");
-                System.out.println("Switching to map: " + warp.targetMap);
-                System.out.println("Warp target position: " + warp.targetX + ", " + warp.targetY);
+            if (warp.contains(playerX, playerY)) {
+                //System.out.println("Player entered warp zone!");
+                //System.out.println("Switching to map: " + warp.targetMap);
+                //System.out.println("Warp target position: " + warp.targetX + ", " + warp.targetY);
 
-                // اینجا تغییر مپ انجام بشه
                 switchMap(warp.targetMap, warp.targetX, warp.targetY);
 
                 break;
@@ -64,7 +58,6 @@ public class WorldController {
 
         renderer.setView(camera);
         renderer.render();
-
 
     }
 
@@ -84,7 +77,7 @@ public class WorldController {
     public String checkMapTransition() {
         float playerX = playerController.getPlayer().getPosX();
         float playerY = playerController.getPlayer().getPosY();
-        MapLayer objectLayer = map.getLayers().get("AlwaysFront2"); // اسم لایه objectت
+        MapLayer objectLayer = map.getLayers().get("AlwaysFront2");
         if (objectLayer == null) return null;
 
         for (MapObject object : objectLayer.getObjects()) {
@@ -143,14 +136,10 @@ public class WorldController {
             }
         }
 
-       // System.out.println("Total warps loaded: " + warpZones.size());
+        // System.out.println("Total warps loaded: " + warpZones.size());
 
         return warps;
     }
-
-
-
-
 
     public void switchMap(String mapName, int spawnX, int spawnY) {
         map.dispose();
@@ -163,7 +152,6 @@ public class WorldController {
         playerController.getPlayer().setPosX(spawnX);
         playerController.getPlayer().setPosY(spawnY);
     }
-
 
     public void dispose() {
         map.dispose();

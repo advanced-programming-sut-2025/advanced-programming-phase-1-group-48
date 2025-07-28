@@ -75,7 +75,7 @@ public class StartScreen extends ScreenAdapter {
         btnPlay.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-               // game.setScreen(new io.github.some_example_name.screens.MainMenuScreen(game));
+                game.setScreen(new io.github.some_example_name.screens.MainMenuScreen(game));
             }
         });
         btnExit.addListener(new ChangeListener() {

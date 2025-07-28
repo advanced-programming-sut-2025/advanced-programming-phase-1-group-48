@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="80" height="65" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="81">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="80" height="65" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="90">
  <properties>
   <property name="AllowGrassSurviveInWinter" value="T"/>
   <property name="Outdoors" value="T"/>
@@ -2650,59 +2650,6 @@
     <property name="NPCBarrier" value="T"/>
    </properties>
   </object>
-  <object id="51" name="TileData" x="624" y="992" width="16" height="16">
-   <properties>
-    <property name="NPCBarrier" value="T"/>
-   </properties>
-  </object>
-  <object id="52" name="TileData" x="640" y="992" width="16" height="16">
-   <properties>
-    <property name="NPCBarrier" value="T"/>
-    <property name="NoSpawn" value="All"/>
-   </properties>
-  </object>
-  <object id="53" name="TileData" x="656" y="992" width="16" height="16">
-   <properties>
-    <property name="NPCBarrier" value="T"/>
-    <property name="NoSpawn" value="All"/>
-   </properties>
-  </object>
-  <object id="54" name="TileData" x="672" y="992" width="16" height="16">
-   <properties>
-    <property name="NPCBarrier" value="T"/>
-   </properties>
-  </object>
-  <object id="55" name="TileData" x="624" y="1008" width="16" height="16">
-   <properties>
-    <property name="NoSpawn" value="All"/>
-   </properties>
-  </object>
-  <object id="56" name="TileData" x="640" y="1008" width="16" height="16">
-   <properties>
-    <property name="NoSpawn" value="All"/>
-   </properties>
-  </object>
-  <object id="57" name="TileData" x="656" y="1008" width="16" height="16">
-   <properties>
-    <property name="NoSpawn" value="All"/>
-   </properties>
-  </object>
-  <object id="58" name="TileData" x="672" y="1008" width="16" height="16">
-   <properties>
-    <property name="NPCBarrier" value="T"/>
-    <property name="NoSpawn" value="All"/>
-   </properties>
-  </object>
-  <object id="59" name="TileData" x="640" y="1024" width="16" height="16">
-   <properties>
-    <property name="NoSpawn" value="All"/>
-   </properties>
-  </object>
-  <object id="60" name="TileData" x="656" y="1024" width="16" height="16">
-   <properties>
-    <property name="NoSpawn" value="All"/>
-   </properties>
-  </object>
  </objectgroup>
  <objectgroup id="8" name="Buildings">
   <object id="61" name="TileData" x="128" y="112" width="16" height="16">
@@ -2791,5 +2738,11 @@
     <property name="Warp" value="FarmHouse 5 10"/>
    </properties>
   </object>
+  <object id="85" x="607.879" y="959.455" width="97" height="67.1515">
+   <properties>
+    <property name="Warp" value="Forest 1070 1850"/>
+   </properties>
+  </object>
+  <object id="88" x="480" y="824" height="8"/>
  </objectgroup>
 </map>
