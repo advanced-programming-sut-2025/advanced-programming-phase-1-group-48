@@ -12,6 +12,8 @@ import io.github.some_example_name.controllers.CookController;
 import io.github.some_example_name.model.Player.Player;
 import io.github.some_example_name.model.Player.inventory.Inventory;
 import io.github.some_example_name.model.items.Item;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 import java.util.Map;
 
@@ -22,10 +24,17 @@ public class FridgeView extends Group {
     private final ScrollPane scrollPane;
     private Runnable onBackToCookingMenu;
     private final DragAndDrop dragAndDrop;
+    private final Label.LabelStyle customLabelStyle;
+
 
     public FridgeView(Player player, Skin skin) {
         this.player = player;
         this.skin = skin;
+
+        BitmapFont font = new BitmapFont();
+        font.getData().setScale(1.2f);  // اندازه فونت (در صورت نیاز تغییر دهید)
+        font.setColor(Color.BLACK);
+        customLabelStyle = new Label.LabelStyle(font, Color.BLACK);
 
         this.setSize(1000, 500);
         this.dragAndDrop = new DragAndDrop();
@@ -55,7 +64,8 @@ public class FridgeView extends Group {
         // Top bar
         Table topBar = new Table(skin);
         topBar.add(fridgeIcon).size(48, 48).left().padRight(10);
-        topBar.add(new Label("Refrigerator", skin)).left().padTop(10);
+        topBar.add(new Label("Refrigerator", customLabelStyle))  // ۳. استفاده از استایل دلخواه
+            .left().padTop(10);
         topBar.align(Align.left);
 
         Stack stack = new Stack();
@@ -95,8 +105,8 @@ public class FridgeView extends Group {
             itemImage.setScaling(Scaling.fit);
             itemImage.setSize(48, 48);
 
-            Label qtyLabel = new Label("x" + quantity, skin);
-            Label nameLabel = new Label(item.getName(), skin);
+            Label qtyLabel = new Label("x" + quantity, customLabelStyle);
+            Label nameLabel = new Label(item.getName(), customLabelStyle);
 
             Table row = new Table(skin);
             row.add(itemImage).size(48, 48).padRight(10);

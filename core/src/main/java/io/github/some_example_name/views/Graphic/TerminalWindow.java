@@ -2,6 +2,7 @@ package io.github.some_example_name.views.Graphic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -22,11 +23,24 @@ public class TerminalWindow extends Group {
     private final Table container;
     private final Stage stage;
     private Player player;
+    private final BitmapFont bitmapFont;
+    private final Label.LabelStyle labelStyle;
+    private final TextField.TextFieldStyle textFieldStyle;
 
     public TerminalWindow(Skin skin, Stage stage , GameController controller) {
         this.skin = skin;
         this.stage = stage;
         this.player =controller.getPlayerController().getPlayer();
+
+        bitmapFont = new BitmapFont();
+        labelStyle = new Label.LabelStyle();
+        labelStyle.font = bitmapFont;
+        textFieldStyle = new TextField.TextFieldStyle();
+        textFieldStyle.font = bitmapFont;
+        textFieldStyle.fontColor = skin.getColor("white"); // یا هر رنگی که مناسب است
+//        textFieldStyle.cursor = skin.getDrawable("cursor");
+//        textFieldStyle.selection = skin.getDrawable("selection");
+//        textFieldStyle.background = skin.getDrawable("textfield");
 
         container = new Table(skin);
         container.setBackground("window");
@@ -35,9 +49,9 @@ public class TerminalWindow extends Group {
         container.setSize(600, 600);
         container.setPosition((Gdx.graphics.getWidth() - 600) / 2f, -200);
 
-        Label titleLabel = new Label("Terminal", skin);
-        commandField = new TextField("", skin);
-        outputLabel = new Label("", skin);
+        Label titleLabel = new Label("Terminal", labelStyle);
+        commandField = new TextField("", textFieldStyle);
+        outputLabel = new Label("", labelStyle);
         outputLabel.setWrap(true);
 
         commandField.setMessageText("Enter command...");

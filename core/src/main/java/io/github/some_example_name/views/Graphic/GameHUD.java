@@ -17,7 +17,7 @@ public class GameHUD extends Actor {
 
     public static Consumer<String> showMessage;
 
-    private static final float TIME_SPEED = 2.0f; // هر 0.8 ثانیه = 10 دقیقه بازی
+    private static final float TIME_SPEED = 5.0f;
     private float timer = 0f;
 
     private DateAndTime dateAndTime;
@@ -35,7 +35,7 @@ public class GameHUD extends Actor {
     public GameHUD(GameController controller) {
         this.font = new BitmapFont();
         font.setColor(Color.BLACK);
-        font.getData().setScale(1.2f); // مقیاس مناسب
+        font.getData().setScale(1.2f);
         this.dateAndTime = DateAndTime.getInstance();
         this.player = controller.getPlayerController().getPlayer();
 

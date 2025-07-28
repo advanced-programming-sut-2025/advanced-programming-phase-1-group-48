@@ -1,7 +1,9 @@
 package io.github.some_example_name.views.Graphic;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -26,8 +28,16 @@ public class InventoryView extends Group {
     private final ScrollPane scrollPane;
     private final Image trashCanImage;
     private final DragAndDrop dragAndDrop;
+    private BitmapFont font;
+    private final Label.LabelStyle customLabelStyle;
+    private final Table mainTable;
+    private final Table bottomTable;
 
     public InventoryView(Player player, Skin skin) {
+        this.font = new BitmapFont();
+        font.setColor(Color.BLACK);
+        font.getData().setScale(1.2f);
+        this.customLabelStyle = new Label.LabelStyle(font, Color.BLACK);
         this.player = player;
         this.inventory = player.getInventory();
         this.skin = skin;
@@ -51,7 +61,7 @@ public class InventoryView extends Group {
         scrollPane.setScrollingDisabled(true, false);
         scrollPane.setScrollbarsOnTop(true);
 
-        goldLabel = new Label("Gold: " + player.getMoney(), skin);
+        goldLabel = new Label("Gold: " + player.getMoney(), customLabelStyle);
 
         Texture trashTexture = new Texture("item/Trash_Can_Steel.png");
         trashCanImage = new Image(trashTexture);
@@ -86,12 +96,12 @@ public class InventoryView extends Group {
             }
         });
 
-        Table mainTable = new Table(skin);
+        mainTable = new Table(skin);
         mainTable.setFillParent(true);
         mainTable.align(Align.top);
         mainTable.add(scrollPane).width(backgroundTexture.getWidth()).height(visibleHeight).row();
 
-        Table bottomTable = new Table(skin);
+        bottomTable = new Table(skin);
         bottomTable.add(goldLabel).expandX().fillX().left().padLeft(10);
         bottomTable.add(trashCanImage).size(64, 64).expandX().right().padRight(100);
         mainTable.add(bottomTable).padTop(10);
@@ -116,7 +126,7 @@ public class InventoryView extends Group {
             itemImage.setSize(64, 64);
             itemImage.setAlign(Align.center);
 
-            Label qtyLabel = new Label(String.valueOf(quantity), skin);
+            Label qtyLabel = new Label(String.valueOf(quantity), customLabelStyle);
             qtyLabel.setAlignment(Align.bottomRight);
 
             Stack itemStack = new Stack();
@@ -149,6 +159,9 @@ public class InventoryView extends Group {
     public void refresh() {
         updateGrid();
         goldLabel.setText("Gold: " + player.getMoney());
+        bottomTable.clearChildren();
+        bottomTable.add(goldLabel).expandX().fillX().left().padLeft(10);
+        bottomTable.add(trashCanImage).size(64, 64).expandX().right().padRight(100);
     }
 
     public void addFridgeDropTarget(final FridgeView fridgeView) {
@@ -182,4 +195,6 @@ public class InventoryView extends Group {
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
     }
+
+
 }
