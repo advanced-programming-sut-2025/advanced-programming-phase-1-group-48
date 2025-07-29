@@ -34,20 +34,20 @@ public class CraftingView extends Group {
         this.setSize(screenWidth, screenHeight);
 
         // Background
-        Texture bg = new Texture("Craftable_item/background.jpg");
+       // Texture bg = new Texture("Craftable_item/background.jpg");
         float bgWidth = 500;
         float bgHeight = 500;
 
-        Image background = new Image(new TextureRegionDrawable(new TextureRegion(bg)));
-        background.setSize(bgWidth, bgHeight);
-        background.setPosition((Gdx.graphics.getWidth() - bgWidth) / 2f,
-            (Gdx.graphics.getHeight() - bgHeight) / 2f);
+        //Image background = new Image(new TextureRegionDrawable(new TextureRegion(bg)));
+        //background.setSize(bgWidth, bgHeight);
+        //background.setPosition((Gdx.graphics.getWidth() - bgWidth) / 2f,
+           // (Gdx.graphics.getHeight() - bgHeight) / 2f);
 
 
         recipeTable = new Table();
         recipeTable.defaults().pad(4).size(100, 100);
         recipeTable.setSize(bgWidth, bgHeight);
-        recipeTable.setPosition(background.getX(), background.getY());
+        //recipeTable.setPosition(background.getX(), background.getY());
         this.addActor(recipeTable);
 
         // Tooltip عمومی
@@ -56,7 +56,7 @@ public class CraftingView extends Group {
 
         Stack stack = new Stack();
         stack.setSize(bgWidth, bgHeight);
-        stack.add(background);
+       // stack.add(background);
         stack.add(recipeTable);
 
         scrollPane = new ScrollPane(stack, skin);

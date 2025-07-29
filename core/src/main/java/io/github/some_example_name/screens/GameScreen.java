@@ -38,12 +38,6 @@ public class GameScreen extends ScreenAdapter {
 
         Texture playerTexture = assets.getCharacter1_idle_animation().getKeyFrame(0);
 
-        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//        assets.loadAll();          // اگر متدی برای loadAssets داری
-//        assets.finishLoading();    // صبر کن تا تمام شوند
-
-        // آماده‌سازی صحنه مزرعه (مثلاً tiledMap، world, stage)
-        // …
     }
 
     @Override
