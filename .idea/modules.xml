@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Project+phase3_-_Copy_(3).iml" filepath="$PROJECT_DIR$/.idea/modules/Project+phase3_-_Copy_(3).iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/Project+phase3_-_Copy_(3).core.iml" filepath="$PROJECT_DIR$/.idea/modules/core/Project+phase3_-_Copy_(3).core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/Project+phase3_-_Copy_(3).core.main.iml" filepath="$PROJECT_DIR$/.idea/modules/core/Project+phase3_-_Copy_(3).core.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/Project+phase3_-_Copy_(3).core.test.iml" filepath="$PROJECT_DIR$/.idea/modules/core/Project+phase3_-_Copy_(3).core.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lwjgl3/Project+phase3_-_Copy_(3).lwjgl3.iml" filepath="$PROJECT_DIR$/.idea/modules/lwjgl3/Project+phase3_-_Copy_(3).lwjgl3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lwjgl3/Project+phase3_-_Copy_(3).lwjgl3.main.iml" filepath="$PROJECT_DIR$/.idea/modules/lwjgl3/Project+phase3_-_Copy_(3).lwjgl3.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lwjgl3/Project+phase3_-_Copy_(3).lwjgl3.test.iml" filepath="$PROJECT_DIR$/.idea/modules/lwjgl3/Project+phase3_-_Copy_(3).lwjgl3.test.iml" />
+    </modules>
+  </component>
+</project>
