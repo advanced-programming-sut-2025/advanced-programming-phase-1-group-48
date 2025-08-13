@@ -9,7 +9,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.some_example_name.controllers.MainMenuController;
 import io.github.some_example_name.model.GameAssetManager;
+import io.github.some_example_name.model.Lobby.LobbyManager;
+import io.github.some_example_name.model.Reaction.EmojiManager;
 import io.github.some_example_name.screens.StartScreen;
+import io.github.some_example_name.shared.model.database.DatabaseManager;
 import io.github.some_example_name.views.MainMenu;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
@@ -21,6 +24,13 @@ public class Main extends Game {
     public void create() {
         main = this;
         batch = new SpriteBatch();
+        try {
+            DatabaseManager.connect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        LobbyManager.loadAllLobbiesFromDatabase();
+        EmojiManager.loadEmojis();
         // اولین صفحه‌ی اجرا شده: StartScreen
         setScreen(new StartScreen(this));
     }

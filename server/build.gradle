@@ -1,0 +1,23 @@
+plugins {
+  id 'application'
+}
+
+group = 'io.github.some_example_name'
+version = '1.0'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  implementation project(":core")
+
+  implementation 'io.netty:netty-all:4.1.95.Final'
+  implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+  implementation 'io.netty:netty-codec-http:4.1.95.Final'
+
+  implementation project(':shared')
+  // مثال Socket.IO: implementation 'com.corundumstudio.socketio:netty-socketio:1.7.19'
+}
+
+mainClassName = 'io.github.some_example_name.server.MainServer'

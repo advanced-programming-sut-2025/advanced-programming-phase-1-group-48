@@ -56,13 +56,13 @@ public class AnimallController {
         boolean hasAny = false;
         for (Animal animal : animals.values()) {
             AnimalProduct product = Animal.getTodaysProduct();
-            if (product != null && animal.getKind().getProductPrices().containsKey(product) && !animal.isHasProducedToday() ) {
-                System.out.printf("%s → %s with quality %.2f%n",
-                        animal.getName(),
-                        product.name().toLowerCase().replace('_', ' '),
-                        animal.getTodaysProductQuality());
-                hasAny = true;
-            }
+//            if (product != null && animal.getKind().getProductPrices().containsKey(product) && !animal.isHasProducedToday() ) {
+//                System.out.printf("%s → %s with quality %.2f%n",
+//                        animal.getName(),
+//                        product.name().toLowerCase().replace('_', ' '),
+//                        animal.getTodaysProductQuality());
+//                hasAny = true;
+//            }
         }
 
         if (!hasAny) {

@@ -94,7 +94,7 @@ public class DateAndTime {
         startHour(hour);
 
         while (hour >= 22) {
-            endOfDay();
+//            endOfDay();
             hour = 9;
             advanceDay(1);
             startDay();
@@ -186,7 +186,7 @@ public class DateAndTime {
 
         Game.getShopManager().resetDailyStock();
         for (Animal a : Player.getBroughtAnimal().values()) {
-            a.produceToday();
+            //a.produceToday();
             a.setCount(addDays);
         }
         addDays=1;
@@ -195,6 +195,9 @@ public class DateAndTime {
 
     public static void endOfDay() {
         WorldMap worldMap = GameManager.getCurrentGame().getWorldMap();
+        if (worldMap==null) {
+            System.out.println("here worldMap is null");
+        };
         Game game = GameManager.getCurrentGame();
         worldMap.sendPlayersToHome(game.getPlayers());
         Weather.generateTomorrowWeather(DateAndTime.getInstance().getCurrentSeason().name());

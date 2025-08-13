@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-
+import io.github.some_example_name.shared.model.LobbyInfo;
 public class PasswordDialog extends Dialog {
     private final LobbyInfo lobby;
     private final String username;

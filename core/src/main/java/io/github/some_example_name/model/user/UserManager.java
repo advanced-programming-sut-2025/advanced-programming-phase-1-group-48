@@ -1,10 +1,14 @@
 package io.github.some_example_name.model.user;
 
 
+import io.github.some_example_name.model.Session;
+
 import java.io.*;
 import java.lang.reflect.Type;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 
 public class UserManager {
@@ -14,14 +18,30 @@ public class UserManager {
     private static List<User> users = new ArrayList<>();
     private User loggedInUser;
     public static User currentUser = null;
+    private static String DB_URL="jdbc:sqlite:C:\\\\Users\\\\Dotcom\\\\Desktop\\\\Project+phase3 - Copy (3)\\\\core\\\\db\\\\mydatabase.db";
+    private static String DB_USER="";
+    private static String DB_PASS="";
+
+//    static {
+//        try (InputStream input = new FileInputStream("config.properties")) {
+//            Properties prop = new Properties();
+//            prop.load(input);
+//            DB_URL = prop.getProperty("db.url");
+//            DB_USER = prop.getProperty("db.user");
+//            DB_PASS = prop.getProperty("db.pass");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
-    static {
-        //loadUsers();
-    }
+//    static {
+//        //loadUsers();
+//    }
 
     public static void addUser(User user) {
         users.add(user);
+        saveUserToDatabase(user);
         //saveToFile();
     }
 
@@ -31,6 +51,54 @@ public class UserManager {
                 .findFirst()
                 .orElse(null);
     }
+
+    private static void saveUserToDatabase(User user) {
+        String sql = "SELECT * FROM users";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
+            while (rs.next()) {
+                User u = new User(
+                    rs.getString("username"),
+                    rs.getString("hashed_password"), // هش‌شده
+                    rs.getString("nickname"),
+                    rs.getString("email"),
+                    rs.getString("gender"),
+                    rs.getString("security_question"),
+                    rs.getString("hashed_answer")    // هش جواب
+                );
+                users.add(u);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static void loadUsersFromDatabase() {
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
+            String sql = "SELECT * FROM users";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                User user = new User(
+                    rs.getString("username"),
+                    rs.getString("password"), // اینجا پسورد هش شده است
+                    rs.getString("nickname"),
+                    rs.getString("email"),
+                    rs.getString("gender"),
+                    rs.getString("securityQuestion"),
+                    rs.getString("securityAnswer")
+                );
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 //    private static void saveToFile() {
 //        try (FileWriter writer = new FileWriter(USERS_FILE)) {
@@ -104,6 +172,21 @@ public class UserManager {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void loadSession() {
+        File file = new File("session.txt");
+        if (file.exists()) {
+            try (Scanner sc = new Scanner(file)) {
+                String username = sc.nextLine();
+                User user = findByUsername(username);
+                if (user != null) {
+                    Session.setCurrentUser(user);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static void clearSession() {

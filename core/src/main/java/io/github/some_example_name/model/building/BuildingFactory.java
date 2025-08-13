@@ -9,13 +9,13 @@ public class BuildingFactory {
 
         try {
             BarnType barnType = BarnType.valueOf(name);
-            return new Barn(barnType, position);
+            //return new Barn(barnType, position);
         } catch (IllegalArgumentException e) {
         }
 
         try {
             CoopType coopType = CoopType.valueOf(name);
-            return new Coop(coopType, position);
+//            return new Coop(coopType, position);
         } catch (IllegalArgumentException e) {
         }
 

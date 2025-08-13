@@ -3,6 +3,7 @@ package io.github.some_example_name.controllers;
 
 
 import io.github.some_example_name.model.Result;
+import io.github.some_example_name.model.Session;
 import io.github.some_example_name.model.enums.MenuCommands;
 import io.github.some_example_name.model.user.User;
 import io.github.some_example_name.model.user.UserManager;
@@ -134,8 +135,9 @@ public class ProfileMenuController {
 
 //    /** تغییر نیک‌نیم */
     public static Result changeNicknameDirect(String newNickname) {
+        Session.getCurrentUser().setNickname(newNickname);
         String cmd = String.format("change nickname -n \"%s\"", newNickname);
-        return changeNickname(cmd);
+        return new Result(true , "Your nickname has been changed successfully!");
     }
 
     public static Result changePasswordDirect(String oldPassword, String newPassword) {

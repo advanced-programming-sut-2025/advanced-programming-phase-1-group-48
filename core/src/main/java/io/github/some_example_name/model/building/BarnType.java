@@ -1,7 +1,7 @@
 package io.github.some_example_name.model.building;
 
 public enum BarnType {
-    BARN(
+    BARN("Barn",
             4,
             "Houses 4 barn-dwelling animals.",
             6_000,   // gold
@@ -11,7 +11,7 @@ public enum BarnType {
             4,       // height
             new String[]{"Cow" }           // unlocked animals
     ),
-    BIG_BARN(
+    BIG_BARN("bigbarn",
             8,
             "Houses 8 barn-dwelling animals. Unlocks goats.",
             12_000,
@@ -21,7 +21,7 @@ public enum BarnType {
             4,
             new String[]{"Goat", "Cow"}
     ),
-    DELUXE_BARN(
+    DELUXE_BARN("deluxebarn",
             12,
             "Houses 12 barn-dwelling animals. Unlocks sheep and pigs.",
             25_000,
@@ -31,7 +31,7 @@ public enum BarnType {
             4,
             new String[]{"Sheep", "Pig", "Cow","Goat"}
     );
-
+    private final String name;
     private final int capacity;
     private final String description;
     private final int goldCost;
@@ -41,7 +41,8 @@ public enum BarnType {
     private final int height;
     private final String[] unlocks;
 
-    BarnType(int capacity,
+    BarnType(String name,
+        int capacity,
              String description,
              int goldCost,
              int woodCost,
@@ -49,6 +50,7 @@ public enum BarnType {
              int width,
              int height,
              String[] unlocks) {
+        this.name=name;
         this.capacity = capacity;
         this.description = description;
         this.goldCost = goldCost;
@@ -89,6 +91,10 @@ public enum BarnType {
 
     public String[] getUnlocks() {
         return unlocks.clone();
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override

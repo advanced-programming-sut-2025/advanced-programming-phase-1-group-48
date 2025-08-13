@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import io.github.some_example_name.controllers.GameController;
 import io.github.some_example_name.controllers.PlayerController;
 import io.github.some_example_name.model.Player.Player;
+import io.github.some_example_name.model.Weather.DateAndTime;
 import io.github.some_example_name.model.cook.FoodRecipe;
 import io.github.some_example_name.model.items.ItemFactory;
 
@@ -127,7 +128,19 @@ public class TerminalWindow extends Group {
                     }
                 }
                 break;
-
+            case "add_time" :
+                if (parts.length < 2) {
+                    outputLabel.setText("Please specify the time");
+                }else {
+                    try {
+                        int hoursToAdd = Integer.parseInt(parts[1]);
+                        DateAndTime.cheatHours(hoursToAdd);
+                        outputLabel.setText("Added time: " + hoursToAdd);
+                    }catch (NumberFormatException e) {
+                        outputLabel.setText("Please specify a valid time");
+                    }
+                }
+                break;
             default:
                 outputLabel.setText("Unknown command: " + text);
         }

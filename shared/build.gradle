@@ -1,0 +1,20 @@
+plugins {
+  id 'java-library'
+}
+
+group = 'io.github.some_example_name'
+version = '1.0'
+
+repositories {
+
+  mavenCentral()
+}
+
+// اینجا می‌توانی dependency های عمومی (مثل Gson برای سریالایز JSON) اضافه کنی
+dependencies {
+  implementation 'io.netty:netty-all:4.1.95.Final'
+
+  // Jackson برای سریالایز/دیسریالایز JSON
+  implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+  // implementation 'com.google.code.gson:gson:2.8.9'
+}

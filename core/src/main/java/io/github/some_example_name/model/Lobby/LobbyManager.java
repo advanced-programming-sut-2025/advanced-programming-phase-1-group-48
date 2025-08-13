@@ -5,12 +5,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import io.github.some_example_name.model.database.DatabaseLobbyManager;
+import io.github.some_example_name.model.Session;
 import io.github.some_example_name.screens.LobbyScreen;
+import io.github.some_example_name.screens.MainMenuScreen;
+import io.github.some_example_name.shared.model.database.DatabaseLobbyManager;
+import org.json.JSONObject;
 
-import javax.swing.event.ChangeEvent;
+import io.github.some_example_name.network.ClientConnection;
+import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
+import io.github.some_example_name.shared.model.LobbyInfo;
+
 public class LobbyManager {
     private static final Map<String, LobbyInfo> lobbies = new HashMap<>();
 
@@ -52,7 +57,7 @@ public class LobbyManager {
 
             if (lobby.getPlayers().isEmpty()) {
                 shouldRemove = true;
-            } else if (!lobby.isStarted() && now - lobby.getLastJoinTime() > 5 * 60 * 1000) {
+            } else if (!lobby.isStarted()) {
                 shouldRemove = true;
             }
 
@@ -68,10 +73,18 @@ public class LobbyManager {
     }
 
 
-    public static LobbyInfo createLobby(String name, boolean isPrivate, boolean isVisible, String password, String creatorUsername) {
-        LobbyInfo lobby = new LobbyInfo(name, isPrivate, isVisible, password, creatorUsername);
-        addLobby(lobby);
-        return lobby;
+    public static void createLobby(String name, boolean isPrivate, boolean isVisible, String password, String creatorUsername) throws IOException {
+        // داخل ok listener
+        Map<String,Object> lobbyData = new HashMap<>();
+        lobbyData.put("type", "CREATE_LOBBY");
+        lobbyData.put("name", name);
+        lobbyData.put("private", isPrivate);
+        lobbyData.put("visible", isVisible);
+        lobbyData.put("password", password);
+        lobbyData.put("maxPlayers", 4);
+        lobbyData.put("playerId", Session.getCurrentUser().getUsername()); // مهم!
+        MainMenuScreen.getClient().sendMessage(lobbyData); // یا send(json)
+
     }
 
     public static Collection<LobbyInfo> getAllLobbies() {
@@ -135,13 +148,27 @@ public class LobbyManager {
             joinBtn.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    // اینجا کدی که موقع کلیک روی Join اجرا میشه
                     System.out.println("Joining lobby: " + currentLobby.getName());
-                    // اینجا میتونی متدهای join یا ساخت اتصال شبکه رو صدا بزنی
+
+                    System.out.println(currentLobby.getId()+": "+currentLobby.getPassword()+":"+Session.getCurrentUser().getUsername());
+                    try {
+                        sendJoinLobbyRequest(currentLobby.getId(), "", Session.getCurrentUser().getUsername());
+                        System.out.println("joining...");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             });
+
         }
     }
+
+    public static void sendJoinLobbyRequest(String lobbyId, String password, String username) throws IOException {
+        ClientConnection.sendJoinLobby(lobbyId, username, password);
+
+    }
+
+
 
 
 

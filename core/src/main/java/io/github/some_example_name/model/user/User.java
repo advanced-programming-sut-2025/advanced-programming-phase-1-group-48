@@ -1,6 +1,7 @@
 package io.github.some_example_name.model.user;
 
 
+import io.github.some_example_name.model.Player.EnergySystem;
 import io.github.some_example_name.model.enums.BackpackType;
 import io.github.some_example_name.model.enums.TrashCanType;
 import io.github.some_example_name.model.user.inventory.Backpack;
@@ -25,6 +26,9 @@ public class User {
     private io.github.some_example_name.model.user.inventory.Inventory inventory;
     private Wallet wallet;
 
+    public User (){
+
+    }
 
     public User(String username, String password, String nickname,
                 String email, String gender, String securityQuestion, String securityAnswer) {

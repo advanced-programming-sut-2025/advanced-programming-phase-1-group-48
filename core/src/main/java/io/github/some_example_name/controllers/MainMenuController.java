@@ -6,7 +6,7 @@ import io.github.some_example_name.model.GameAssetManager;
 import io.github.some_example_name.model.Session;
 import io.github.some_example_name.model.user.User;
 import io.github.some_example_name.model.user.UserManager;
-import io.github.some_example_name.screens.GameScreen;
+
 import io.github.some_example_name.screens.StartScreen;
 import io.github.some_example_name.views.*;
 
@@ -112,16 +112,7 @@ public class MainMenuController {
     }
 
     /** راه‌اندازی بازی (مثلاً رفتن به صفحهٔ بازی) */
-    public void startGame(Main game) {
-        System.out.println("Starting game...");
-        if (!Session.isLoggedIn()) {
-            System.out.println("session: ");
-            game.setScreen(new StartScreen(game));
-        } else {
-            System.out.println("session is already logged in.");
-            game.setScreen(new GameScreen(game));
-        }
-    }
+
 
 
     /** خروج از حساب کاربری */

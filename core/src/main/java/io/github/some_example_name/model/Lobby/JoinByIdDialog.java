@@ -2,6 +2,7 @@ package io.github.some_example_name.model.Lobby;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import io.github.some_example_name.shared.model.LobbyInfo;
 
 public class JoinByIdDialog extends Dialog {
     private final Skin skin;

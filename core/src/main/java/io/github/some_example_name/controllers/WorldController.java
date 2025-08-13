@@ -157,4 +157,9 @@ public class WorldController {
         map.dispose();
         renderer.dispose();
     }
+
+    public OrthographicCamera getCamera() {
+        return camera;
+    }
+
 }

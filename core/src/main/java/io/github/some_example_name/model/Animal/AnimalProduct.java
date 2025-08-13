@@ -7,7 +7,7 @@ public enum AnimalProduct {
     LARGE_EGG("large egg",1),
     DUCK_EGG("duck egg",2),
     DUCK_FEATHER("duck feather",2),
-    RABBITE_WOOL("rabbite wool",4),
+    RABBIT_WOOL("rabbite wool",4),
     RABBIT_FOOT("rabbit foot",4),
     DINOSAUR_EGG("dinosaur egg",7),
     MILK("milk",1),

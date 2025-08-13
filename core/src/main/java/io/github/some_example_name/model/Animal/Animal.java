@@ -87,24 +87,24 @@ public class Animal {
     }
 
 
-    public void produceToday() {
-        // Determine product
-        List<AnimalProduct> products = new ArrayList<>(kind.getProductPrices().keySet());
-        AnimalProduct mainProduct = products.get(0);
-        if (products.size() > 1 && canProduceSecondaryProduct()) {
-            todaysProduct = products.get(1);
-        } else {
-            todaysProduct = mainProduct;
-        }
-        double R = Math.random();
-        double quality = (R * 0.5 + 0.5) * (friendship / 1000.0);
-        setTodaysProductQuality(quality);
-
-        hasProducedToday = true;
-        System.out.printf("%s produced %s with quality %.2f%n", name,
-                todaysProduct.name().toLowerCase().replace('_',' '), quality);
-
-    }
+//    public void produceToday() {
+//        // Determine product
+//        //List<AnimalProduct> products = new ArrayList<>(kind.getProductPrices().keySet());
+//        AnimalProduct mainProduct = products.get(0);
+//        if (products.size() > 1 && canProduceSecondaryProduct()) {
+//            todaysProduct = products.get(1);
+//        } else {
+//            todaysProduct = mainProduct;
+//        }
+//        double R = Math.random();
+//        double quality = (R * 0.5 + 0.5) * (friendship / 1000.0);
+//        setTodaysProductQuality(quality);
+//
+//        hasProducedToday = true;
+//        System.out.printf("%s produced %s with quality %.2f%n", name,
+//                todaysProduct.name().toLowerCase().replace('_',' '), quality);
+//
+//    }
 
     public void pet() {
         int today = DateAndTime.getTotalDays();

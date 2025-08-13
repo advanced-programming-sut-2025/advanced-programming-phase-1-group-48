@@ -5,9 +5,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.math.Vector2;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.model.GameAssetManager;
 import io.github.some_example_name.model.Player.Player;
+
+import java.util.Map;
 
 public class PlayerController {
     private Player player;
@@ -73,4 +76,5 @@ public class PlayerController {
     public void setPlayer(Player player) {
         this.player = player;
     }
+
 }

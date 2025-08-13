@@ -8,10 +8,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.some_example_name.model.Session;
-import io.github.some_example_name.model.database.DatabaseLobbyManager;
+
 import io.github.some_example_name.network.ClientConnection;
 import io.github.some_example_name.screens.MainMenuScreen;
+import io.github.some_example_name.shared.model.LobbyInfo;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,29 +55,17 @@ public class CreateLobbyDialog extends Dialog {
                 lobbyData.put("password", password);
                 lobbyData.put("owner", username);
 
-                String json = null;
                 try {
-                    json = new ObjectMapper().writeValueAsString(lobbyData);
-                } catch (JsonProcessingException e) {
+                    MainMenuScreen.getClient().sendMessage(lobbyData);
+                } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
 
-                System.out.println("Sending JSON to server: " + json);
-                MainMenuScreen.getClient().send(json);
-
-                LobbyInfo lobby = LobbyManager.createLobby(name, isPrivate, isVisible, password, username);
-
-                // ذخیره فقط در صورتی که قبلاً ثبت نشده باشد
-                if (!DatabaseLobbyManager.lobbyExists(lobby.getId())) {
-                    DatabaseLobbyManager.saveLobby(lobby);
-                }
-
-                Gdx.app.postRunnable(() -> {
-                    hide();
-                    io.github.some_example_name.Main.getMain().setScreen(new io.github.some_example_name.screens.InsideLobbyScreen(lobby));
-                });
+                // اینجا دیگه لابی محلی نساز، فقط دکمه رو غیرفعال یا دیالوگ رو ببند
+                hide();
             }
         });
+
 
     }
 }

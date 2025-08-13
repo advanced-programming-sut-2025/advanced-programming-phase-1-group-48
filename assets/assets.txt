@@ -13,60 +13,21 @@ Clock/ClockWithJournal.png
 Clock/Clock_All.png
 Clock/GoldDisplay.png
 Clock/WeddingDayHeart.png
-Content (unpacked)/Animals/BabyBlue Chicken.png
-Content (unpacked)/Animals/BabyBrown Chicken.png
-Content (unpacked)/Animals/BabyBrown Cow.png
-Content (unpacked)/Animals/BabyGoat.png
-Content (unpacked)/Animals/BabyGolden Chicken.png
-Content (unpacked)/Animals/BabyOstrich.png
-Content (unpacked)/Animals/BabyPig.png
-Content (unpacked)/Animals/BabyRabbit.png
-Content (unpacked)/Animals/BabySheep.png
-Content (unpacked)/Animals/BabyVoid Chicken.png
-Content (unpacked)/Animals/BabyWhite Chicken.png
-Content (unpacked)/Animals/BabyWhite Cow.png
-Content (unpacked)/Animals/Blue Chicken.png
-Content (unpacked)/Animals/Brown Chicken.png
-Content (unpacked)/Animals/Brown Cow.png
-Content (unpacked)/Animals/Dinosaur.png
-Content (unpacked)/Animals/Duck.png
-Content (unpacked)/Animals/Error.png
-Content (unpacked)/Animals/Goat.png
-Content (unpacked)/Animals/Golden Chicken.png
-Content (unpacked)/Animals/Ostrich.png
-Content (unpacked)/Animals/Pig.png
-Content (unpacked)/Animals/Rabbit.png
-Content (unpacked)/Animals/ShearedSheep.png
-Content (unpacked)/Animals/Sheep.png
-Content (unpacked)/Animals/Void Chicken.png
-Content (unpacked)/Animals/White Chicken.png
-Content (unpacked)/Animals/White Cow.png
-Content (unpacked)/Animals/cat.png
-Content (unpacked)/Animals/cat1.png
-Content (unpacked)/Animals/cat2.png
-Content (unpacked)/Animals/cat3.png
-Content (unpacked)/Animals/cat4.png
-Content (unpacked)/Animals/cat5.png
-Content (unpacked)/Animals/dog.png
-Content (unpacked)/Animals/dog1.png
-Content (unpacked)/Animals/dog2.png
-Content (unpacked)/Animals/dog3.png
-Content (unpacked)/Animals/dog4.png
-Content (unpacked)/Animals/dog5.png
-Content (unpacked)/Animals/horse.png
-Content (unpacked)/Animals/turtle.png
-Content (unpacked)/Animals/turtle1.png
-Content (unpacked)/Buildings/Barn.png
+Content (unpacked)/Action/heart.png
+Content (unpacked)/AnimalProducts/egg.png
+Content (unpacked)/Animals/dinosaur.png
+Content (unpacked)/Animals/duck.png
+Content (unpacked)/Animals/feed_spritesheet.png
+Content (unpacked)/Animals/goat.png
+Content (unpacked)/Animals/pig.png
+Content (unpacked)/Animals/rabbit.png
+Content (unpacked)/Animals/sheep.png
 Content (unpacked)/Buildings/Beach Cabin.png
 Content (unpacked)/Buildings/Beach Cabin_PaintMask.png
-Content (unpacked)/Buildings/Big Barn.png
-Content (unpacked)/Buildings/Big Coop.png
 Content (unpacked)/Buildings/Big Shed.png
 Content (unpacked)/Buildings/Big Shed_PaintMask.png
 Content (unpacked)/Buildings/Coop.png
-Content (unpacked)/Buildings/Deluxe Barn.png
 Content (unpacked)/Buildings/Deluxe Barn_PaintMask.png
-Content (unpacked)/Buildings/Deluxe Coop.png
 Content (unpacked)/Buildings/Deluxe Coop_PaintMask.png
 Content (unpacked)/Buildings/Desert Obelisk.png
 Content (unpacked)/Buildings/Earth Obelisk.png
@@ -101,6 +62,9 @@ Content (unpacked)/Buildings/Trailer Cabin.png
 Content (unpacked)/Buildings/Trailer Cabin_PaintMask.png
 Content (unpacked)/Buildings/Water Obelisk.png
 Content (unpacked)/Buildings/Well.png
+Content (unpacked)/Buildings/barn.png
+Content (unpacked)/Buildings/bigcoop.png
+Content (unpacked)/Buildings/deluxecoop.png
 Content (unpacked)/Buildings/houses.png
 Content (unpacked)/Buildings/houses_PaintMask.png
 Content (unpacked)/Characters/Abigail.png
@@ -2466,7 +2430,6 @@ Content (unpacked)/Maps/mermaid_house_tiles.png
 Content (unpacked)/Maps/nightSceneMaru.png
 Content (unpacked)/Maps/nightSceneMaruTrees.png
 Content (unpacked)/Maps/night_market_tilesheet_objects.png
-Content (unpacked)/Maps/paths
 Content (unpacked)/Maps/paths.png
 Content (unpacked)/Maps/pirates_tilesheet.png
 Content (unpacked)/Maps/qiNutRoom_tilesheet.png
@@ -3590,6 +3553,7 @@ Content (unpacked)/TileSheets/weapons.png
 Content (unpacked)/TileSheets/wizard_furniture.png
 Content (unpacked)/TileSheets/wizard_furnitureFront.png
 Content (unpacked)/VolcanoLayouts/Layouts.png
+Content (unpacked)/heart.png
 Cook/Buff/Attack_Buff.png
 Cook/Buff/Burnt.png
 Cook/Buff/Combat_Skill_Icon.png
@@ -3797,6 +3761,165 @@ Craftable_item/Wicked_Statue.png
 Craftable_item/Winter_Seeds.png
 Craftable_item/Wood_Sign.png
 Craftable_item/Worm_Bin.png
+Emoji/Emojis000.png
+Emoji/Emojis001.png
+Emoji/Emojis002.png
+Emoji/Emojis003.png
+Emoji/Emojis004.png
+Emoji/Emojis005.png
+Emoji/Emojis006.png
+Emoji/Emojis007.png
+Emoji/Emojis008.png
+Emoji/Emojis009.png
+Emoji/Emojis010.png
+Emoji/Emojis011.png
+Emoji/Emojis012.png
+Emoji/Emojis013.png
+Emoji/Emojis014.png
+Emoji/Emojis015.png
+Emoji/Emojis016.png
+Emoji/Emojis017.png
+Emoji/Emojis018.png
+Emoji/Emojis019.png
+Emoji/Emojis020.png
+Emoji/Emojis021.png
+Emoji/Emojis022.png
+Emoji/Emojis023.png
+Emoji/Emojis024.png
+Emoji/Emojis025.png
+Emoji/Emojis026.png
+Emoji/Emojis027.png
+Emoji/Emojis028.png
+Emoji/Emojis029.png
+Emoji/Emojis030.png
+Emoji/Emojis031.png
+Emoji/Emojis032.png
+Emoji/Emojis033.png
+Emoji/Emojis034.png
+Emoji/Emojis035.png
+Emoji/Emojis036.png
+Emoji/Emojis037.png
+Emoji/Emojis038.png
+Emoji/Emojis039.png
+Emoji/Emojis040.png
+Emoji/Emojis041.png
+Emoji/Emojis042.png
+Emoji/Emojis043.png
+Emoji/Emojis044.png
+Emoji/Emojis045.png
+Emoji/Emojis046.png
+Emoji/Emojis047.png
+Emoji/Emojis048.png
+Emoji/Emojis049.png
+Emoji/Emojis050.png
+Emoji/Emojis051.png
+Emoji/Emojis052.png
+Emoji/Emojis053.png
+Emoji/Emojis054.png
+Emoji/Emojis055.png
+Emoji/Emojis056.png
+Emoji/Emojis057.png
+Emoji/Emojis058.png
+Emoji/Emojis059.png
+Emoji/Emojis060.png
+Emoji/Emojis061.png
+Emoji/Emojis062.png
+Emoji/Emojis063.png
+Emoji/Emojis064.png
+Emoji/Emojis065.png
+Emoji/Emojis066.png
+Emoji/Emojis067.png
+Emoji/Emojis068.png
+Emoji/Emojis069.png
+Emoji/Emojis070.png
+Emoji/Emojis071.png
+Emoji/Emojis072.png
+Emoji/Emojis073.png
+Emoji/Emojis074.png
+Emoji/Emojis075.png
+Emoji/Emojis076.png
+Emoji/Emojis077.png
+Emoji/Emojis078.png
+Emoji/Emojis079.png
+Emoji/Emojis080.png
+Emoji/Emojis081.png
+Emoji/Emojis082.png
+Emoji/Emojis083.png
+Emoji/Emojis084.png
+Emoji/Emojis085.png
+Emoji/Emojis086.png
+Emoji/Emojis087.png
+Emoji/Emojis088.png
+Emoji/Emojis089.png
+Emoji/Emojis090.png
+Emoji/Emojis091.png
+Emoji/Emojis092.png
+Emoji/Emojis093.png
+Emoji/Emojis094.png
+Emoji/Emojis095.png
+Emoji/Emojis096.png
+Emoji/Emojis097.png
+Emoji/Emojis098.png
+Emoji/Emojis099.png
+Emoji/Emojis100.png
+Emoji/Emojis101.png
+Emoji/Emojis102.png
+Emoji/Emojis103.png
+Emoji/Emojis104.png
+Emoji/Emojis105.png
+Emoji/Emojis106.png
+Emoji/Emojis107.png
+Emoji/Emojis108.png
+Emoji/Emojis109.png
+Emoji/Emojis110.png
+Emoji/Emojis111.png
+Emoji/Emojis112.png
+Emoji/Emojis113.png
+Emoji/Emojis114.png
+Emoji/Emojis115.png
+Emoji/Emojis116.png
+Emoji/Emojis117.png
+Emoji/Emojis118.png
+Emoji/Emojis119.png
+Emoji/Emojis120.png
+Emoji/Emojis121.png
+Emoji/Emojis122.png
+Emoji/Emojis123.png
+Emoji/Emojis124.png
+Emoji/Emojis125.png
+Emoji/Emojis126.png
+Emoji/Emojis127.png
+Emoji/Emojis128.png
+Emoji/Emojis129.png
+Emoji/Emojis130.png
+Emoji/Emojis131.png
+Emoji/Emojis132.png
+Emoji/Emojis133.png
+Emoji/Emojis134.png
+Emoji/Emojis135.png
+Emoji/Emojis136.png
+Emoji/Emojis137.png
+Emoji/Emojis138.png
+Emoji/Emojis139.png
+Emoji/Emojis140.png
+Emoji/Emojis141.png
+Emoji/Emojis142.png
+Emoji/Emojis143.png
+Emoji/Emojis144.png
+Emoji/Emojis145.png
+Emoji/Emojis146.png
+Emoji/Emojis147.png
+Emoji/Emojis148.png
+Emoji/Emojis149.png
+Emoji/Emojis150.png
+Emoji/Emojis151.png
+Emoji/Emojis152.png
+Emoji/Emojis153.png
+Emoji/Emojis189.png
+Emoji/Emojis190.png
+Emoji/Emojis191.png
+Emoji/Emojis194.png
+Emoji/Emojis195.png
 Skill/Acrobat.png
 Skill/Agriculturist.png
 Skill/Angler_Icon.png
@@ -3832,6 +3955,7 @@ Skill/farming.png
 Skill/fishing.png
 Skill/foraging.png
 Skill/mining.png
+avatar.png
 background.png
 background/PicsArt_07-22-12.48.39.png
 background/back.png
@@ -3840,6 +3964,8 @@ bullet.png
 core/db/mydatabase.db
 core/db/mygame.db
 core/db/mygame.db-journal
+farm1.tmx
+farm2.tmx
 hud/fall_icon.png
 hud/hud_background.png
 hud/rain_icon.png
@@ -4076,6 +4202,447 @@ item/Wood_Sign.png
 item/Worm_Bin.png
 item/scythe.png
 libgdx.png
+plants/Crops/amaranth.png
+plants/Crops/amaranth_seeds.png
+plants/Crops/amaranth_stage_1.png
+plants/Crops/amaranth_stage_2.png
+plants/Crops/amaranth_stage_3.png
+plants/Crops/amaranth_stage_4.png
+plants/Crops/amaranth_stage_5.png
+plants/Crops/ancient_fruit.png
+plants/Crops/ancient_fruit_stage_1.png
+plants/Crops/ancient_fruit_stage_2.png
+plants/Crops/ancient_fruit_stage_3.png
+plants/Crops/ancient_fruit_stage_4.png
+plants/Crops/ancient_fruit_stage_5.png
+plants/Crops/ancient_fruit_stage_6.png
+plants/Crops/ancient_fruit_stage_7.png
+plants/Crops/ancient_seed.png
+plants/Crops/ancient_seeds.png
+plants/Crops/artichoke.png
+plants/Crops/artichoke_dip.png
+plants/Crops/artichoke_seeds.png
+plants/Crops/artichoke_stage_1.png
+plants/Crops/artichoke_stage_2.png
+plants/Crops/artichoke_stage_3.png
+plants/Crops/artichoke_stage_4.png
+plants/Crops/artichoke_stage_5.png
+plants/Crops/artichoke_stage_6.png
+plants/Crops/bean_hotpot.png
+plants/Crops/bean_starter.png
+plants/Crops/beet.png
+plants/Crops/beet_seeds.png
+plants/Crops/beet_stage_1.png
+plants/Crops/beet_stage_2.png
+plants/Crops/beet_stage_3.png
+plants/Crops/beet_stage_4.png
+plants/Crops/beet_stage_5.png
+plants/Crops/blue_jazz.png
+plants/Crops/blue_jazz_stage_1.png
+plants/Crops/blue_jazz_stage_2.png
+plants/Crops/blue_jazz_stage_3.png
+plants/Crops/blue_jazz_stage_4.png
+plants/Crops/blue_jazz_stage_5.png
+plants/Crops/blueberry.png
+plants/Crops/blueberry_seeds.png
+plants/Crops/blueberry_stage_1.png
+plants/Crops/blueberry_stage_2.png
+plants/Crops/blueberry_stage_3.png
+plants/Crops/blueberry_stage_4.png
+plants/Crops/blueberry_stage_5.png
+plants/Crops/blueberry_stage_6.png
+plants/Crops/blueberry_stage_7.png
+plants/Crops/blueberry_tart.png
+plants/Crops/bok_choy.png
+plants/Crops/bok_choy_seeds.png
+plants/Crops/bok_choy_stage_1.png
+plants/Crops/bok_choy_stage_2.png
+plants/Crops/bok_choy_stage_3.png
+plants/Crops/bok_choy_stage_4.png
+plants/Crops/bok_choy_stage_5.png
+plants/Crops/broccoli.png
+plants/Crops/broccoli_seeds.png
+plants/Crops/broccoli_stage_1.png
+plants/Crops/broccoli_stage_2.png
+plants/Crops/broccoli_stage_3.png
+plants/Crops/broccoli_stage_4.png
+plants/Crops/broccoli_stage_5.png
+plants/Crops/bruschetta.png
+plants/Crops/bundle_green.png
+plants/Crops/bundle_orange.png
+plants/Crops/bundle_purple.png
+plants/Crops/bundle_red.png
+plants/Crops/bundle_teal.png
+plants/Crops/bundle_yellow.png
+plants/Crops/cactus_fruit.png
+plants/Crops/cactus_seeds.png
+plants/Crops/cactus_stage_1.png
+plants/Crops/cactus_stage_2.png
+plants/Crops/cactus_stage_3.png
+plants/Crops/cactus_stage_4.png
+plants/Crops/cactus_stage_5.png
+plants/Crops/cactus_stage_6.png
+plants/Crops/cactus_stage_7.png
+plants/Crops/carrot.png
+plants/Crops/carrot_seeds.png
+plants/Crops/carrot_stage_1.png
+plants/Crops/carrot_stage_2.png
+plants/Crops/carrot_stage_3.png
+plants/Crops/carrot_stage_4.png
+plants/Crops/cauliflower.png
+plants/Crops/cauliflower_seeds.png
+plants/Crops/cauliflower_stage_1.png
+plants/Crops/cauliflower_stage_2.png
+plants/Crops/cauliflower_stage_3.png
+plants/Crops/cauliflower_stage_4.png
+plants/Crops/cauliflower_stage_5.png
+plants/Crops/cauliflower_stage_6.png
+plants/Crops/coffee_bean.png
+plants/Crops/coffee_stage_1.png
+plants/Crops/coffee_stage_2.png
+plants/Crops/coffee_stage_3.png
+plants/Crops/coffee_stage_4.png
+plants/Crops/coffee_stage_5.png
+plants/Crops/coffee_stage_6.png
+plants/Crops/coffee_stage_7.png
+plants/Crops/coleslaw.png
+plants/Crops/corn.png
+plants/Crops/corn_seeds.png
+plants/Crops/corn_stage_1.png
+plants/Crops/corn_stage_2.png
+plants/Crops/corn_stage_3.png
+plants/Crops/corn_stage_4.png
+plants/Crops/corn_stage_5.png
+plants/Crops/corn_stage_6.png
+plants/Crops/corn_stage_7.png
+plants/Crops/cranberries.png
+plants/Crops/cranberry_candy.png
+plants/Crops/cranberry_sauce.png
+plants/Crops/cranberry_seeds.png
+plants/Crops/cranberry_stage_1.png
+plants/Crops/cranberry_stage_2.png
+plants/Crops/cranberry_stage_3.png
+plants/Crops/cranberry_stage_4.png
+plants/Crops/cranberry_stage_5.png
+plants/Crops/cranberry_stage_6.png
+plants/Crops/cranberry_stage_7.png
+plants/Crops/demetrius_icon.png
+plants/Crops/dust_sprite.png
+plants/Crops/eggplant.png
+plants/Crops/eggplant_parmesan.png
+plants/Crops/eggplant_seeds.png
+plants/Crops/eggplant_stage_1.png
+plants/Crops/eggplant_stage_2.png
+plants/Crops/eggplant_stage_3.png
+plants/Crops/eggplant_stage_4.png
+plants/Crops/eggplant_stage_5.png
+plants/Crops/eggplant_stage_6.png
+plants/Crops/eggplant_stage_7.png
+plants/Crops/energy.png
+plants/Crops/escargot.png
+plants/Crops/evelyn_icon.png
+plants/Crops/fairy_dust.png
+plants/Crops/fairy_rose.png
+plants/Crops/fairy_rose_stage_1.png
+plants/Crops/fairy_rose_stage_2.png
+plants/Crops/fairy_rose_stage_3.png
+plants/Crops/fairy_rose_stage_4.png
+plants/Crops/fairy_rose_stage_5.png
+plants/Crops/fairy_seeds.png
+plants/Crops/fall_seeds.png
+plants/Crops/fiber.png
+plants/Crops/fiber_seeds.png
+plants/Crops/fiber_stage_1.png
+plants/Crops/fiber_stage_2.png
+plants/Crops/fiber_stage_3.png
+plants/Crops/fiber_stage_4.png
+plants/Crops/fiber_stage_5.png
+plants/Crops/fiddlehead_risotto.png
+plants/Crops/fish_stew.png
+plants/Crops/fish_taco.png
+plants/Crops/fruit_salad.png
+plants/Crops/garlic.png
+plants/Crops/garlic_seeds.png
+plants/Crops/garlic_stage_1.png
+plants/Crops/garlic_stage_2.png
+plants/Crops/garlic_stage_3.png
+plants/Crops/garlic_stage_4.png
+plants/Crops/garlic_stage_5.png
+plants/Crops/giant_cauliflower.png
+plants/Crops/giant_melon.png
+plants/Crops/giant_powdermelon.png
+plants/Crops/giant_pumpkin.png
+plants/Crops/giant_qi_fruit.png
+plants/Crops/grape.png
+plants/Crops/grape_stage_1.png
+plants/Crops/grape_stage_2.png
+plants/Crops/grape_stage_3.png
+plants/Crops/grape_stage_4.png
+plants/Crops/grape_stage_5.png
+plants/Crops/grape_stage_6.png
+plants/Crops/grape_stage_7.png
+plants/Crops/grape_starter.png
+plants/Crops/green_bean.png
+plants/Crops/green_bean_stage_2.png
+plants/Crops/green_bean_stage_3.png
+plants/Crops/green_bean_stage_4.png
+plants/Crops/green_bean_stage_5.png
+plants/Crops/green_bean_stage_6.png
+plants/Crops/green_bean_stage_7.png
+plants/Crops/green_bean_stage_8.png
+plants/Crops/green_tea.png
+plants/Crops/haley_icon.png
+plants/Crops/hops.png
+plants/Crops/hops_stage_1.png
+plants/Crops/hops_stage_3.png
+plants/Crops/hops_stage_4.png
+plants/Crops/hops_stage_5.png
+plants/Crops/hops_stage_6.png
+plants/Crops/hops_stage_7.png
+plants/Crops/hops_stage_8.png
+plants/Crops/hops_starter.png
+plants/Crops/hot_pepper.png
+plants/Crops/hot_pepper_stage_1.png
+plants/Crops/hot_pepper_stage_2.png
+plants/Crops/hot_pepper_stage_3.png
+plants/Crops/hot_pepper_stage_4.png
+plants/Crops/hot_pepper_stage_4b.png
+plants/Crops/hot_pepper_stage_5.png
+plants/Crops/hot_pepper_stage_6.png
+plants/Crops/jazz_seeds.png
+plants/Crops/junimo_hut.png
+plants/Crops/kale.png
+plants/Crops/kale_seeds.png
+plants/Crops/kale_stage_1.png
+plants/Crops/kale_stage_2.png
+plants/Crops/kale_stage_3.png
+plants/Crops/kale_stage_4.png
+plants/Crops/kale_stage_5.png
+plants/Crops/krobus_icon.png
+plants/Crops/lantern.png
+plants/Crops/magma_cap.png
+plants/Crops/melon.png
+plants/Crops/melon_seeds.png
+plants/Crops/melon_stage_1.png
+plants/Crops/melon_stage_2.png
+plants/Crops/melon_stage_3.png
+plants/Crops/melon_stage_4.png
+plants/Crops/melon_stage_5.png
+plants/Crops/melon_stage_6.png
+plants/Crops/mixed_flower_seeds.png
+plants/Crops/mixed_seeds.png
+plants/Crops/oil.png
+plants/Crops/oil_of_garlic.png
+plants/Crops/pale_ale.png
+plants/Crops/parsnip.png
+plants/Crops/parsnip_seeds.png
+plants/Crops/parsnip_soup.png
+plants/Crops/parsnip_stage_1.png
+plants/Crops/parsnip_stage_2.png
+plants/Crops/parsnip_stage_3.png
+plants/Crops/parsnip_stage_4.png
+plants/Crops/parsnip_stage_5.png
+plants/Crops/pepper_poppers.png
+plants/Crops/pepper_seeds.png
+plants/Crops/pineapple.png
+plants/Crops/pineapple_seeds.png
+plants/Crops/pineapple_stage_1.png
+plants/Crops/pineapple_stage_2.png
+plants/Crops/pineapple_stage_3.png
+plants/Crops/pineapple_stage_4.png
+plants/Crops/pineapple_stage_5.png
+plants/Crops/pineapple_stage_6.png
+plants/Crops/pineapple_stage_7.png
+plants/Crops/pink_cake.png
+plants/Crops/pizza.png
+plants/Crops/poi.png
+plants/Crops/poppy.png
+plants/Crops/poppy_seeds.png
+plants/Crops/poppy_stage_1.png
+plants/Crops/poppy_stage_2.png
+plants/Crops/poppy_stage_3.png
+plants/Crops/poppy_stage_4.png
+plants/Crops/poppy_stage_6.png
+plants/Crops/poppyseed_muffin.png
+plants/Crops/potato.png
+plants/Crops/potato_seeds.png
+plants/Crops/potato_stage_1.png
+plants/Crops/potato_stage_2.png
+plants/Crops/potato_stage_3.png
+plants/Crops/potato_stage_4.png
+plants/Crops/potato_stage_5.png
+plants/Crops/potato_stage_6.png
+plants/Crops/powdermelon.png
+plants/Crops/powdermelon_seeds.png
+plants/Crops/powdermelon_stage_1.png
+plants/Crops/powdermelon_stage_2.png
+plants/Crops/powdermelon_stage_3.png
+plants/Crops/powdermelon_stage_4.png
+plants/Crops/powdermelon_stage_5.png
+plants/Crops/powdermelon_stage_6.png
+plants/Crops/pumpkin.png
+plants/Crops/pumpkin_pie.png
+plants/Crops/pumpkin_seeds.png
+plants/Crops/pumpkin_soup.png
+plants/Crops/pumpkin_stage_1.png
+plants/Crops/pumpkin_stage_2.png
+plants/Crops/pumpkin_stage_3.png
+plants/Crops/pumpkin_stage_4.png
+plants/Crops/pumpkin_stage_5.png
+plants/Crops/pumpkin_stage_6.png
+plants/Crops/radish.png
+plants/Crops/radish_salad.png
+plants/Crops/radish_seeds.png
+plants/Crops/radish_stage_1.png
+plants/Crops/radish_stage_2.png
+plants/Crops/radish_stage_3.png
+plants/Crops/radish_stage_4.png
+plants/Crops/radish_stage_5.png
+plants/Crops/rare_seed.png
+plants/Crops/red_cabbage.png
+plants/Crops/red_cabbage_seeds.png
+plants/Crops/red_cabbage_stage_1.png
+plants/Crops/red_cabbage_stage_2.png
+plants/Crops/red_cabbage_stage_3.png
+plants/Crops/red_cabbage_stage_4.png
+plants/Crops/red_cabbage_stage_5.png
+plants/Crops/red_cabbage_stage_6.png
+plants/Crops/red_plate.png
+plants/Crops/rhubarb.png
+plants/Crops/rhubarb_pie.png
+plants/Crops/rhubarb_seeds.png
+plants/Crops/rhubarb_stage_1.png
+plants/Crops/rhubarb_stage_2.png
+plants/Crops/rhubarb_stage_3.png
+plants/Crops/rhubarb_stage_4.png
+plants/Crops/rhubarb_stage_5.png
+plants/Crops/rhubarb_stage_6.png
+plants/Crops/rice.png
+plants/Crops/rice_shoot.png
+plants/Crops/salmon_dinner.png
+plants/Crops/silver_quality_icon.png
+plants/Crops/spaghetti.png
+plants/Crops/spangle_seeds.png
+plants/Crops/spicy_eel.png
+plants/Crops/spring_seeds.png
+plants/Crops/stardrop.png
+plants/Crops/starfruit.png
+plants/Crops/starfruit_seeds.png
+plants/Crops/starfruit_stage_1.png
+plants/Crops/starfruit_stage_2.png
+plants/Crops/starfruit_stage_3.png
+plants/Crops/starfruit_stage_4.png
+plants/Crops/starfruit_stage_5.png
+plants/Crops/starfruit_stage_6.png
+plants/Crops/stir_fry.png
+plants/Crops/strawberry.png
+plants/Crops/strawberry_seeds.png
+plants/Crops/strawberry_stage_1.png
+plants/Crops/strawberry_stage_2.png
+plants/Crops/strawberry_stage_3.png
+plants/Crops/strawberry_stage_4.png
+plants/Crops/strawberry_stage_5.png
+plants/Crops/strawberry_stage_6.png
+plants/Crops/strawberry_stage_7.png
+plants/Crops/stuffing.png
+plants/Crops/sugar.png
+plants/Crops/summer_seeds.png
+plants/Crops/summer_spangle.png
+plants/Crops/summer_spangle_stage_1.png
+plants/Crops/summer_spangle_stage_2.png
+plants/Crops/summer_spangle_stage_3.png
+plants/Crops/summer_spangle_stage_4.png
+plants/Crops/summer_spangle_stage_5.png
+plants/Crops/summer_squash.png
+plants/Crops/summer_squash_seeds.png
+plants/Crops/summer_squash_stage_1.png
+plants/Crops/summer_squash_stage_2.png
+plants/Crops/summer_squash_stage_3.png
+plants/Crops/summer_squash_stage_4.png
+plants/Crops/summer_squash_stage_5.png
+plants/Crops/summer_squash_stage_6.png
+plants/Crops/summer_squash_stage_7.png
+plants/Crops/sunflower.png
+plants/Crops/sunflower_seeds.png
+plants/Crops/sunflower_stage_1.png
+plants/Crops/sunflower_stage_2.png
+plants/Crops/sunflower_stage_3.png
+plants/Crops/sunflower_stage_4.png
+plants/Crops/sunflower_stage_5.png
+plants/Crops/sweet_gem_berry.png
+plants/Crops/sweet_gem_berry_stage_1.png
+plants/Crops/sweet_gem_berry_stage_2.png
+plants/Crops/sweet_gem_berry_stage_3.png
+plants/Crops/sweet_gem_berry_stage_4.png
+plants/Crops/sweet_gem_berry_stage_5.png
+plants/Crops/sweet_gem_berry_stage_6.png
+plants/Crops/taro_root.png
+plants/Crops/taro_stage_1.png
+plants/Crops/taro_stage_2.png
+plants/Crops/taro_stage_3.png
+plants/Crops/taro_stage_4.png
+plants/Crops/taro_stage_5.png
+plants/Crops/taro_tuber.png
+plants/Crops/tea_leaves.png
+plants/Crops/tea_sapling.png
+plants/Crops/tea_stage_1.png
+plants/Crops/tea_stage_2.png
+plants/Crops/tea_stage_3.png
+plants/Crops/tea_stage_4.png
+plants/Crops/tomato.png
+plants/Crops/tomato_seeds.png
+plants/Crops/tomato_stage_1.png
+plants/Crops/tomato_stage_2.png
+plants/Crops/tomato_stage_3.png
+plants/Crops/tomato_stage_4.png
+plants/Crops/tomato_stage_5.png
+plants/Crops/tomato_stage_6.png
+plants/Crops/tomato_stage_7.png
+plants/Crops/tortilla.png
+plants/Crops/traveling_cart_icon.png
+plants/Crops/tropical_curry.png
+plants/Crops/tulip.png
+plants/Crops/tulip_bulb.png
+plants/Crops/tulip_stage_1.png
+plants/Crops/tulip_stage_2.png
+plants/Crops/tulip_stage_3.png
+plants/Crops/tulip_stage_4.png
+plants/Crops/tulip_stage_6.png
+plants/Crops/unmilled_rice.png
+plants/Crops/unmilled_rice_stage_1.png
+plants/Crops/unmilled_rice_stage_2.png
+plants/Crops/unmilled_rice_stage_3.png
+plants/Crops/unmilled_rice_stage_4.png
+plants/Crops/unmilled_rice_stage_5.png
+plants/Crops/wheat.png
+plants/Crops/wheat_flour.png
+plants/Crops/wheat_seeds.png
+plants/Crops/wheat_stage_1.png
+plants/Crops/wheat_stage_2.png
+plants/Crops/wheat_stage_3.png
+plants/Crops/wheat_stage_4.png
+plants/Crops/wheat_stage_5.png
+plants/Crops/winter_seeds.png
+plants/Crops/yam.png
+plants/Crops/yam_seeds.png
+plants/Crops/yam_stage_1.png
+plants/Crops/yam_stage_2.png
+plants/Crops/yam_stage_3.png
+plants/Crops/yam_stage_4.png
+plants/Crops/yam_stage_5.png
+plants/carrot_mature.png
+plants/graphics/fert.png
+plants/graphics/harvest.png
+plants/graphics/seed.png
+plants/graphics/till.png
+plants/graphics/water.png
+plants/growth/0.png
+plants/growth/1.png
+plants/growth/2.png
+plants/growth/3.png
+plants/growth/4.png
+plants/growth/carrot_mature.png
+player_other.png
 skin/default.fnt
 skin/default.fnt.txt
 skin/default.png

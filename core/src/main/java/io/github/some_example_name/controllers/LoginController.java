@@ -179,4 +179,87 @@ public class LoginController {
         return Result.success("Login successful!");
     }
 
+    public static Result login3(String username, String password, boolean stayLoggedIn) {
+        if (username == null || username.isBlank())
+            return Result.failure("Username cannot be empty");
+        if (password == null || password.isBlank())
+            return Result.failure("Password cannot be empty");
+
+        User user = UserManager.findByUsername(username);
+        if (user == null) return Result.failure("Invalid username!");
+
+        if (!checkPassword(password, user))
+            return Result.failure("Invalid password!");
+
+        Session.setCurrentUser(user);
+        if (stayLoggedIn) {
+            UserManager.saveSession(user);
+        }
+        return Result.success("Login successful!");
+    }
+
+    /**
+     * برمی‌گرداند سؤال امنیتی کاربر (یا خطا).
+     */
+    public static Result fetchSecurityQuestion(String username) {
+        if (username == null || username.isBlank()) {
+            return Result.failure("Username cannot be empty");
+        }
+        User user = UserManager.findByUsername(username);
+        if (user == null) {
+            return Result.failure("Invalid username!");
+        }
+        String q = user.getSecurityQuestion();
+        if (q == null) {
+            return Result.failure("No security question set for this user");
+        }
+        return Result.success(q);
+    }
+
+    /**
+     * بررسی پاسخ و تنظیم رمز جدید (رندم) در صورت درست بودن.
+     */
+    public static Result resetPasswordWithAnswer(String username, String answer) {
+        User user = UserManager.findByUsername(username);
+        if (user == null) {
+            return Result.failure("Invalid username!");
+        }
+        if (!verifySecurityAnswer(answer, user)) {
+            return Result.failure("Incorrect answer!");
+        }
+        // تولید رمز جدید و هش‌شده
+        String newPwd = SignUpMenuController.generateStrongPassword();
+        String hashed = hashSHA256(newPwd);
+        user.setHashedPassword(hashed);
+        UserManager.updateUser(user);
+        return Result.success("Your new password is: " + newPwd);
+    }
+
+    // داخل LoginController
+    public static Result loginGuest() {
+        // تولید نام یکتا
+        String base = "Guest";
+        String username = base + (System.currentTimeMillis() % 100000);
+        while (UserManager.userExists(username)) {
+            username = base + (int)(Math.random() * 90000 + 10000);
+        }
+
+        // تولید یک پسورد رندم (برای ایمنی؛ می‌توانیم آن را ذخیره نکنیم)
+        String randomPwd = SignUpMenuController.generateStrongPassword();
+
+        // ساخت User موقت — سازنده مشابه signup2 استفاده شده (اگر سازنده متفاوت است آن را منطبق کن)
+        io.github.some_example_name.model.user.User guest =
+            new io.github.some_example_name.model.user.User(username, randomPwd, "Guest", username + "@local", "Other", null, null);
+
+        // Option A: فقط در حافظه (پیشنهاد شده)
+        Session.setCurrentUser(guest);
+        // اگر UserManager دوکاره و یک متد setCurrentUser دارد، آن را هم ست کن:
+        try {
+            UserManager.setCurrentUser(guest);
+        } catch (Throwable ignored) { /* اگر متد نیست نادیده بگیر */ }
+
+        return Result.success("Logged in as guest: " + username);
+    }
+
+
 }

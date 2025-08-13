@@ -1,0 +1,19 @@
+plugins {
+  id 'application'
+}
+
+group = 'io.github.some_example_name'
+version = '1.0'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+  implementation project(':shared')
+}
+
+application {
+  mainClassName = 'io.github.some_example_name.client.TestClient'
+}

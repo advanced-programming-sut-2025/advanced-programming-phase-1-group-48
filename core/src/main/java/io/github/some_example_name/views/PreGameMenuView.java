@@ -11,6 +11,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.controllers.PreGameMenuController;
 
+import java.util.ArrayList;
+
 public class PreGameMenuView implements Screen {
 
     private Stage stage;
@@ -27,6 +29,21 @@ public class PreGameMenuView implements Screen {
         this.table = new Table();
         this.controller = controller;
         controller.setView(this);
+    }
+
+    ArrayList<String>usernames = new ArrayList<>();
+    String admin;
+    boolean istwoGame;
+    public PreGameMenuView(PreGameMenuController controller, Skin skin,ArrayList<String> usernames ,String admin) {
+        this.gameTitle = new Label("Pregame Menu", skin);
+        this.selectHero = new SelectBox<>(skin);
+        this.playButton = new TextButton("Play", skin);
+        this.table = new Table();
+        this.controller = controller;
+        controller.setView(this);
+        this.usernames = usernames;
+        this.admin = admin;
+        istwoGame = true;
     }
 
     @Override
@@ -61,7 +78,11 @@ public class PreGameMenuView implements Screen {
         Main.getBatch().end();
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
-        controller.handlePreGameMenuButtons();
+        if(istwoGame) {
+            controller. hadleTwoGames(usernames,admin);
+        }else{
+            controller.handlePreGameMenuButtons();
+        }
     }
 
     @Override

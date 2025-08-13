@@ -15,7 +15,7 @@ import java.util.regex.Matcher;
 
 public class SignUpMenuController {
     private static final int MIN_PASSWORD_LENGTH = 8;
-    private static final List<String> SECURITY_QUESTIONS = Arrays.asList(
+    public static final List<String> SECURITY_QUESTIONS = Arrays.asList(
             "What city were you born in?",
             "What was your first best friend name?",
             "What was your last best friend name?",

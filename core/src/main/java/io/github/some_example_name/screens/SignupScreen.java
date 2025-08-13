@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.github.some_example_name.controllers.SignUpMenuController; // یا SignUpController جدید
 import io.github.some_example_name.model.Result;
 import io.github.some_example_name.Main;
+import io.github.some_example_name.controllers.LoginController;
 
 public class SignupScreen extends ScreenAdapter {
     private final Main game;
@@ -50,6 +51,41 @@ public class SignupScreen extends ScreenAdapter {
         emailField.setMessageText("Email");
         final SelectBox<String> genderBox = new SelectBox<>(skin);
         genderBox.setItems("Male", "Female", "Other");
+        final SelectBox<String> questionBox = new SelectBox<>(skin);
+        questionBox.setItems(SignUpMenuController.SECURITY_QUESTIONS.toArray(new String[0]));
+
+        final TextField answerField = new TextField("", skin);
+        answerField.setMessageText("Answer");
+        final TextField answerConfirmField = new TextField("", skin);
+        answerConfirmField.setMessageText("Confirm Answer");
+
+        TextButton randomPwdBtn = new TextButton("🔀", skin);
+        randomPwdBtn.addListener(new ChangeListener() {
+            public void changed(ChangeEvent event, Actor actor) {
+                String pwd = SignUpMenuController.generateStrongPassword();
+                passwordField.setText(pwd);
+                passwordConfirmField.setText(pwd);
+            }
+        });
+
+        TextButton btnCancel = new TextButton("Cancel", skin);
+        btnCancel.addListener(new ChangeListener() {
+            public void changed(ChangeEvent event, Actor actor) {
+                // تولید یک یوزرنیم یکتا برای مهمان
+                String guestName = "Guest" + (System.currentTimeMillis() % 100000);
+
+                // اگر متد مخصوص guest تو LoginController داری:
+                Result res = LoginController.loginGuest(); // <-- فرضی: باید وجود داشته باشه
+                if (res.success()) {
+                    // فرض: LoginController یا خود متد loginGuest داخلش Session رو ست می‌کنه
+                    game.setScreen(new MainMenuScreen(game));
+                } else {
+                    // اگر متد وجود نداره یا failed شد، fallback به روش محلی:
+                    // (می‌تونی پیام خطا نشان بدی یا مستقیم ست کنی)
+                    game.setScreen(new MainMenuScreen(game));
+                }
+            }
+        });
 
 
         TextButton btnSignup = new TextButton("Sign Up", skin);
@@ -63,7 +99,10 @@ public class SignupScreen extends ScreenAdapter {
         table.add(emailField).width(300).colspan(2).pad(5).row();
         table.add(genderBox).width(300).colspan(2).pad(5).row();
         table.add(btnSignup).colspan(2).padTop(20).row();
-        table.add(msgLabel).colspan(2).padTop(20);
+        table.add(msgLabel).colspan(2).padTop(20).row();
+        table.add(questionBox).width(300).colspan(2).pad(5).row();
+        table.add(answerField).width(300).colspan(2).pad(5).row();
+        table.add(answerConfirmField).width(300).colspan(2).pad(5).row();
 
         btnSignup.addListener(new ChangeListener() {
             @Override
@@ -89,6 +128,17 @@ public class SignupScreen extends ScreenAdapter {
                 }
             }
         });
+        // قرار دادن دکمه رندم کنار پسورد
+        Table pwdRow = new Table(skin);
+        pwdRow.add(passwordField).width(260).pad(5);
+        pwdRow.add(randomPwdBtn).width(40).pad(5);
+        table.add(pwdRow).colspan(2).row();
+
+// دکمه‌های اصلی
+        Table btnRow = new Table(skin);
+        btnRow.add(btnSignup).pad(5);
+        btnRow.add(btnCancel).pad(5);
+        table.add(btnRow).colspan(2).padTop(20).row();
     }
 
     @Override

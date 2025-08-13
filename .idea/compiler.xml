@@ -2,27 +2,9 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="advanced-programming-phase-1-group-48.client" target="17" />
-      <module name="advanced-programming-phase-1-group-48.client.main" target="17" />
-      <module name="advanced-programming-phase-1-group-48.client.test" target="17" />
-      <module name="advanced-programming-phase-1-group-48.core" target="17" />
-      <module name="advanced-programming-phase-1-group-48.core.main" target="17" />
-      <module name="advanced-programming-phase-1-group-48.core.test" target="17" />
-      <module name="advanced-programming-phase-1-group-48.lwjgl3" target="17" />
-      <module name="advanced-programming-phase-1-group-48.lwjgl3.main" target="17" />
-      <module name="advanced-programming-phase-1-group-48.lwjgl3.test" target="17" />
-      <module name="advanced-programming-phase-1-group-48.server" target="17" />
-      <module name="advanced-programming-phase-1-group-48.server.main" target="17" />
-      <module name="advanced-programming-phase-1-group-48.server.test" target="17" />
-      <module name="advanced-programming-phase-1-group-48.shared" target="17" />
-      <module name="advanced-programming-phase-1-group-48.shared.main" target="17" />
-      <module name="advanced-programming-phase-1-group-48.shared.test" target="17" />
-      <module name="Project+phase3_-_Copy_(3).core" target="17" />
-      <module name="Project+phase3_-_Copy_(3).core.main" target="17" />
-      <module name="Project+phase3_-_Copy_(3).core.test" target="17" />
-      <module name="Project+phase3_-_Copy_(3).lwjgl3" target="17" />
-      <module name="Project+phase3_-_Copy_(3).lwjgl3.main" target="17" />
-      <module name="Project+phase3_-_Copy_(3).lwjgl3.test" target="17" />
+      <module name="advanced-programming-phase-1-group-48.stardew" target="17" />
+      <module name="advanced-programming-phase-1-group-48.stardew.main" target="17" />
+      <module name="advanced-programming-phase-1-group-48.stardew.test" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>

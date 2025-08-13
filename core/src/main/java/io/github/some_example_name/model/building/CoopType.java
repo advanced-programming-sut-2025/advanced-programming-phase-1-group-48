@@ -1,7 +1,7 @@
 package io.github.some_example_name.model.building;
 
 public enum CoopType {
-    COOP(
+    COOP("coop",
             4,
             "Houses 4 coop-dwelling animals.",
             4_000,    // gold
@@ -11,7 +11,7 @@ public enum CoopType {
             3,        // height
             new String[]{"Chicken"}          // unlocked animals
     ),
-    LARGE_COOP(
+    LARGE_COOP("largecoop",
             8,
             "Houses 8 coop-dwelling animals. Unlocks ducks.",
             10_000,
@@ -21,7 +21,7 @@ public enum CoopType {
             3,
             new String[]{"Duck","Chicken","Dinosaur"}
     ),
-    DELUXE_COOP(
+    DELUXE_COOP("deluxecoop",
             12,
             "Houses 12 coop-dwelling animals. Unlocks rabbits.",
             20_000,
@@ -32,6 +32,7 @@ public enum CoopType {
             new String[]{"Rabbit","Chicken","Duck"}
     );
 
+    private String name;
     private final int capacity;
     private final String description;
     private final int goldCost;
@@ -41,7 +42,7 @@ public enum CoopType {
     private final int height;
     private final String[] unlocks;
 
-    CoopType(int capacity,
+    CoopType(String name,int capacity,
              String description,
              int goldCost,
              int woodCost,
@@ -49,6 +50,7 @@ public enum CoopType {
              int width,
              int height,
              String[] unlocks) {
+        this.name = name;
         this.capacity = capacity;
         this.description = description;
         this.goldCost = goldCost;
@@ -85,6 +87,10 @@ public enum CoopType {
 
     public int getHeight() {
         return height;
+    }
+
+    public String getName() {
+        return name;
     }
 
     /**

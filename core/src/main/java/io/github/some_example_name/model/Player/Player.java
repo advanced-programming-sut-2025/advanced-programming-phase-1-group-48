@@ -5,6 +5,7 @@ package io.github.some_example_name.model.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
 import io.github.some_example_name.model.Animal.Animal;
 import io.github.some_example_name.model.GameAssetManager;
 import io.github.some_example_name.model.NPC.NPC;
@@ -28,9 +29,10 @@ import io.github.some_example_name.model.items.ItemFactory;
 import io.github.some_example_name.model.items.Tree;
 import io.github.some_example_name.model.shop.Shop;
 import io.github.some_example_name.model.Player.inventory.Inventory;
-import io.github.some_example_name.model.user.User;
+
 import io.github.some_example_name.model.Player.inventory.Backpack;
 import io.github.some_example_name.model.Player.inventory.TrashCan;
+import io.github.some_example_name.model.user.User;
 
 
 import java.util.*;
@@ -674,6 +676,8 @@ public class Player {
 
     }
 
-
+    public Rectangle getBounds() {
+        return new Rectangle(posX, posY, 32, 32);
+    }
 
 }

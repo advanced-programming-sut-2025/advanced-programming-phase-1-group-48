@@ -30,17 +30,17 @@ public class AnimalCreator {
         if ("barn".equalsIgnoreCase(homeType)) {
             for (Map.Entry<Buildings, Integer> entry : player.getMyBuilding().entrySet()) {
                 Buildings bld = entry.getKey();
-                if (!(bld instanceof Barn)) continue;
-                Barn barn = (Barn) bld;
+                //if (!(bld instanceof Barn)) continue;
+                //Barn barn = (Barn) bld;
                 int capacityLeft = entry.getValue();
 
-                for (String unlocked : barn.getBarnType().getUnlocks()) {
-                    if (unlocked.equalsIgnoreCase(kind.name()) && capacityLeft > 0) {
-                        targetBarn = barn;
-                        placed = true;
-                        break;
-                    }
-                }
+//                for (String unlocked : barn.getBarnType().getUnlocks()) {
+//                    if (unlocked.equalsIgnoreCase(kind.name()) && capacityLeft > 0) {
+//                        targetBarn = barn;
+//                        placed = true;
+//                        break;
+//                    }
+//                }
                 if (placed) break;
             }
             if (!placed) {
@@ -51,17 +51,17 @@ public class AnimalCreator {
         } else if ("coop".equalsIgnoreCase(homeType)) {
             for (Map.Entry<Buildings, Integer> entry : player.getMyBuildings().entrySet()) {
                 Buildings bld = entry.getKey();
-                if (!(bld instanceof Coop)) continue;
-                Coop coop = (Coop) bld;
+//                if (!(bld instanceof Coop)) continue;
+//                Coop coop = (Coop) bld;
                 int capacityLeft = entry.getValue();
 
-                for (String unlocked : coop.getCoopType().getUnlocks()) {
-                    if (unlocked.equalsIgnoreCase(kind.name()) && capacityLeft > 0) {
-                        targetCoop = coop;
-                        placed = true;
-                        break;
-                    }
-                }
+//                for (String unlocked : coop.getCoopType().getUnlocks()) {
+//                    if (unlocked.equalsIgnoreCase(kind.name()) && capacityLeft > 0) {
+//                        targetCoop = coop;
+//                        placed = true;
+//                        break;
+//                    }
+//                }
                 if (placed) break;
             }
             if (!placed) {
@@ -77,10 +77,10 @@ public class AnimalCreator {
 
         if (targetBarn != null) {
             targetBarn.addAnimal(animal);
-            player.getMyBuildings().merge(targetBarn, -1, Integer::sum);
+           // player.getMyBuildings().merge(targetBarn, -1, Integer::sum);
         }else if(targetCoop !=null){
             targetCoop.addAnimal(animal);
-            player.getMyBuildings().merge(targetCoop, -1, Integer::sum);
+//            player.getMyBuildings().merge(targetCoop, -1, Integer::sum);
         }
         player.getBroughtAnimal().put(animalName, animal);
 

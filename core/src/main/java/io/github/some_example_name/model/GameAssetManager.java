@@ -29,12 +29,12 @@ public class GameAssetManager {
     private final String bullet = "bullet.png";
 
 
-    private GameAssetManager(){
+    private GameAssetManager() {
 
     }
 
-    public static GameAssetManager getGameAssetManager(){
-        if (gameAssetManager == null){
+    public static GameAssetManager getGameAssetManager() {
+        if (gameAssetManager == null) {
             gameAssetManager = new GameAssetManager();
         }
         return gameAssetManager;
@@ -48,21 +48,20 @@ public class GameAssetManager {
         return character1_idle_frames;
     }
 
-    public String getCharacter1_idle0(){
+    public String getCharacter1_idle0() {
         return character1_idle0;
     }
 
-    public Texture getSmgTexture(){
+    public Texture getSmgTexture() {
         return smgTexture;
     }
 
-    public String getSmg(){
+    public String getSmg() {
         return smg;
     }
 
-    public String getBullet(){
+    public String getBullet() {
         return bullet;
     }
-
 
 }

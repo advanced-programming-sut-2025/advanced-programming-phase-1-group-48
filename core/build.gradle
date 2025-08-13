@@ -2,7 +2,16 @@
 eclipse.project.name = appName + '-core'
 
 dependencies {
+  implementation 'org.json:json:20230227'
+
+  implementation 'io.netty:netty-all:4.1.95.Final'
+
+  // Jackson برای سریالایز/دیسریالایز JSON
+  implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+  implementation project(':shared')
+  implementation 'io.netty:netty-all:4.1.68.Final'   // یا kryonet-client
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
+  implementation 'org.xerial:sqlite-jdbc:3.42.0.0'
 
   if(enableGraalNative == 'true') {
     implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"

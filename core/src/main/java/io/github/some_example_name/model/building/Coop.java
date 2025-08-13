@@ -7,14 +7,14 @@ import io.github.some_example_name.model.game.Position;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Coop extends Buildings {
+public class Coop{
 
     private final CoopType coopType;
     private final List<Animal> animals;
     private static int capacity;
 
-    public Coop(CoopType coopType, Position topLeft) {
-        super(coopType.name(), topLeft, coopType.getWidth(), coopType.getHeight());
+    public Coop(CoopType coopType) {
+//        super(coopType.name(), topLeft, coopType.getWidth(), coopType.getHeight());
         this.coopType = coopType;
         this.animals = new ArrayList<>();
         Coop.capacity = coopType.getCapacity();
@@ -37,9 +37,6 @@ public class Coop extends Buildings {
         return animals.remove(animal);
     }
 
-    @Override
-    public void interact() {
-    }
 
     @Override
     public String toString() {
